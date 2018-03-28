@@ -1,0 +1,8 @@
+
+body {
+    text-align: center;
+}
+
+#canvas-container {
+    display: inline-block;
+}
