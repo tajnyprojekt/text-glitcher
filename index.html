@@ -4,13 +4,217 @@
     <meta charset="UTF-8">
     <title>tajny_projekt | text-glitcher</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="vendors/bootstrap-4.0.0/bootstrap-grid.min.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/custom-select.css">
     <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 </head>
 <body>
 
-    <div id="canvas-container"></div>
+    <div class="row no-gutters">
 
+        <div class="col-12 col-md-4 col-lg-3 border controls-container">
+
+            <a id="website-link"
+               class="bottom-border button button-full"
+               href="http://tajnyprojekt.com"
+            >
+                <img src="resources/img/logo.svg"
+                     class="logo"
+                     target="_blank"
+                     alt="tajny_projekt">
+            </a>
+
+            <div class="bottom-border controls-section">
+                <div class="controls-section-header">
+                    <div class="collapse-icon-container">
+                        <span class="collapse-icon-helper"></span>
+                        <img class="collapse-icon up" src="resources/img/icons/arrow.svg">
+                    </div>
+                    <h2>TEXT OPTIONS</h2>
+                </div>
+                <div class="controls-section-content">
+                    <div class="control-section">
+                        <div class="custom-select control">
+                            <select id="font-input"
+                                    oninput="setTextFont(this.value);"
+                                    onchange="setTextFont(this.value);"
+                            >
+                                <option selected disabled value="chuj">SELECT FONT</option>
+                                <option value="Arial"           >Arial</option>
+                                <option value="Courier New"     >Courier New</option>
+                                <option value="Georgia"         >Georgia</option>
+                                <option value="Times New Roman" >Times New Roman</option>
+                                <option value="Trebuchet MS"    >Trebuchet MS</option>
+                                <option value="Verdana"         >Verdana</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="control-section">
+                        <label for="text-size-slider">TEXT SIZE</label>
+                        <input id="text-size-slider"
+                               class="control slider"
+                               type="range"
+                               min="0"
+                               max="255"
+                               step="1"
+                               oninput="setTextSize(this.value);"
+                               onchange="setTextSize(this.value);"
+                        >
+                    </div>
+
+                    <div class="control-section">
+                        <label for="line-height-slider">LEADING</label>
+                        <input id="line-height-slider"
+                               class="control slider"
+                               type="range"
+                               min="0"
+                               max="255"
+                               step="1"
+                               oninput="setLineHeight(this.value);"
+                               onchange="setLineHeight(this.value);"
+                        >
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="bottom-border controls-section">
+                <div class="controls-section-header">
+                    <div class="collapse-icon-container">
+                        <span class="collapse-icon-helper"></span>
+                        <img class="collapse-icon up" src="resources/img/icons/arrow.svg">
+                    </div>
+                    <h2>HORIZONTAL</h2>
+                </div>
+                <div class="controls-section-content">
+                    <div class="control-section">
+                        <label for="row-shift-slider">SHIFT</label>
+                        <input id="row-shift-slider"
+                               class="control slider"
+                               type="range"
+                               min="0"
+                               max="50"
+                               step="1"
+                               oninput="setRowShift(this.value);"
+                               onchange="setRowShift(this.value);"
+                        >
+                    </div>
+
+                    <div class="control-section">
+                        <label for="row-height-slider">SIZE</label>
+                        <input id="row-height-slider"
+                               class="control slider"
+                               type="range"
+                               min="1"
+                               max="255"
+                               step="1"
+                               oninput="setRowHeight(256 - this.value);"
+                               onchange="setRowHeight(256 - this.value);"
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-border controls-section">
+                <div class="controls-section-header">
+                    <div class="collapse-icon-container">
+                        <span class="collapse-icon-helper"></span>
+                        <img class="collapse-icon up" src="resources/img/icons/arrow.svg">
+                    </div>
+                    <h2>VERTICAL</h2>
+                </div>
+                <div class="controls-section-content">
+                    <div class="control-section">
+                        <label for="column-shift-slider">SHIFT</label>
+                        <input id="column-shift-slider"
+                               class="control slider"
+                               type="range"
+                               min="0"
+                               max="255"
+                               step="1"
+                               oninput="setColumnShift(this.value);"
+                               onchange="setColumnShift(this.value);"
+                        >
+                    </div>
+
+                    <div class="control-section">
+                        <label for="column-width-slider">SIZE</label>
+                        <input id="column-width-slider"
+                               class="control slider"
+                               type="range"
+                               min="1"
+                               max="255"
+                               step="1"
+                               oninput="setColumnWidth(256 - this.value);"
+                               onchange="setColumnWidth(256 - this.value);"
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-bottom color-section">
+                <div class="color-label">COLOR</div>
+                <input id="color-picker"
+                       class=""
+                       type="color"
+                       value="#000000"
+                       oninput="setColor(this.value);"
+                       onchange="setColor(this.value);"
+                >
+            </div>
+
+            <button id="random-button"
+                    class="bottom-border button button-full"
+                    onclick="randomParams();"
+            >RANDOM</button>
+
+            <button id="reset-button"
+                    class="bottom-border button button-full"
+                    onclick="resetParams();"
+            >RESET</button>
+
+
+
+            <div class="controls-bottom-section">
+                <button id="download-button"
+                        class="bottom-border button"
+                        onclick="download();"
+                >SAVE</button>
+            </div>
+        </div>
+
+
+        <div id="canvas-container" class="col-12 col-md-8 col-lg-9">
+            <div class="main-info">
+                <h1>
+                    <b>GLITCH TYPE</b> GENERATOR
+                </h1>
+                <p>
+                    Create your own version<br>
+                    of glitch type by using<br>
+                    sliders on the left<br>
+                    screen side
+                </p>
+            </div>
+
+            <div id="canvas-wrapper"></div>
+
+            <div class="footer">
+                Made with &#9829; | <a target="_blank" href="http://tajnyprojekt.com"><b>tajny</b>_projekt</a>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="vendors/jQuery/jquery-3.3.1.min.js"></script>
     <script src="vendors/p5/p5.min.js"></script>
+    <script src="vendors/p5/p5.dom.min.js"></script>
     <script src="resources/js/sketch.js"></script>
+    <script src="resources/js/custom-select.js"></script>
+    <script src="resources/js/scripts.js"></script>
+
 </body>
 </html>
