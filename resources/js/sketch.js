@@ -1,5 +1,6 @@
 
 var graphics;
+var outputGraphics;
 var paramsChanged = false;
 
 var params = {
@@ -19,19 +20,18 @@ var params = {
 };
 
 // main functions
-var canvas
+var canvas;
 function setup() {
     var canvasContainer = document.getElementById('canvas-wrapper');
     canvas = createCanvas(canvasContainer.offsetWidth, canvasContainer.offsetHeight);
     canvas.parent('canvas-wrapper');
-    graphics = createGraphics(canvasContainer.offsetWidth / 2, canvasContainer.offsetHeight / 2);
-    // frameRate(10);
-    stroke('#b3b3b3');
-    fill('#b3b3b3');
-    textSize(60);
-    textFont('Courier New');
-    textAlign(CENTER, CENTER);
-    text('Start typing\nyour text', width / 2, height / 2);
+    graphics = createGraphics(640, 480);
+    outputGraphics = createGraphics(640, 480);
+    graphics.pixelDensity(1);
+    outputGraphics.pixelDensity(1);
+
+    updateSliders();
+    drawInitialMessage();
 }
 
 function draw() {
@@ -39,34 +39,52 @@ function draw() {
         background(255);
         // graphics.background(255);
         drawOnGraphics();
-        image(graphics, width / 4, height / 4);
+        drawGraphicsOnScreen();
         paramsChanged = false;
 
         if (params.text == '') {
-            stroke('#b3b3b3');
-            fill('#b3b3b3');
-            textSize(60);
-            textFont('Courier New');
-            textAlign(CENTER, CENTER);
-            text('Start typing\nyour text', width / 2, height / 2);
+            drawInitialMessage();
         }
     }
 }
 
-function keyTyped() {
-
-    if (keyCode === ENTER) {
-        params.text += '\n';
-        paramsChanged = true;
-    }
-    else if (keyCode === BACKSPACE) {
-        params.text = params.text.slice(0, -1);
-        paramsChanged = true;
+function drawGraphicsOnScreen() {
+    if (width >= outputGraphics.width && height >= outputGraphics.height) { // sketch larger than graphics
+        image(graphics, (width - outputGraphics.width) / 2, (height - outputGraphics.height) / 2);
     }
     else {
-        params.text += key;
-        paramsChanged = true;
+        var ratio = outputGraphics.height / outputGraphics.width;
+        var scaledHeight = width * ratio;
+
+        image(graphics, 0, 0, width, scaledHeight, 0, 0, outputGraphics.width, outputGraphics.height );
+        // image(graphics, 0, (height - scaledHeight) / 2, width, scaledHeight);
+        console.log(width + '  h ' + height);
+        console.log(displayWidth + ' dh ' + displayHeight);
+        console.log(graphics.width + ' gh ' + graphics.height);
     }
+}
+
+function drawInitialMessage() {
+    stroke('#b3b3b3');
+    fill('#b3b3b3');
+    if (width < 576) {
+        textSize(15);
+    }
+    else if (width < 768) {
+        textSize(25);
+    }
+    else {
+        textSize(60);
+    }
+    textFont('Courier New');
+    textAlign(CENTER, CENTER);
+    var message = 'Start typing\nyour text';
+    text(message, width / 2, height / 2);
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+    paramsChanged = true;
 }
 
 var semaphore = true;
@@ -76,7 +94,8 @@ function download() {
         background(255);
         clear();
         drawOnGraphics();
-        image(graphics, width / 4, height / 4);
+        drawGraphicsOnScreen();
+        // image(graphics, width / 4, height / 4);
         save('myGltchedText.png');
         semaphore = true;
     }
@@ -85,11 +104,12 @@ function download() {
 // custom functions
 
 function drawOnGraphics() {
-    graphics.background(255);
-    // graphics.clear();
+    outputGraphics.clear();
+    graphics.clear();
     style();
     drawText();
     applyEffects();
+    console.log(pixelDensity());
 }
 
 function style() {
@@ -98,33 +118,44 @@ function style() {
     graphics.textSize(params.textSize);
     graphics.textFont(params.textFont);
     graphics.textAlign(CENTER, CENTER);
+    graphics.textLeading(params.lineHeight);
 }
 
 function drawText() {
-    console.log('draw text: ' + params.text);
     graphics.text(params.text, graphics.width / 2, graphics.height / 2);
 }
 
 function applyEffects() {
-    graphics.loadPixels();
-
     applyRowShift();
+    graphics.clear();
     applyColumnShift();
-
-    graphics.updatePixels();
 }
 
 function applyRowShift() {
-    for (var i = 0; i < graphics.height - 2 * params.row.height; i += 2 * params.row.height) {
-        var row = graphics.get(0, i, graphics.width, i + params.row.height);
-        graphics.set(params.row.shift, i, row);
+    var iteration = 0;
+    for (var i = 0; i < graphics.height - params.row.height; i += params.row.height) {
+        var row = graphics.get(0, i, graphics.width, params.row.height);
+        if (iteration % 2 === 1) {
+            outputGraphics.set(params.row.shift, i, row);
+        }
+        else {
+            outputGraphics.set(0, i, row);
+        }
+        iteration++;
     }
 }
 
 function applyColumnShift() {
-    for (var i = 0; i < graphics.width - 2 * params.column.width; i += 2 * params.column.width) {
-        var column = graphics.get(i, 0, i + params.column.width, graphics.height);
-        graphics.set(i, params.column.shift, column);
+    var iteration = 0;
+    for (var i = 0; i < graphics.width - params.column.width; i += params.column.width) {
+        var column = outputGraphics.get(i, 0, params.column.width, graphics.height);
+        if (iteration % 2 === 1) {
+            graphics.set(i, params.column.shift, column);
+        }
+        else {
+            graphics.set(i, 0, column);
+        }
+        iteration++;
     }
 }
 
@@ -137,6 +168,7 @@ function resetParams() {
     params.row.shift = 0;
     params.column.width = 15;
     params.column.shift = 0;
+    updateSliders();
     paramsChanged = true;
 }
 
@@ -147,7 +179,17 @@ function randomParams() {
     params.row.shift = round(random(3, 50));
     params.column.width = round(random(10, 80));
     params.column.shift = round(random(3, 50));
+    updateSliders();
     paramsChanged = true;
+}
+
+function updateSliders() {
+    $('#text-size-slider').val(params.size);
+    $('#line-height-slider').val(params.lineHeight);
+    $('#row-shift-slider').val(params.row.shift);
+    $('#row-height-slider').val(params.row.height);
+    $('#column-shift-slider').val(params.column.shift);
+    $('#column-width-slider').val(params.column.width);
 }
 
 

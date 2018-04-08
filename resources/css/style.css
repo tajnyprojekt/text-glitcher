@@ -4,8 +4,6 @@ body {
     cursor: crosshair;
     padding: 0;
     margin: 0;
-    max-width: 100vw;
-    height: 100vh;
 }
 
 h1 {
@@ -13,8 +11,6 @@ h1 {
     font-size: 1rem;
     font-weight: normal;
 }
-
-
 
 label {
     min-width: 90px;
@@ -36,8 +32,19 @@ label {
 
 .controls-container {
     text-align: right;
-    height: 100vh;
-    overflow-y: auto;
+    height: 50vh;
+    overflow-y: scroll;
+}
+
+@media (min-width: 576px) {
+    .controls-container {
+        height: 100vh;
+        overflow-y: auto;
+    }
+}
+
+.controls-container-content {
+    position: relative;
 }
 
 .controls-section {
@@ -165,6 +172,13 @@ label {
 #download-button {
     padding: 5px 50px;
     margin-top: 20%;
+    margin-bottom: calc(50px + 0.8rem);
+}
+
+@media (min-width: 576px) {
+    #download-button {
+        margin-bottom: 10px;
+    }
 }
 
 #website-link {
@@ -243,27 +257,67 @@ input[type=range]::-webkit-slider-runnable-track {
 
 #canvas-container {
     text-align: center;
-    height: 100vh;
+    height: 50vh;
+}
+
+@media (min-width: 576px) {
+    #canvas-container {
+        /*display: inline;*/
+        height: 100vh;
+        /*overflow-y: auto;*/
+    }
 }
 
 .main-info {
-    padding: 54px 40px;
+    padding: 35px 40px;
     position: absolute;
     text-align: left;
     color: #b3b3b3;
     line-height: 1rem;
 }
 
+@media (min-width: 576px) {
+    .main-info {
+        padding: 54px 40px;
+    }
+}
+
 .main-info > p {
     font-style: italic;
     font-size: 0.9rem;
+    display: none;
+}
+
+@media (min-width: 576px) {
+    .main-info > p {
+        display: block;
+    }
+}
+
+#karramba-logo {
+    width: 200px;
+    margin-left: -12px;
+    margin-top: -50px;
 }
 
 #canvas-wrapper {
     display: inline-block;
     width: 100%;
-    height: 100%;
-    /*margin-top: 25%;*/
+    height: 90%;
+    margin-top: 5%;
+}
+
+#text-input, #text-input:focus, #text-input:active {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    background: rgba(0,0,0,0);
+    color: rgba(0,0,0,0);
+    resize: none;
+    border: none;
+    outline: none;
 }
 
 .footer {
@@ -282,4 +336,45 @@ input[type=range]::-webkit-slider-runnable-track {
 
 .footer > a:hover {
     text-decoration: underline;
+}
+
+.footer.main {
+    display: none;
+}
+
+@media (min-width: 576px) {
+    .footer.main {
+        display: inherit;
+    }
+}
+
+.footer.controls {
+    display: inherit;
+}
+
+@media (min-width: 576px) {
+    .footer.controls {
+        display: none;
+    }
+}
+
+
+{
+    display: inherit;
+}
+
+@media (min-width: 576px) {
+    .hidden-on-small {
+        display: none;
+    }
+}
+
+.hidden-on-medium {
+    display: inherit;
+}
+
+@media (min-width: 576px) {
+    .hidden-on-small {
+        display: none;
+    }
 }

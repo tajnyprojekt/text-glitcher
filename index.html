@@ -2,7 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
     <title>tajny_projekt | text-glitcher</title>
+
+    <meta property="og:site_name" content="tajny_projekt karramba glitch type" />
+    <meta property="og:type"               content="website" />
+
+    <meta property="og:url"                content="http://tajnyprojekt.com/karramba" />
+
+    <meta property="og:title"              content="KARRAMBA - Glitch type generator" />
+    <meta property="og:description"        content="Create your own version of glitch type." />
+    <meta property="og:image"              content="http://www.tajnyprojekt.com/resources/img/karramba.png" />
+    <meta property="og:image:width"        content="1280" />
+    <meta property="og:image:height"       content="720" />
+    <meta property="og:image:alt"          content="glitch type" />
+
+    <meta property="og:locale"             content="en_GB"/>
+
+    <link rel="icon" href="resources/img/logo_64.png">
+
 
     <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i" rel="stylesheet">
 
@@ -14,8 +33,35 @@
 
     <div class="row no-gutters">
 
-        <div class="col-12 col-md-4 col-lg-3 border controls-container">
+        <div id="canvas-container" class="col-12 col-md-8 col-lg-9 order-md-12">
+            <div class="main-info">
+                <img id="karramba-logo" src="resources/img/karramba-logo.png">
+                <h1>
+                    <b>GLITCH TYPE</b> GENERATOR
+                </h1>
+                <p>
+                    Create your own version<br>
+                    of glitch type by using<br>
+                    sliders on the left<br>
+                    screen side. Click on <br>
+                    this area to input text
+                </p>
+            </div>
 
+            <div id="canvas-wrapper"></div>
+
+            <textarea id="text-input"
+                      autofocus
+                      oninput="setText(this.value);"
+            ></textarea>
+
+            <div class="footer main">
+                Made with &#9829; | <a target="_blank" href="http://tajnyprojekt.com"><b>tajny</b>_projekt</a>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4 col-lg-3 order-md-0 border controls-container">
+            <div class="controls-container-content">
             <a id="website-link"
                class="bottom-border button button-full"
                href="http://tajnyprojekt.com"
@@ -42,12 +88,12 @@
                                     onchange="setTextFont(this.value);"
                             >
                                 <option selected disabled value="chuj">SELECT FONT</option>
-                                <option value="Arial"           >Arial</option>
-                                <option value="Courier New"     >Courier New</option>
-                                <option value="Georgia"         >Georgia</option>
-                                <option value="Times New Roman" >Times New Roman</option>
-                                <option value="Trebuchet MS"    >Trebuchet MS</option>
-                                <option value="Verdana"         >Verdana</option>
+                                <option value="Arial"           ><span style="font-family: 'Arial'"           >Arial</span></option>
+                                <option value="Courier New"     ><span style="font-family: 'Courier New'"     >Courier New</span></option>
+                                <option value="Georgia"         ><span style="font-family: 'Georgia'"         >Georgia</span></option>
+                                <option value="Times New Roman" ><span style="font-family: 'Times New Roman'" >Times New Roman</span></option>
+                                <option value="Trebuchet MS"    ><span style="font-family: 'Trebuchet MS'"    >Trebuchet MS</span></option>
+                                <option value="Verdana"         ><span style="font-family: 'Verdana'"         >Verdana</span></option>
                             </select>
                         </div>
                     </div>
@@ -57,7 +103,7 @@
                         <input id="text-size-slider"
                                class="control slider"
                                type="range"
-                               min="0"
+                               min="2"
                                max="255"
                                step="1"
                                oninput="setTextSize(this.value);"
@@ -109,7 +155,7 @@
                                class="control slider"
                                type="range"
                                min="1"
-                               max="255"
+                               max="254"
                                step="1"
                                oninput="setRowHeight(256 - this.value);"
                                onchange="setRowHeight(256 - this.value);"
@@ -133,7 +179,7 @@
                                class="control slider"
                                type="range"
                                min="0"
-                               max="255"
+                               max="50"
                                step="1"
                                oninput="setColumnShift(this.value);"
                                onchange="setColumnShift(this.value);"
@@ -146,7 +192,7 @@
                                class="control slider"
                                type="range"
                                min="1"
-                               max="255"
+                               max="250"
                                step="1"
                                oninput="setColumnWidth(256 - this.value);"
                                onchange="setColumnWidth(256 - this.value);"
@@ -184,28 +230,15 @@
                         onclick="download();"
                 >SAVE</button>
             </div>
-        </div>
 
-
-        <div id="canvas-container" class="col-12 col-md-8 col-lg-9">
-            <div class="main-info">
-                <h1>
-                    <b>GLITCH TYPE</b> GENERATOR
-                </h1>
-                <p>
-                    Create your own version<br>
-                    of glitch type by using<br>
-                    sliders on the left<br>
-                    screen side
-                </p>
-            </div>
-
-            <div id="canvas-wrapper"></div>
-
-            <div class="footer">
+            <div class="footer controls">
                 Made with &#9829; | <a target="_blank" href="http://tajnyprojekt.com"><b>tajny</b>_projekt</a>
             </div>
+            </div>
         </div>
+
+
+
     </div>
 
 
