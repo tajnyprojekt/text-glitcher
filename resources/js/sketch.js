@@ -22,8 +22,13 @@ var params = {
 // main functions
 var canvas;
 function setup() {
-    var canvasContainer = document.getElementById('canvas-wrapper');
-    canvas = createCanvas(canvasContainer.offsetWidth, canvasContainer.offsetHeight);
+    var canvasContainer = document.getElementById('canvas-container');
+    if (canvasContainer.offsetWidth < 640 || canvasContainer.offsetHeight < 480) {
+        canvas = createCanvas(canvasContainer.offsetWidth, canvasContainer.offsetHeight);
+    }
+    else {
+        canvas = createCanvas(640, 480);
+    }
     canvas.parent('canvas-wrapper');
     graphics = createGraphics(640, 480);
     outputGraphics = createGraphics(640, 480);
@@ -85,7 +90,13 @@ function drawInitialMessage() {
 }
 
 function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
+    var canvasContainer = document.getElementById('canvas-container');
+    if (canvasContainer.offsetWidth < 640 || canvasContainer.offsetHeight < 480) {
+        resizeCanvas(canvasContainer.offsetWidth, canvasContainer.offsetHeight);
+    }
+    else {
+        resizeCanvas(640, 480);
+    }
     paramsChanged = true;
 }
 

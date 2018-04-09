@@ -10,6 +10,10 @@ $(function() {
     $('#canvas-container').on('click', function () {
         $('#text-input').focus();
     });
+
+    $('#canvas-wrapper').resize(function () {
+        console.log('im resizing!');
+    });
 });
 
 function openColorPicker() {
