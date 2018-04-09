@@ -73,7 +73,7 @@ function drawInitialMessage() {
         textSize(15);
     }
     else if (width < 768) {
-        textSize(25);
+        textSize(60);
     }
     else {
         textSize(60);

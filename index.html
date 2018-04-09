@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <title>tajny_projekt | text-glitcher</title>
+    <title>KARRAMBA | text-glitcher</title>
 
     <meta property="og:site_name" content="tajny_projekt karramba glitch type" />
     <meta property="og:type"               content="website" />
@@ -13,7 +13,7 @@
 
     <meta property="og:title"              content="KARRAMBA - Glitch type generator" />
     <meta property="og:description"        content="Create your own version of glitch type." />
-    <meta property="og:image"              content="http://www.tajnyprojekt.com/resources/img/karramba.png" />
+    <meta property="og:image"              content="http://www.tajnyprojekt.com/karramba/resources/img/karramba.png" />
     <meta property="og:image:width"        content="1280" />
     <meta property="og:image:height"       content="720" />
     <meta property="og:image:alt"          content="glitch type" />
@@ -28,24 +28,44 @@
     <link rel="stylesheet" type="text/css" href="vendors/bootstrap-4.0.0/bootstrap-grid.min.css">
     <link rel="stylesheet" type="text/css" href="resources/css/custom-select.css">
     <link rel="stylesheet" type="text/css" href="resources/css/style.css">
+
+    <!--Analytics-->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115997235-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-115997235-1');
+    </script>
 </head>
 <body>
 
     <div class="row no-gutters">
 
-        <div id="canvas-container" class="col-12 col-md-8 col-lg-9 order-md-12">
-            <div class="main-info">
-                <img id="karramba-logo" src="resources/img/karramba-logo.png">
-                <h1>
-                    <b>GLITCH TYPE</b> GENERATOR
-                </h1>
-                <p>
-                    Create your own version<br>
-                    of glitch type by using<br>
-                    sliders on the left<br>
-                    screen side. Click on <br>
-                    this area to input text
-                </p>
+        <div id="canvas-container" class="col-12 col-md-9 order-md-12">
+
+            <div class="info-wrapper">
+                <div class="main-info">
+                    <h1>
+                        <b>GLITCH TYPE</b> GENERATOR
+                    </h1>
+                    <p>
+                        Create your own version<br>
+                        of glitch type by using<br>
+                        sliders on the left<br>
+                        screen side. Click on <br>
+                        this area to input text
+                    </p>
+                </div>
+
+                <div class="app-name">
+                    <h1>
+                        <b>charramba</b> <i>v0.01</i><br><br>
+
+                    </h1>
+                </div>
             </div>
 
             <div id="canvas-wrapper"></div>
@@ -60,8 +80,8 @@
             </div>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-4 col-lg-3 order-md-0 border controls-container">
-            <div class="controls-container-content">
+        <div class="col-12 col-md-3 order-md-0 controls-container">
+            <div class="controls-container-content side-border">
             <a id="website-link"
                class="bottom-border button button-full"
                href="http://tajnyprojekt.com"
@@ -201,16 +221,18 @@
                 </div>
             </div>
 
-            <div class="border-bottom color-section">
-                <div class="color-label">COLOR</div>
-                <input id="color-picker"
-                       class=""
-                       type="color"
-                       value="#000000"
-                       oninput="setColor(this.value);"
-                       onchange="setColor(this.value);"
-                >
-            </div>
+            <button id="color-button"
+                    class="bottom-border button button-full"
+                    onclick="openColorPicker();"
+            >COLOR</button>
+            <input id="color-picker"
+                   class=""
+                   type="color"
+                   value="#000000"
+                   oninput="setColor(this.value); updateColorButton(this.value);"
+                   onchange="setColor(this.value); updateColorButton(this.value);"
+                   hidden
+            >
 
             <button id="random-button"
                     class="bottom-border button button-full"
@@ -222,14 +244,18 @@
                     onclick="resetParams();"
             >RESET</button>
 
+            <button id="download-button"
+                    class="bottom-border button button-full"
+                    onclick="download();"
+            >DOWNLOAD</button>
 
 
-            <div class="controls-bottom-section">
-                <button id="download-button"
-                        class="bottom-border button"
-                        onclick="download();"
-                >SAVE</button>
-            </div>
+            <!--<div class="controls-bottom-section">-->
+                <!--<button id="download-button"-->
+                        <!--class="bottom-border button"-->
+                        <!--onclick="download();"-->
+                <!--&gt;SAVE</button>-->
+            <!--</div>-->
 
             <div class="footer controls">
                 Made with &#9829; | <a target="_blank" href="http://tajnyprojekt.com"><b>tajny</b>_projekt</a>
