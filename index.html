@@ -119,6 +119,32 @@
                     </div>
 
                     <div class="control-section">
+                        <div class="text-icons-wrapper">
+                            <img class="text-icon text-style-icon"
+                                 src="resources/img/icons/bold.svg"
+                                 onclick="setTextStyle(BOLD)"
+                            >
+                            <img class="text-icon text-style-icon"
+                                 src="resources/img/icons/italic.svg"
+                                 onclick="setTextStyle(ITALIC)"
+                            >
+
+                            <img class="text-icon text-align-icon"
+                                 src="resources/img/icons/align-left.svg"
+                                 onclick="setAlign(LEFT)"
+                            >
+                            <img class="text-icon text-align-icon selected"
+                                 src="resources/img/icons/align-center.svg"
+                                 onclick="setAlign(CENTER)"
+                            >
+                            <img class="text-icon text-align-icon"
+                                 src="resources/img/icons/align-right.svg"
+                                 onclick="setAlign(RIGHT)"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="control-section">
                         <label for="text-size-slider">TEXT SIZE</label>
                         <input id="text-size-slider"
                                class="control slider"

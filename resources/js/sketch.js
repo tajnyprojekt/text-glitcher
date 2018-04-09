@@ -9,6 +9,8 @@ var params = {
     textSize: 60,
     textFont: 'Arial',
     lineHeight: 30,
+    align: 'center',
+    style: 'normal',
     row: {
         height: 15,
         shift: 0
@@ -41,11 +43,7 @@ function setup() {
 
 function draw() {
     if (paramsChanged) {
-
-        var startTime = millis();
-
         background(255);
-        // graphics.background(255);
         drawOnGraphics();
         drawGraphicsOnScreen();
         paramsChanged = false;
@@ -53,9 +51,6 @@ function draw() {
         if (params.text == '') {
             drawInitialMessage();
         }
-
-        console.log('end redraw ' + (millis() - startTime) + ' ms');
-
     }
 }
 
@@ -108,7 +103,6 @@ function download() {
         clear();
         drawOnGraphics();
         drawGraphicsOnScreen();
-        // image(graphics, width / 4, height / 4);
         save('myGltchedText.png');
         semaphore = true;
     }
@@ -129,12 +123,36 @@ function style() {
     graphics.fill(params.color);
     graphics.textSize(params.textSize);
     graphics.textFont(params.textFont);
-    graphics.textAlign(CENTER, CENTER);
+    graphics.textAlign(params.align, CENTER);
     graphics.textLeading(params.lineHeight);
+    graphics.textStyle(params.style);
+}
+
+function getLongestVerse(text) {
+    var verses = text.split('\n');
+    console.log(verses);
+    var index = 0;
+    for (i = 1; i < verses.length; i++) {
+        if (verses[index].length < verses[i].length) {
+            index = i;
+        }
+    }
+    return verses[index];
 }
 
 function drawText() {
-    graphics.text(params.text, graphics.width / 2, graphics.height / 2);
+    var textBox = textWidth(getLongestVerse(params.text));
+    if (params.align === LEFT) {
+        graphics.text(params.text, graphics.width / 2 - textBox / 2, graphics.height / 2);
+    }
+
+    if (params.align === CENTER) {
+        graphics.text(params.text, graphics.width / 2, graphics.height / 2);
+    }
+
+    if (params.align === RIGHT) {
+        graphics.text(params.text, graphics.width / 2 + textBox / 2, graphics.height / 2);
+    }
 }
 
 function applyEffects() {
@@ -147,23 +165,9 @@ function applyEffects() {
     graphics.updatePixels();
 }
 
-function applyRowShift() {
-    var iteration = 0;
-    for (var i = 0; i < graphics.height - params.row.height; i += params.row.height) {
-        var row = graphics.get(0, i, graphics.width, params.row.height);
-        if (iteration % 2 === 1) {
-            outputGraphics.set(params.row.shift, i, row);
-        }
-        else {
-            outputGraphics.set(0, i, row);
-        }
-        iteration++;
-    }
-}
-
 function applyRowShiftPixels() {
-    var iteration = 0;
-    for (var rowY = 0; rowY < graphics.height - params.row.height; rowY += params.row.height) {
+    var rowY, iteration = 0;
+    for (rowY = 0; rowY < graphics.height - params.row.height; rowY += params.row.height) {
         if (iteration % 2 === 1) {
             copyPixels(graphics, outputGraphics, 0, rowY, graphics.width, params.row.height, params.row.shift, rowY);
         }
@@ -172,36 +176,22 @@ function applyRowShiftPixels() {
         }
         iteration++;
     }
-}
-
-function applyColumnShift() {
-    var iteration = 0;
-    for (var i = 0; i < graphics.width - params.column.width; i += params.column.width) {
-        var column = outputGraphics.get(i, 0, params.column.width, graphics.height);
-        if (iteration % 2 === 1) {
-            graphics.set(i, params.column.shift, column);
-        }
-        else {
-            graphics.set(i, 0, column);
-        }
-        iteration++;
-    }
+    copyPixels(graphics, outputGraphics, 0, rowY, graphics.width, graphics.height - rowY, 0, rowY);
 }
 
 function applyColumnShiftPixels() {
-    var iteration = 0;
-    for (var i = 0; i < graphics.width - params.column.width; i += params.column.width) {
-        var column = outputGraphics.get(i, 0, params.column.width, graphics.height);
+    var colX, iteration = 0;
+    for (colX = 0; colX < graphics.width - params.column.width; colX += params.column.width) {
+        var column = outputGraphics.get(colX, 0, params.column.width, graphics.height);
         if (iteration % 2 === 1) {
-            copyPixels(outputGraphics, graphics, i, 0, params.column.width, graphics.height, i, params.column.shift);
-            // graphics.set(i, params.column.shift, column);
+            copyPixels(outputGraphics, graphics, colX, 0, params.column.width, graphics.height, colX, params.column.shift);
         }
         else {
-            copyPixels(outputGraphics, graphics, i, 0, params.column.width, graphics.height, i, 0);
-            // graphics.set(i, 0, column);
+            copyPixels(outputGraphics, graphics, colX, 0, params.column.width, graphics.height, colX, 0);
         }
         iteration++;
     }
+    copyPixels(outputGraphics, graphics, colX, 0, outputGraphics.width - colX, graphics.height, colX, 0);
 }
 
 function copyPixels(source, dest, sx, sy, sw, sh, dx, dy) {
@@ -288,6 +278,21 @@ function setTextFont(value) {
 
 function setLineHeight(value) {
     params.lineHeight = Number(value);
+    paramsChanged = true;
+}
+
+function setAlign(value) {
+    params.align = value;
+    paramsChanged = true;
+}
+
+function setTextStyle(style) {
+    if (params.style === style) {
+        params.style = NORMAL;
+    }
+    else {
+        params.style = style;
+    }
     paramsChanged = true;
 }
 

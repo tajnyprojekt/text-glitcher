@@ -129,6 +129,19 @@ label {
     margin: -3px 0 0;
 }
 
+.text-icons-wrapper {
+    /*text-align: center;*/
+}
+
+.text-icon {
+    cursor: pointer;
+    width: 10%;
+}
+
+.text-icon.selected {
+    opacity: 0.5;
+}
+
 .button {
     font-family: 'Space Mono', monospace;
     text-align: center;

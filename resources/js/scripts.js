@@ -7,6 +7,21 @@ $(function() {
         $(this).next().slideToggle();
     });
 
+    $('.text-align-icon').on('click', function () {
+        $('.text-align-icon').removeClass('selected');
+        $(this).addClass('selected');
+    });
+
+    $('.text-style-icon').on('click', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).toggleClass('selected');
+        }
+        else {
+            $('.text-style-icon').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });
+
     $('#canvas-container').on('click', function () {
         $('#text-input').focus();
     });
