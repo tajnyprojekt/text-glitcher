@@ -36,6 +36,9 @@ function setup() {
 
 function draw() {
     if (paramsChanged) {
+
+        var startTime = millis();
+
         background(255);
         // graphics.background(255);
         drawOnGraphics();
@@ -45,6 +48,9 @@ function draw() {
         if (params.text == '') {
             drawInitialMessage();
         }
+
+        console.log('end redraw ' + (millis() - startTime) + ' ms');
+
     }
 }
 
@@ -55,12 +61,8 @@ function drawGraphicsOnScreen() {
     else {
         var ratio = outputGraphics.height / outputGraphics.width;
         var scaledHeight = width * ratio;
-
-        image(graphics, 0, 0, width, scaledHeight, 0, 0, outputGraphics.width, outputGraphics.height );
-        // image(graphics, 0, (height - scaledHeight) / 2, width, scaledHeight);
-        console.log(width + '  h ' + height);
-        console.log(displayWidth + ' dh ' + displayHeight);
-        console.log(graphics.width + ' gh ' + graphics.height);
+        var d = pixelDensity();
+        image(graphics, 0, (height - scaledHeight) / 2 * d, width, scaledHeight, 0, 0, outputGraphics.width, outputGraphics.height );
     }
 }
 
@@ -109,7 +111,6 @@ function drawOnGraphics() {
     style();
     drawText();
     applyEffects();
-    console.log(pixelDensity());
 }
 
 function style() {
@@ -126,9 +127,13 @@ function drawText() {
 }
 
 function applyEffects() {
-    applyRowShift();
+    graphics.loadPixels();
+    outputGraphics.loadPixels();
+    applyRowShiftPixels();
+    outputGraphics.updatePixels();
     graphics.clear();
-    applyColumnShift();
+    applyColumnShiftPixels();
+    graphics.updatePixels();
 }
 
 function applyRowShift() {
@@ -145,6 +150,19 @@ function applyRowShift() {
     }
 }
 
+function applyRowShiftPixels() {
+    var iteration = 0;
+    for (var rowY = 0; rowY < graphics.height - params.row.height; rowY += params.row.height) {
+        if (iteration % 2 === 1) {
+            copyPixels(graphics, outputGraphics, 0, rowY, graphics.width, params.row.height, params.row.shift, rowY);
+        }
+        else {
+            copyPixels(graphics, outputGraphics, 0, rowY, graphics.width, params.row.height, 0, rowY);
+        }
+        iteration++;
+    }
+}
+
 function applyColumnShift() {
     var iteration = 0;
     for (var i = 0; i < graphics.width - params.column.width; i += params.column.width) {
@@ -156,6 +174,50 @@ function applyColumnShift() {
             graphics.set(i, 0, column);
         }
         iteration++;
+    }
+}
+
+function applyColumnShiftPixels() {
+    var iteration = 0;
+    for (var i = 0; i < graphics.width - params.column.width; i += params.column.width) {
+        var column = outputGraphics.get(i, 0, params.column.width, graphics.height);
+        if (iteration % 2 === 1) {
+            copyPixels(outputGraphics, graphics, i, 0, params.column.width, graphics.height, i, params.column.shift);
+            // graphics.set(i, params.column.shift, column);
+        }
+        else {
+            copyPixels(outputGraphics, graphics, i, 0, params.column.width, graphics.height, i, 0);
+            // graphics.set(i, 0, column);
+        }
+        iteration++;
+    }
+}
+
+function copyPixels(source, dest, sx, sy, sw, sh, dx, dy) {
+    for (var x = 0; x < sw; x++) {
+        for (var y = 0; y < sh; y++) {
+            var sourceIndex = 4 * (x + sx + (y + sy) * source.width);
+            var destIndex = 4 * (x + dx + (y + dy) * dest.width);
+            if (destIndex > dest.pixels.length) {
+                destIndex = dest.pixels.length - 1;
+            }
+            dest.pixels[destIndex] = source.pixels[sourceIndex];
+            dest.pixels[destIndex + 1] = source.pixels[sourceIndex + 1];
+            dest.pixels[destIndex + 2] = source.pixels[sourceIndex + 2];
+            dest.pixels[destIndex + 3] = source.pixels[sourceIndex + 3];
+        }
+    }
+}
+
+function setPixels(source, sx, sy, sw, sh, value) {
+    for (var x = 0; x < sw; x++) {
+        for (var y = 0; y < sh; y++) {
+            var sourceIndex = 4 * (x + sx + (y + sy) * source.width);
+            source.pixels[sourceIndex] = value;
+            source.pixels[sourceIndex + 1] = value;
+            source.pixels[sourceIndex + 2] = value;
+            source.pixels[sourceIndex + 3] = value;
+        }
     }
 }
 
