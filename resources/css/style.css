@@ -260,6 +260,7 @@ input[type=range]::-webkit-slider-runnable-track {
     min-height: 290px;
     overflow: hidden;
     text-align: center;
+    cursor: text;
 }
 
 @media (min-width: 768px) {
@@ -290,6 +291,7 @@ input[type=range]::-webkit-slider-runnable-track {
     text-align: left;
     color: #b3b3b3;
     line-height: 1rem;
+    cursor: crosshair;
 }
 
 @media (min-width: 576px) {
@@ -314,6 +316,7 @@ input[type=range]::-webkit-slider-runnable-track {
     display: inline-block;
     float: right;
     color: #b3b3b3;
+    cursor: crosshair;
 }
 
 #canvas-wrapper > canvas {
@@ -323,16 +326,6 @@ input[type=range]::-webkit-slider-runnable-track {
     left: 0;
     right: 0;
     margin: auto;
-
-    /*display: inline-block;*/
-    /*vertical-align: middle;*/
-    /*width: 640px;*/
-    /*height: 480px;*/
-    /*margin-left: calc(50% - 320px);*/
-    /*margin-top: 2000px;*/
-    /*margin-top: calc(50vh - 240px);*/
-    /*height: 100%;*/
-    /*margin-top: 5%;*/
 }
 
 #text-input, #text-input:focus, #text-input:active {

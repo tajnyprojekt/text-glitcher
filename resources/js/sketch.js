@@ -12,11 +12,11 @@ var params = {
     align: 'center',
     style: 'normal',
     row: {
-        height: 15,
+        height: 255,
         shift: 0
     },
     column: {
-        width: 15,
+        width: 255,
         shift: 0
     }
 };
@@ -130,7 +130,6 @@ function style() {
 
 function getLongestVerse(text) {
     var verses = text.split('\n');
-    console.log(verses);
     var index = 0;
     for (i = 1; i < verses.length; i++) {
         if (verses[index].length < verses[i].length) {
