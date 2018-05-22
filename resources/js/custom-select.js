@@ -16,6 +16,8 @@ for (i = 0; i < x.length; i++) {
         create a new DIV that will act as an option item:*/
         c = document.createElement("DIV");
         c.innerHTML = selElmnt.options[j].innerHTML;
+        // set font family for each option
+        c.style = "font-family: " + selElmnt.options[j].value + ";"
         c.addEventListener("click", function(e) {
             /*when an item is clicked, update the original select box,
             and the selected item:*/

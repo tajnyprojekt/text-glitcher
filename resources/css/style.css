@@ -4,6 +4,7 @@ body {
     cursor: crosshair;
     padding: 0;
     margin: 0;
+    background: #ffffff;
 }
 
 h1 {
@@ -46,8 +47,9 @@ label {
     .controls-container {
         height: 100vh;
         overflow-y: auto;
-        -ms-flex: 0 0 290px;
-        flex: 0 0 290px;
+        /*old flex 290*/
+        -ms-flex: 0 0 332px;
+        flex: 0 0 332px;
     }
 }
 

@@ -2,6 +2,7 @@
 var graphics;
 var outputGraphics;
 var paramsChanged = false;
+var isDrawInitialMessage = false;
 
 var params = {
     text: '',
@@ -48,7 +49,7 @@ function draw() {
         drawGraphicsOnScreen();
         paramsChanged = false;
 
-        if (params.text == '') {
+        if (isDrawInitialMessage && params.text === '') {
             drawInitialMessage();
         }
     }
@@ -82,6 +83,11 @@ function drawInitialMessage() {
     textAlign(CENTER, CENTER);
     var message = 'Start typing\nyour text';
     text(message, width / 2, height / 2);
+}
+
+function hideInitialMessage() {
+    isDrawInitialMessage = false;
+    paramsChanged = true;
 }
 
 function windowResized() {
@@ -162,6 +168,7 @@ function applyEffects() {
     graphics.clear();
     applyColumnShiftPixels();
     graphics.updatePixels();
+
 }
 
 function applyRowShiftPixels() {
@@ -217,6 +224,28 @@ function setPixels(source, sx, sy, sw, sh, value) {
             source.pixels[sourceIndex + 1] = value;
             source.pixels[sourceIndex + 2] = value;
             source.pixels[sourceIndex + 3] = value;
+        }
+    }
+}
+
+function applyRGBShift(renderer) {
+    var shift = 4 * (2 - 8 * renderer.width);
+    var value = 100;
+    for (var x = 0; x < renderer.width; x++) {
+        for (var y = 0; y < renderer.height; y++) {
+            var sourceIndex = 4 * (x + (y) * renderer.width);
+            if (sourceIndex > 16) {
+                if (renderer.pixels[sourceIndex + 3] > 0) {
+                    renderer.pixels[sourceIndex - 16] = 255 - renderer.pixels[sourceIndex];
+                    renderer.pixels[sourceIndex - 16 + 3] = renderer.pixels[sourceIndex + 3];
+
+                    renderer.pixels[sourceIndex - shift + 1] = 255 - renderer.pixels[sourceIndex];
+                    renderer.pixels[sourceIndex - shift + 3] = renderer.pixels[sourceIndex + 3];
+
+                    renderer.pixels[sourceIndex - 12 + 2] = 255 - renderer.pixels[sourceIndex];
+                    renderer.pixels[sourceIndex - 12 + 3] = renderer.pixels[sourceIndex + 3];
+                }
+            }
         }
     }
 }

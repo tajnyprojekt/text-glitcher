@@ -24,6 +24,8 @@ $(function() {
 
     $('#canvas-container').on('click', function () {
         $('#text-input').focus();
+        hideInitialMessage();
+        console.log('focus');
     });
 
     $('#canvas-wrapper').resize(function () {
