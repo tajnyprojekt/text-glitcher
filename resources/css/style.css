@@ -251,6 +251,10 @@ input[type=range]::-webkit-slider-runnable-track {
     background: #ddd;
 }
 
+#custom-font-input {
+    opacity: 0;
+}
+
 /* canvas section */
 
 #canvas-container {

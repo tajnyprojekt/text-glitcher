@@ -304,6 +304,16 @@ function setTextFont(value) {
     paramsChanged = true;
 }
 
+function setCustomTextFont(files) {
+    if (files.length > 0) {
+        var fontFile = files[0];
+        var url = window.URL.createObjectURL(fontFile);
+        params.textFont = loadFont(url, function () {
+            paramsChanged = true;
+        });
+    }
+}
+
 function setLineHeight(value) {
     params.lineHeight = Number(value);
     paramsChanged = true;
