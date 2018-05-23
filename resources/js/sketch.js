@@ -20,7 +20,7 @@ var params = {
         width: 255,
         shift: 0
     },
-    abberation: 0
+    aberration: 0
 };
 
 // main functions
@@ -253,8 +253,8 @@ function applyRGBShift(renderer) {
 }
 
 function applyRGBShift2() {
-    var shift = params.abberation;
-    outputGraphics.background(255, 0);
+    var shift = params.aberration;
+    outputGraphics.clear();
 
     graphics.filter(INVERT);
     outputGraphics.tint(255, 0, 0, 128);
@@ -271,6 +271,7 @@ function applyRGBShift2() {
     graphics.filter(INVERT);
 
     outputGraphics.image(graphics, 0, 0);
+    graphics.clear();
     graphics.image(outputGraphics, 0, 0);
 }
 
@@ -294,7 +295,7 @@ function randomParams() {
     params.row.shift = round(random(3, 50));
     params.column.width = round(random(10, 80));
     params.column.shift = round(random(3, 50));
-    params.abberation = random(0, 1);
+    params.aberration = random(0, 1);
     updateSliders();
     paramsChanged = true;
 }
@@ -306,7 +307,7 @@ function updateSliders() {
     $('#row-height-slider').val(params.row.height);
     $('#column-shift-slider').val(params.column.shift);
     $('#column-width-slider').val(params.column.width);
-    $('#abberation-shift-slider').val(params.abberation);
+    $('#aberration-shift-slider').val(params.aberration);
 }
 
 
@@ -380,7 +381,7 @@ function setColumnShift(value) {
     paramsChanged = true;
 }
 
-function setAbberationShift(value) {
-    params.abberation = value;
+function setAberrationShift(value) {
+    params.aberration = value;
     paramsChanged = true;
 }
