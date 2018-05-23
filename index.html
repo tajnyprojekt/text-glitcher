@@ -257,6 +257,31 @@
                 </div>
             </div>
 
+            <div class="bottom-border controls-section">
+                <div class="controls-section-header">
+                    <div class="collapse-icon-container">
+                        <span class="collapse-icon-helper"></span>
+                        <img class="collapse-icon up" src="resources/img/icons/arrow.svg">
+                    </div>
+                    <h2>ABBERATION</h2>
+                </div>
+                <div class="controls-section-content">
+                    <div class="control-section">
+                        <label for="abberation-shift-slider">SHIFT</label>
+                        <input id="abberation-shift-slider"
+                               class="control slider"
+                               type="range"
+                               min="0"
+                               max="2"
+                               step="0.05"
+                               oninput="setAbberationShift(this.value);"
+                               onchange="setAbberationShift(this.value);"
+                        >
+                    </div>
+
+                </div>
+            </div>
+
             <button id="color-button"
                     class="bottom-border button button-full"
                     onclick="openColorPicker();"

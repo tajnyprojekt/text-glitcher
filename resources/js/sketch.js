@@ -19,7 +19,8 @@ var params = {
     column: {
         width: 255,
         shift: 0
-    }
+    },
+    abberation: 0
 };
 
 // main functions
@@ -169,6 +170,7 @@ function applyEffects() {
     applyColumnShiftPixels();
     graphics.updatePixels();
 
+    applyRGBShift2();
 }
 
 function applyRowShiftPixels() {
@@ -250,6 +252,28 @@ function applyRGBShift(renderer) {
     }
 }
 
+function applyRGBShift2() {
+    var shift = params.abberation;
+    outputGraphics.background(255, 0);
+
+    graphics.filter(INVERT);
+    outputGraphics.tint(255, 0, 0, 128);
+    outputGraphics.image(graphics, -3 * shift, -3 * shift);
+
+    outputGraphics.tint(0, 255, 0, 128);
+    outputGraphics.image(graphics, 3 * shift, 3 * shift);
+
+    outputGraphics.tint(0, 0, 255, 128);
+    outputGraphics.image(graphics, -4 * shift, 3 * shift);
+
+
+    outputGraphics.noTint();
+    graphics.filter(INVERT);
+
+    outputGraphics.image(graphics, 0, 0);
+    graphics.image(outputGraphics, 0, 0);
+}
+
 // params setters
 
 function resetParams() {
@@ -270,6 +294,7 @@ function randomParams() {
     params.row.shift = round(random(3, 50));
     params.column.width = round(random(10, 80));
     params.column.shift = round(random(3, 50));
+    params.abberation = random(0, 1);
     updateSliders();
     paramsChanged = true;
 }
@@ -281,6 +306,7 @@ function updateSliders() {
     $('#row-height-slider').val(params.row.height);
     $('#column-shift-slider').val(params.column.shift);
     $('#column-width-slider').val(params.column.width);
+    $('#abberation-shift-slider').val(params.abberation);
 }
 
 
@@ -351,5 +377,10 @@ function setColumnWidth(value) {
 
 function setColumnShift(value) {
     params.column.shift = Number(value);
+    paramsChanged = true;
+}
+
+function setAbberationShift(value) {
+    params.abberation = value;
     paramsChanged = true;
 }
