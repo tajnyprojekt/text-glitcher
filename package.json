@@ -1,0 +1,19 @@
+{
+  "name": "brenskie-dania",
+  "description": "",
+  "author": "Michał Urbanski",
+  "homepage": "http://tajnyprojekt.com",
+  "version": "1.0.0",
+  "main": "gulpfile.js",
+  "scripts": {
+    "start": "gulp"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-watch": "^4.3.11"
+  },
+  "dependencies": {
+    "browser-sync": "^2.18.13"
+  }
+}
