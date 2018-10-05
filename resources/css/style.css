@@ -149,6 +149,24 @@ button {
     .buttons-bar__icon.selected {
       opacity: 0.5; }
 
+.pcr-app {
+  font-family: "Space Mono" !important; }
+
+.pcr-interaction {
+  font-family: "Space Mono" !important; }
+
+.pcr-type.active {
+  background: #e6e6e6 !important;
+  color: #000 !important; }
+
+.pcr-save {
+  background: #000 !important;
+  color: #fff !important; }
+
+.pcr-clear {
+  background: #fff !important;
+  color: #000 !important; }
+
 #canvas-container {
   /*display: inline-block;*/
   /*float: right;*/
@@ -321,16 +339,14 @@ button {
       font-weight: bold;
       text-transform: uppercase; }
     .tool-menu__item__control {
-      cursor: pointer;
-      opacity: 0.8;
-      -webkit-transition: opacity 0.6s;
-      transition: opacity 0.6s; }
-      .tool-menu__item__control:hover {
-        opacity: 1;
-        -webkit-transition: opacity 0.6s;
-        transition: opacity 0.6s; }
+      cursor: pointer; }
       .tool-menu__item__control__name {
         text-align: left; }
+      .tool-menu__item__control__caption {
+        margin-top: 10px;
+        text-align: left;
+        font-size: 0.8em;
+        color: #666666; }
     .tool-menu__item__control-group {
       margin-top: 15px; }
       .tool-menu__item__control-group__name {

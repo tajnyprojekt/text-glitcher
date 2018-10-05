@@ -19,34 +19,9 @@ $(function() {
             c.innerHTML = selElmnt.options[j].innerHTML;
 
             var selectedValue = selElmnt.options[j].value;
-            if (selectedValue === 'other') { // handle ADD OTHER option
+
+            if (selectedValue.startsWith('*.')) { // extension select
                 c.style = "font-family: Space Mono; font-weight: bold;";
-                c.addEventListener("click", function (e) {
-                    /*when an item is clicked, update the original select box,
-                    and the selected item:*/
-                    var i, s, h;
-                    s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-                    h = this.parentNode.previousSibling;
-                    for (i = 0; i < s.length; i++) {
-                        if (s.options[i].innerHTML == this.innerHTML) {
-                            s.selectedIndex = i;
-                            h.innerHTML = this.innerHTML;
-
-
-                            alert('add font');
-                            var newFont = document.createElement("DIV");
-                            newFont.innerText = 'new font';
-                            $(newFont).prependTo(b);
-
-                            break;
-                        }
-                    }
-                    h.click();
-                });
-            }
-            else {
-                // set font family for each option
-                c.style = "font-family: " + selElmnt.options[j].value + ";";
 
                 c.addEventListener("click", function (e) {
                     /*when an item is clicked, update the original select box,
@@ -58,10 +33,8 @@ $(function() {
                         if (s.options[i].innerHTML == this.innerHTML) {
                             s.selectedIndex = i;
                             h.innerHTML = this.innerHTML;
-                            h.style = "font-family:" + this.style.fontFamily + ";";
-
-
-                            setTextFont(this.innerHTML); // <-------------------- select event handler
+                            var extension = this.innerHTML.substring(2);
+                            console.log('selected extension: ' + extension);
 
                             break;
                         }
@@ -69,7 +42,59 @@ $(function() {
                     h.click();
                 });
             }
+            else { // font select
 
+                if (selectedValue === 'other') { // handle ADD OTHER option
+                    c.style = "font-family: Space Mono; font-weight: bold;";
+                    c.addEventListener("click", function (e) {
+                        /*when an item is clicked, update the original select box,
+                        and the selected item:*/
+                        var i, s, h;
+                        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                        h = this.parentNode.previousSibling;
+                        for (i = 0; i < s.length; i++) {
+                            if (s.options[i].innerHTML == this.innerHTML) {
+                                s.selectedIndex = i;
+                                h.innerHTML = this.innerHTML;
+
+
+                                alert('add font');
+                                var newFont = document.createElement("DIV");
+                                newFont.innerText = 'new font';
+                                $(newFont).prependTo(b);
+
+                                break;
+                            }
+                        }
+                        h.click();
+                    });
+                }
+                else {
+                    // set font family for each option
+                    c.style = "font-family: " + selElmnt.options[j].value + ";";
+
+                    c.addEventListener("click", function (e) {
+                        /*when an item is clicked, update the original select box,
+                        and the selected item:*/
+                        var i, s, h;
+                        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                        h = this.parentNode.previousSibling;
+                        for (i = 0; i < s.length; i++) {
+                            if (s.options[i].innerHTML == this.innerHTML) {
+                                s.selectedIndex = i;
+                                h.innerHTML = this.innerHTML;
+                                h.style = "font-family:" + this.style.fontFamily + ";";
+
+
+                                setTextFont(this.innerHTML); // <-------------------- select event handler
+
+                                break;
+                            }
+                        }
+                        h.click();
+                    });
+                }
+            }
 
             b.appendChild(c);
         }

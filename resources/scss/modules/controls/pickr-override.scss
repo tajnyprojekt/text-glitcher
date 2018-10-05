@@ -1,0 +1,23 @@
+.pcr-app {
+  font-family: "Space Mono" !important;
+}
+
+.pcr-interaction {
+  font-family: "Space Mono" !important;
+
+}
+
+.pcr-type.active {
+  background: $color-gray !important;
+  color: $color-black !important;
+}
+
+.pcr-save {
+  background: $color-black !important;
+  color: $color-white !important;
+}
+
+.pcr-clear {
+  background: $color-white !important;
+  color: $color-black !important;
+}

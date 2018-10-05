@@ -45,18 +45,25 @@
 
     &__control {
       cursor: pointer;
-      opacity: 0.8;
-      -webkit-transition: opacity $transition-length-slow;
-      transition: opacity $transition-length-slow;
+      //opacity: 0.8;
+      //-webkit-transition: opacity $transition-length-slow;
+      //transition: opacity $transition-length-slow;
 
       &:hover {
-        opacity: 1;
-        -webkit-transition: opacity $transition-length-slow;
-        transition: opacity $transition-length-slow;
+        //opacity: 1;
+        //-webkit-transition: opacity $transition-length-slow;
+        //transition: opacity $transition-length-slow;
       }
 
       &__name {
         text-align: left;
+      }
+
+      &__caption {
+        margin-top: 10px;
+        text-align: left;
+        font-size: 0.8em;
+        color: $color-dark-gray;
       }
     }
 

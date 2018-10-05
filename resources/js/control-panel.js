@@ -23,8 +23,8 @@ $(function() {
         position: 'middle',
 
         strings: {
-            save: 'choose',  // Default for save button
-            clear: 'cancel' // Default for clear button
+            save: 'SELECT',  // Default for save button
+            clear: 'CANCEL' // Default for clear button
         },
 
         components: {

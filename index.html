@@ -83,6 +83,7 @@
                                             <div class="tool-menu__item__control__name">height</div>
                                             <input type="text" class="text-right js-control" placeholder="Type height" value="320">
                                         </div>
+                                        <p class="tool-menu__item__control__caption">warning: large workspace can reduce performance</p>
                                     </div>
                                     <div class="tool-menu__item__control-group">
                                         <div class="tool-menu__item__control-group__name">Background</div>
@@ -211,7 +212,20 @@
                                     <div class="tool-menu__item__control-group">
                                         <div class="tool-menu__item__control">
                                             <div class="tool-menu__item__control__name">filename</div>
-                                            <input type="text" class="js-control" placeholder="Type filename">
+                                            <input type="text" class="text-right js-control" placeholder="Type filename" value="untitled-1">
+                                        </div>
+                                        <div class="tool-menu__item__control">
+                                            <div class="tool-menu__item__control__name">format</div>
+                                            <div class="custom-select">
+                                                <select class="js-control">
+                                                    <option selected disabled value="*.png">*.png</option>
+                                                    <option selected value="*.png"    >*.png</option>
+                                                    <option value="*.jpg"             >*.jpg</option>
+                                                    <option value="*.bmp"             >*.bmp</option>
+
+                                                </select>
+                                            </div>
+                                            <p class="tool-menu__item__control__caption">warning: not all formats support transparency</p>
                                         </div>
                                         <div class="tool-menu__item__control-group">
                                             <div class="tool-menu__item__control">
