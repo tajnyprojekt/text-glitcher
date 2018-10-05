@@ -13,9 +13,9 @@ $(function() {
     });
 
     $('.text-style-icon').on('click', function () {
-        if ($(this).hasClass('selected')) {<div class="w-100 header-bar">…</div>
-            $(this).toggleClass('selected');<div class="w-100 header-bar">…</div>
-        }<div class="w-100 header-bar">…</div>
+        if ($(this).hasClass('selected')) {
+            $(this).toggleClass('selected');
+        }
         else {
             $('.text-style-icon').removeClass('selected');
             $(this).addClass('selected');
