@@ -1,0 +1,102 @@
+#canvas-container {
+  /*display: inline-block;*/
+  /*float: right;*/
+  position: relative;
+  text-align: center;
+  height: 50vh;
+  min-height: 290px;
+  overflow: hidden;
+  text-align: center;
+  cursor: text;
+}
+
+@media (min-width: 768px) {
+  #canvas-container {
+    height: 100vh;
+    /*line-height: 100vh;*/
+  }
+}
+
+
+.info-wrapper {
+  position: absolute;
+  display: block;
+  width: 100%;
+  padding: 10px 40px;
+  z-index: 1000;
+}
+
+@media (min-width: 576px) {
+  .info-wrapper {
+    padding: 54px 40px;
+  }
+}
+
+.main-info {
+  padding-top: 5px;
+  display: inline-block;
+  float: left;
+  text-align: left;
+  color: #b3b3b3;
+  line-height: 1rem;
+  cursor: crosshair;
+}
+
+@media (min-width: 576px) {
+  .main-info {
+    padding-top: 0;
+  }
+}
+
+.main-info > h1 {
+  margin-top: 0;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.main-info > p {
+  font-style: italic;
+  font-size: 0.9rem;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .main-info > p {
+    display: block;
+  }
+}
+
+.app-name {
+  display: inline-block;
+  float: right;
+  color: #b3b3b3;
+  cursor: crosshair;
+
+  h1 {
+    margin-top: 0;
+    font-size: 1rem;
+    font-weight: normal;
+  }
+}
+
+#canvas-wrapper > canvas {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+#text-input, #text-input:focus, #text-input:active {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  background: rgba(0,0,0,0);
+  color: rgba(0,0,0,0);
+  resize: none;
+  border: none;
+  outline: none;
+}

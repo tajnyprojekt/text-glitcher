@@ -1,0 +1,17 @@
+html,body {
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+body {
+  font-family: 'Space Mono', monospace;
+  cursor: crosshair;
+  padding-top: $header-bar--height;
+  padding-bottom: $control-panel--base-size;
+  margin: 0;
+  background: #ffffff;
+
+  @include atMedium {
+    padding: 0;
+  }
+}

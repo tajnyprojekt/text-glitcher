@@ -1,0 +1,17 @@
+button {
+  font-family: 'Space Mono', monospace;
+  text-align: center;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  background: #000000;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 5px;
+
+  &.button-full {
+    width: 100%;
+  }
+}

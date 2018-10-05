@@ -1,0 +1,10 @@
+input[type=text] {
+  outline: none;
+  border: $border-size solid $color-gray;
+  font-size: 0.9em;
+  width: 100%;
+
+  &:focus,&:active {
+    outline: none;
+  }
+}

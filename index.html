@@ -24,7 +24,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="vendors/bootstrap-4.0.0/bootstrap-grid.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="vendors/bootstrap-4.0.0/bootstrap-grid.min.css">-->
+    <link rel="stylesheet" type="text/css" href="vendors/bootstrap-4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="resources/css/custom-select.css">
     <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 
@@ -40,300 +41,224 @@
     </script>
 </head>
 <body>
-    <div class="row no-gutters">
 
-        <div id="canvas-container" class="col-12 col-md order-md-12">
+    <div class="container-fluid h-100 charramba">
 
-            <div class="info-wrapper">
-                <div class="main-info">
-                    <h1>
-                        <b>GLITCH TYPE</b> GENERATOR
-                    </h1>
-                    <p>
-                        Create your own version<br>
-                        of glitch type by using<br>
-                        sliders on the left<br>
-                        screen side. Click on <br>
-                        this area to input text
-                    </p>
-                </div>
+        <div class="row justify-content-center h-100">
 
-                <div class="app-name">
-                    <h1>
-                        <b>charramba</b> <i>v0.12</i><br><br>
-
-                    </h1>
-                </div>
+            <div class="col-12 col-md order-md-12">
+                Graphics panel
             </div>
 
-            <div id="canvas-wrapper"></div>
-
-            <textarea id="text-input"
-                      autofocus
-                      oninput="setText(this.value);"
-            ></textarea>
-
-            <div class="footer main">
-                Made with &#9829; | <a target="_blank" href="http://tajnyprojekt.com"><b>tajny</b>_projekt</a>
-            </div>
-        </div>
-
-
-        <div class="col-12 col-md controls-container border">
-            <div class="controls-container-content">
-            <a id="website-link"
-               class="bottom-border button button-full"
-               href="http://tajnyprojekt.com"
-            >
-                <img src="resources/img/logo.svg"
-                     class="logo"
-                     target="_blank"
-                     alt="tajny_projekt">
-            </a>
-
-            <div class="bottom-border controls-section">
-                <div class="controls-section-header">
-                    <div class="collapse-icon-container">
-                        <span class="collapse-icon-helper"></span>
-                        <img class="collapse-icon up" src="resources/img/icons/arrow.svg">
-                    </div>
-                    <h2>TEXT OPTIONS</h2>
-                </div>
-                <div class="controls-section-content">
-                    <div class="control-section">
-                        <div class="custom-select control">
-                            <select id="font-input"
-                                    oninput="setTextFont(this.value);"
-                                    onchange="setTextFont(this.value);"
-                            >
-                                <option selected disabled value="chuj">SELECT FONT</option>
-                                <option value="Arial"           ><div style="font-family: 'Arial'"           >Arial</div></option>
-                                <option value="Courier New"     ><span style="font-family: 'Courier New'"     >Courier New</span></option>
-                                <option value="Georgia"         ><span style="font-family: 'Georgia'"         >Georgia</span></option>
-                                <option value="Times New Roman" ><span style="font-family: 'Times New Roman'" >Times New Roman</span></option>
-                                <option value="Trebuchet MS"    ><span style="font-family: 'Trebuchet MS'"    >Trebuchet MS</span></option>
-                                <option value="Verdana"         ><span style="font-family: 'Verdana'"         >Verdana</span></option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <label for="custom-font-input"
-                           class="button button-full"
-                    >UPLOAD FONT</label>
-                    <input id="custom-font-input"
-                           type="file"
-                           accept=".ttf, .otf"
-                           class="button "
-
-                           onchange="setCustomTextFont(this.files);"
+            <div class="col-12 col-md-4 col-lg-3 col-xl-2 p-0 control-panel">
+                <div class="w-100 header-bar">
+                    <a id="website-link"
+                       class=""
+                       href="http://tajnyprojekt.com"
+                       target="_blank"
                     >
+                        <img src="resources/img/logo.svg"
+                             class="header-bar__logo"
+                             alt="tajny_projekt">
+                    </a>
+                </div>
 
-                    <div class="control-section">
-                        <div class="text-icons-wrapper">
-                            <img class="text-icon text-style-icon"
-                                 src="resources/img/icons/bold.svg"
-                                 onclick="setTextStyle(BOLD)"
-                            >
-                            <img class="text-icon text-style-icon"
-                                 src="resources/img/icons/italic.svg"
-                                 onclick="setTextStyle(ITALIC)"
-                            >
+                <div class="row no-gutters justify-content-center h-100">
 
-                            <img class="text-icon text-align-icon"
-                                 src="resources/img/icons/align-left.svg"
-                                 onclick="setAlign(LEFT)"
-                            >
-                            <img class="text-icon text-align-icon selected"
-                                 src="resources/img/icons/align-center.svg"
-                                 onclick="setAlign(CENTER)"
-                            >
-                            <img class="text-icon text-align-icon"
-                                 src="resources/img/icons/align-right.svg"
-                                 onclick="setAlign(RIGHT)"
-                            >
+                    <div class="col-12 col-md-9 col-xl-10 order-md-12 tool-menu">
+                        <div class="tool-menu__content-wrapper">
+                            <div data-tool="canvas" class="tool-menu__item js-tool-menu">
+                                <div class="tool-menu__item__name">Canvas</div>
+                                <div class="tool-menu__item__controls">
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control-group__name">Size</div>
+                                        <div class="tool-menu__item__control">
+                                            <div class="tool-menu__item__control__name">width</div>
+                                            <input type="text" class="text-right js-control" placeholder="Type width" value="640">
+                                        </div>
+                                        <div class="tool-menu__item__control">
+                                            <div class="tool-menu__item__control__name">height</div>
+                                            <input type="text" class="text-right js-control" placeholder="Type height" value="320">
+                                        </div>
+                                    </div>
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control-group__name">Background</div>
+                                        <div class="tool-menu__item__control">
+                                            <div class="tool-menu__item__control__name">color</div>
+                                            <!--<input type="text" class="text-right js-control" placeholder="Type width" value="#000000">-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-tool="text" class="tool-menu__item js-tool-menu">
+                                <div class="tool-menu__item__name">Text</div>
+                                <div class="tool-menu__item__controls">
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control">
+                                            <div class="tool-menu__item__control__name">text</div>
+                                            <textarea rows="2" placeholder="Type text to be glitched"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control-group__name">Font</div>
+                                        <div class="tool-menu__item__control">
+                                            <!--<div class="tool-menu__item__control__name">font</div>-->
+                                            <div class="custom-select">
+                                                <select class="js-control">
+                                                    <option selected disabled value="">SELECT FONT</option>
+                                                    <option value="Space Mono"      >Space Mono</option>
+                                                    <option value="Arial"           > Arial</option>
+                                                    <option value="Courier New"     >Courier New</option>
+                                                    <option value="Georgia"         >Georgia</option>
+                                                    <option value="Times New Roman" >Times New Roman</option>
+                                                    <option value="Trebuchet MS"    >Trebuchet MS</option>
+                                                    <option value="Verdana"         >Verdana</option>
+                                                    <option value="other"           >ADD OTHER...</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="tool-menu__item__control-group">
+                                            <div class="tool-menu__item__control-group__name">Style</div>
+                                            <div class="tool-menu__item__control">
+                                                <div class="buttons-bar">
+                                                    <img class="buttons-bar__icon"
+                                                         src="resources/img/icons/bold.svg">
+
+                                                    <img class="buttons-bar__icon"
+                                                         src="resources/img/icons/italic.svg">
+
+                                                    <img class="buttons-bar__icon"
+                                                         src="resources/img/icons/align-left.svg">
+
+                                                    <img class="buttons-bar__icon selected"
+                                                         src="resources/img/icons/align-center.svg">
+
+                                                    <img class="buttons-bar__icon"
+                                                         src="resources/img/icons/align-right.svg">
+                                                </div>
+                                                <div class="tool-menu__item__control">
+                                                    <div class="tool-menu__item__control__name">size</div>
+                                                    <input type="range" class="js-control">
+                                                </div>
+                                                <div class="tool-menu__item__control">
+                                                    <div class="tool-menu__item__control__name">line height</div>
+                                                    <input type="range" class="js-control">
+                                                </div>
+                                                <div class="tool-menu__item__control">
+                                                    <div class="tool-menu__item__control__name">letter spacing</div>
+                                                    <input type="range" class="js-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-tool="shift" class="tool-menu__item js-tool-menu">
+                                <div class="tool-menu__item__name">Shift</div>
+                                <div class="tool-menu__item__controls">
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control-group__name">Horizontal</div>
+                                        <div class="tool-menu__item__control">
+                                            <div class="tool-menu__item__control__name">shift</div>
+                                            <input type="range" class="js-control">
+                                        </div>
+                                        <div class="tool-menu__item__control">
+                                            <div class="tool-menu__item__control__name">size</div>
+                                            <input type="range" class="js-control">
+                                        </div>
+                                    </div>
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control-group__name">Vertical</div>
+                                        <div class="tool-menu__item__control">
+                                            <div class="tool-menu__item__control__name">shift</div>
+                                            <input type="range" class="js-control">
+                                        </div>
+                                        <div class="tool-menu__item__control">
+                                            <div class="tool-menu__item__control__name">size</div>
+                                            <input type="range" class="js-control">
+                                        </div>
+                                    </div>
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control-group__name">Chromatic</div>
+                                        <div class="tool-menu__item__control">
+                                            <div class="tool-menu__item__control__name">shift</div>
+                                            <input type="range" class="js-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-tool="glitch" class="tool-menu__item js-tool-menu">
+                                <div class="tool-menu__item__name">Glitch</div>
+                                <div class="tool-menu__item__controls">
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control-group__name">Lowpass</div>
+                                        <div class="tool-menu__item__control">
+                                            <div class="tool-menu__item__control__name">treshold</div>
+                                            <input type="range" class="js-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-tool="download" class="tool-menu__item js-tool-menu">
+                                <div class="tool-menu__item__name">Download</div>
+                                <div class="tool-menu__item__controls">
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control">
+                                            <div class="tool-menu__item__control__name">filename</div>
+                                            <input type="text" class="js-control" placeholder="Type filename">
+                                        </div>
+                                        <div class="tool-menu__item__control-group">
+                                            <div class="tool-menu__item__control">
+                                                <button class="button-full js-control">download</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-tool="info" class="tool-menu__item js-tool-menu">
+                                <div class="tool-menu__item__name">Info</div>
+                                <div class="tool-menu__item__controls">
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control-group__name">Charramba</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="control-section">
-                        <label for="text-size-slider">TEXT SIZE</label>
-                        <input id="text-size-slider"
-                               class="control slider"
-                               type="range"
-                               min="2"
-                               max="255"
-                               step="1"
-                               oninput="setTextSize(this.value);"
-                               onchange="setTextSize(this.value);"
-                        >
-                    </div>
+                    <div class="col-12 col-md-3 col-xl-2 p-0 toolbar">
+                        <!--no spaces between divs!-->
+                        <div data-tool="canvas" class="toolbar__tool-button js-tool-button">
+                            <span>C</span>
+                        </div><div data-tool="text" class="toolbar__tool-button js-tool-button">
+                            <span>T</span>
+                        </div><div data-tool="shift" class="toolbar__tool-button js-tool-button">
+                            <span>S</span>
+                        </div><div data-tool="glitch" class="toolbar__tool-button js-tool-button">
+                            <span>G</span>
+                        </div><div data-tool="download" class="toolbar__tool-button js-tool-button">
+                            <span>D</span>
+                        </div><div data-tool="info" class="toolbar__tool-button js-tool-button">
+                            <span>i</span>
+                        </div>
 
-                    <div class="control-section">
-                        <label for="line-height-slider">LEADING</label>
-                        <input id="line-height-slider"
-                               class="control slider"
-                               type="range"
-                               min="0"
-                               max="255"
-                               step="1"
-                               oninput="setLineHeight(this.value);"
-                               onchange="setLineHeight(this.value);"
-                        >
                     </div>
                 </div>
 
             </div>
 
-            <div class="bottom-border controls-section">
-                <div class="controls-section-header">
-                    <div class="collapse-icon-container">
-                        <span class="collapse-icon-helper"></span>
-                        <img class="collapse-icon up" src="resources/img/icons/arrow.svg">
-                    </div>
-                    <h2>HORIZONTAL</h2>
-                </div>
-                <div class="controls-section-content">
-                    <div class="control-section">
-                        <label for="row-shift-slider">SHIFT</label>
-                        <input id="row-shift-slider"
-                               class="control slider"
-                               type="range"
-                               min="-80"
-                               max="80"
-                               step="1"
-                               oninput="setRowShift(this.value);"
-                               onchange="setRowShift(this.value);"
-                        >
-                    </div>
-
-                    <div class="control-section">
-                        <label for="row-height-slider">SIZE</label>
-                        <input id="row-height-slider"
-                               class="control slider"
-                               type="range"
-                               min="1"
-                               max="254"
-                               step="1"
-                               oninput="setRowHeight(256 - this.value);"
-                               onchange="setRowHeight(256 - this.value);"
-                        >
-                    </div>
-                </div>
-            </div>
-
-            <div class="bottom-border controls-section">
-                <div class="controls-section-header">
-                    <div class="collapse-icon-container">
-                        <span class="collapse-icon-helper"></span>
-                        <img class="collapse-icon up" src="resources/img/icons/arrow.svg">
-                    </div>
-                    <h2>VERTICAL</h2>
-                </div>
-                <div class="controls-section-content">
-                    <div class="control-section">
-                        <label for="column-shift-slider">SHIFT</label>
-                        <input id="column-shift-slider"
-                               class="control slider"
-                               type="range"
-                               min="-80"
-                               max="80"
-                               step="1"
-                               oninput="setColumnShift(this.value);"
-                               onchange="setColumnShift(this.value);"
-                        >
-                    </div>
-
-                    <div class="control-section">
-                        <label for="column-width-slider">SIZE</label>
-                        <input id="column-width-slider"
-                               class="control slider"
-                               type="range"
-                               min="1"
-                               max="250"
-                               step="1"
-                               oninput="setColumnWidth(256 - this.value);"
-                               onchange="setColumnWidth(256 - this.value);"
-                        >
-                    </div>
-                </div>
-            </div>
-
-            <div class="bottom-border controls-section">
-                <div class="controls-section-header">
-                    <div class="collapse-icon-container">
-                        <span class="collapse-icon-helper"></span>
-                        <img class="collapse-icon up" src="resources/img/icons/arrow.svg">
-                    </div>
-                    <h2>CHROMATIC</h2>
-                </div>
-                <div class="controls-section-content">
-                    <div class="control-section">
-                        <label for="aberration-shift-slider">SHIFT</label>
-                        <input id="aberration-shift-slider"
-                               class="control slider"
-                               type="range"
-                               min="0"
-                               max="2"
-                               step="0.05"
-                               oninput="setAberrationShift(this.value);"
-                               onchange="setAberrationShift(this.value);"
-                        >
-                    </div>
-
-                </div>
-            </div>
-
-            <button id="color-button"
-                    class="bottom-border button button-full"
-                    onclick="openColorPicker();"
-            >COLOR</button>
-            <input id="color-picker"
-                   class=""
-                   type="color"
-                   value="#000000"
-                   oninput="setColor(this.value); updateColorButton(this.value);"
-                   onchange="setColor(this.value); updateColorButton(this.value);"
-                   hidden
-            >
-
-            <button id="random-button"
-                    class="bottom-border button button-full"
-                    onclick="randomParams();"
-            >RANDOM</button>
-
-            <button id="reset-button"
-                    class="bottom-border button button-full"
-                    onclick="resetParams();"
-            >RESET</button>
-
-            <button id="download-button"
-                    class="bottom-border button button-full"
-                    onclick="download();"
-            >DOWNLOAD</button>
-
-
-            <!--<div class="controls-bottom-section">-->
-                <!--<button id="download-button"-->
-                        <!--class="bottom-border button"-->
-                        <!--onclick="download();"-->
-                <!--&gt;SAVE</button>-->
-            <!--</div>-->
-
-            <div class="footer controls">
-                Made with &#9829; | <a target="_blank" href="http://tajnyprojekt.com"><b>tajny</b>_projekt</a>
-            </div>
-            </div>
         </div>
-
-
     </div>
 
 
     <script src="vendors/jQuery/jquery-3.3.1.min.js"></script>
     <script src="vendors/p5/p5.min.js"></script>
     <script src="vendors/p5/p5.dom.min.js"></script>
-    <script src="resources/js/sketch.js"></script>
+    <script src="resources/js/core/sketch.js"></script>
     <script src="resources/js/custom-select.js"></script>
-    <script src="resources/js/scripts.js"></script>
+    <script src="resources/js/control-panel.js"></script>
+    <!--<script src="resources/js/scripts.js"></script>-->
 
 </body>
 </html>

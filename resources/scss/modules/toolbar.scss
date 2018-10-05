@@ -1,0 +1,43 @@
+.toolbar {
+  position: fixed;
+  bottom: 0;
+  height: $control-panel--base-size;
+  border: $border-size solid $color-gray;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space : nowrap;
+
+  @include atMedium {
+    position: relative;
+    height: auto;
+    border-top: none;
+  }
+
+  &__tool-button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    height: 100%;
+    width: $control-panel--base-size;
+    padding: 0;
+    border-right: $border-size solid $color-gray;
+
+
+    @include atMedium {
+      display: block;
+      width: 100%;
+      height: auto;
+      padding-top: 100%;
+      border-bottom: $border-size solid $color-gray;
+      border-right: none;
+    }
+
+    span {
+      position: absolute;
+      top: 0; bottom: 0; left: 0; right: 0;
+      text-align: center;
+      line-height: 100%;
+      padding: 10px;
+    }
+  }
+}

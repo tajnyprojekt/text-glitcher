@@ -1,0 +1,12 @@
+.buttons-bar {
+  text-align: center;
+
+  &__icon {
+    cursor: pointer;
+    width: 10%;
+
+    &.selected {
+      opacity: 0.5;
+    }
+  }
+}

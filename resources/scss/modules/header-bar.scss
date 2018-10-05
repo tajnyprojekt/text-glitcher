@@ -1,0 +1,19 @@
+.header-bar {
+  height: 3.5em;
+  background-color: $color-black;
+  text-align: center;
+  border: $border-size solid $color-gray;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  @include atMedium {
+    position: relative;
+  }
+
+  &__logo {
+    display: inline-block;
+    height: 100%;
+    padding: 0.5em;
+  }
+}

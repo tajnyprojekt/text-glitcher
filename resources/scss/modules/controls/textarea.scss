@@ -1,0 +1,15 @@
+textarea {
+  outline: none;
+  resize: vertical;
+  overflow: auto;
+  border: $border-size solid $color-gray;
+  font-size: 0.9em;
+  min-height: 3em;
+  max-height: 8em;
+  width: 100%;
+
+  &:focus,&:active {
+    outline: none;
+  }
+
+}

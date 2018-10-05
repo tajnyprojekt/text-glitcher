@@ -1,0 +1,18 @@
+@import "basic/mixins";
+@import "basic/colors";
+@import "basic/variables";
+@import "basic/body";
+
+@import "modules/controls/input-range";
+@import "modules/controls/input-text";
+@import "modules/controls/textarea";
+@import "modules/controls/button";
+@import "modules/controls/buttons-bar";
+
+@import "modules/canvas";
+@import "modules/header-bar";
+@import "modules/toolbar";
+@import "modules/tool-menu";
+@import "modules/footer";
+
+@import "modules/control-panel";

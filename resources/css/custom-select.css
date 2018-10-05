@@ -1,7 +1,7 @@
 /*the container must be positioned relative:*/
 .custom-select {
     position: relative;
-    font-family: 'Space Mono', monospace;
+    /*font-family: 'Space Mono', monospace;*/
     text-align: left;
     display: inline-block;
     min-width: 165px;
