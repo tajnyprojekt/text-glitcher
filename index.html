@@ -49,10 +49,12 @@
 
         <div class="row justify-content-center h-100">
 
-            <div class="col-12 col-md order-md-12">
-                Graphics panel
+<!--graphics area-->
+            <div class="col-12 col-md order-md-12 text-center graphics-area">
+                <div id="canvas-container" class="graphics-area__canvas-wrapper"></div>
             </div>
 
+<!--control panel            -->
             <div class="col-12 col-md-4 col-lg-3 col-xl-2 p-0 control-panel">
                 <div class="w-100 header-bar">
                     <a id="website-link"
@@ -372,12 +374,14 @@
 
     <script src="vendors/jQuery/jquery-3.3.1.min.js"></script>
     <script src="vendors/bootstrap-4.0.0/js/bootstrap.min.js"></script>
+    <script src="vendors/panzoom/panzoom.min.js"></script>
     <script src="vendors/p5/p5.min.js"></script>
     <script src="vendors/p5/p5.dom.min.js"></script>
-    <!--<script src="resources/js/core/sketch.js"></script>-->
+    <script src="resources/js/core/charramba-params.js"></script>
+    <script src="resources/js/core/charramba-core.js"></script>
     <script src="resources/js/font-select.js"></script>
     <script src="resources/js/control-panel.js"></script>
-    <!--<script src="resources/js/scripts.js"></script>-->
+    <script src="resources/js/graphics-area.js"></script>
 
 </body>
 </html>
