@@ -1,7 +1,51 @@
+var controlPanel;
+var CONTROLS;
+
 $(function() {
 
-    // enable tooltips
-    // $('[data-toggle="tooltip"]').tooltip({ trigger: "hover" });
+    CONTROLS = {
+        canvas: {
+            size: {
+                width: 'size-width',
+                heigth: 'size-height'
+            },
+            background: {
+                color: 'background-color'
+            },
+            zoom: {
+                amount: 'zoom-amount',
+                reset: 'zoom-reset'
+            }
+        },
+        text: {
+
+        },
+        shift: {
+
+        },
+        glitch: {
+
+        },
+        download: {
+
+        }
+    };
+
+    controlPanel = {
+
+        getControl: function (dataFunction) {
+            return $('.js-control[data-function="' + dataFunction + '"]');
+        },
+
+        getControlValue: function (dataFunction) {
+            return this.getControl(dataFunction).val();
+        },
+
+        setControlValue: function (dataFunction, value) {
+            this.getControl(dataFunction).val(value);
+        }
+
+    };
 
     // show selected tool menu
     $('.js-tool-button').on('click', function () {

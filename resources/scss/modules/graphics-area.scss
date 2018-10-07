@@ -15,8 +15,11 @@
       bottom: 0;
       right: 0;
       margin: auto;
+      border: 4px dashed $color-dark-gray;
 
-      border: 2px dashed $color-dark-gray;
+      @include atMedium {
+        border: 2px dashed $color-dark-gray;
+      }
     }
   }
 }

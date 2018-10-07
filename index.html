@@ -82,7 +82,7 @@
                                                 <div class="tool-menu__item__control__name">width</div>
                                                 <div class="number-input">
                                                     <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
-                                                    <input class="quantity js-control" min="0" name="quantity" value="640" type="number">
+                                                    <input data-function="size-width" class="quantity js-control" min="0" name="quantity" value="640" type="number">
                                                     <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                                 </div>
                                             </div>
@@ -90,7 +90,7 @@
                                                 <div class="tool-menu__item__control__name">height</div>
                                                 <div class="number-input">
                                                     <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
-                                                    <input class="quantity" min="0" name="quantity" value="320" type="number">
+                                                    <input data-function="size-height" class="quantity" min="0" name="quantity" value="320" type="number">
                                                     <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                                 </div>
                                             </div>
@@ -102,7 +102,19 @@
                                         <div class="tool-menu__item__control-group__content">
                                             <div class="tool-menu__item__control">
                                                 <div class="tool-menu__item__control__name">color</div>
-                                                <button class="button-full background-color-picker js-control">pick color</button>
+                                                <button data-function="background-color" class="button-full background-color-picker js-control">pick color</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control-group__name">Zoom</div>
+                                        <div class="tool-menu__item__control-group__content">
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">amount</div>
+                                                <input data-function="zoom-amount" type="range" class="js-control">
+                                            </div>
+                                            <div class="tool-menu__item__control">
+                                                <button data-function="zoom-reset" class="button-full js-control">reset zoom</button>
                                             </div>
                                         </div>
                                     </div>
@@ -382,6 +394,8 @@
     <script src="resources/js/font-select.js"></script>
     <script src="resources/js/control-panel.js"></script>
     <script src="resources/js/graphics-area.js"></script>
+
+    <script src="resources/js/tools/tool-canvas.js"></script>
 
 </body>
 </html>
