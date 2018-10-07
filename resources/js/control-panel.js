@@ -1,5 +1,8 @@
 $(function() {
 
+    // enable tooltips
+    // $('[data-toggle="tooltip"]').tooltip({ trigger: "hover" });
+
     // show selected tool menu
     $('.js-tool-button').on('click', function () {
         var tool = $(this).data('tool');
