@@ -46,6 +46,7 @@ $(function() {
 
                 if (selectedValue === 'other') { // handle ADD OTHER option
                     c.style = "font-family: Space Mono; font-weight: bold;";
+                    c.classList.add("import-button");
                     c.addEventListener("click", function (e) {
                         /*when an item is clicked, update the original select box,
                         and the selected item:*/
@@ -61,7 +62,9 @@ $(function() {
                                 alert('add font');
                                 var newFont = document.createElement("DIV");
                                 newFont.innerText = 'new font';
-                                $(newFont).prependTo(b);
+                                parentElement.insertBefore(newElement, parentElement.children[2]);
+                                // $(newFont).prependTo(b);
+                                b.insertBefore(newFont, b.children[1]);
 
                                 break;
                             }

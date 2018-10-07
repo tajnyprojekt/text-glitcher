@@ -1,0 +1,64 @@
+$number-input-height: 1.5em;
+
+input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.number-input {
+  border: 2px solid $color-gray;
+  display: inline-flex;
+}
+
+.number-input,
+.number-input * {
+  box-sizing: border-box;
+}
+
+.number-input button {
+  outline:none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: $number-input-height;
+  height: $number-input-height;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+  padding: 0;
+}
+
+.number-input button:before,
+.number-input button:after {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  width: $number-input-height / 2;
+  height: 2px;
+  background-color: #212121;
+  transform: translate(-50%, -50%);
+}
+.number-input button.plus:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.number-input input[type=number] {
+  font-family: "Space Mono", monospace;
+  max-width: 5em;
+  width: calc(100% - 3em);
+  padding: 0em;
+  border: solid $color-gray;
+  border-width: 0 0px;
+  font-size: 0.9em;
+  height: $number-input-height;
+  //font-weight: bold;
+  text-align: center;
+}

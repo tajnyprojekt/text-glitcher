@@ -126,7 +126,7 @@ textarea {
   textarea:focus, textarea:active {
     outline: none; }
 
-button {
+button, .button {
   font-family: 'Space Mono', monospace;
   text-align: center;
   border: none;
@@ -138,7 +138,7 @@ button {
   font-size: 1rem;
   cursor: pointer;
   padding: 5px; }
-  button.button-full {
+  button.button-full, .button.button-full {
     width: 100%; }
 
 .buttons-bar {
@@ -166,6 +166,132 @@ button {
 .pcr-clear {
   background: #fff !important;
   color: #000 !important; }
+
+.select {
+  position: relative;
+  height: 47.5px;
+  background: #000;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.05); }
+  .select:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    right: 10px;
+    bottom: 0;
+    margin: auto;
+    border-style: solid;
+    border-width: 5px 5px 0 5px;
+    border-color: #fff transparent transparent transparent;
+    pointer-events: none; }
+  .select:before {
+    width: 30px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    background: #000;
+    content: '';
+    pointer-events: none; }
+  .select:hover:before {
+    background: #000; }
+  .select__import-button {
+    background: #e6e6e6;
+    color: #000;
+    font-family: "Space Mono", monospace; }
+  .select__option {
+    font-size: 0.9em;
+    padding-top: 10px;
+    color: #fff;
+    background: #222222; }
+    .select__option:hover {
+      background: #000; }
+  .select select {
+    font-size: 14px;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    padding-right: 35px;
+    padding-left: 15px;
+    border: 1px solid #000;
+    color: #fff !important;
+    -moz-appearance: none;
+    -webkit-appearance: none; }
+    .select select:-moz-focusring {
+      color: transparent;
+      text-shadow: 0 0 0 #000; }
+    .select select::-ms-expand {
+      display: none; }
+    .select select:focus {
+      border-color: #000;
+      outline: none; }
+
+@media all and (min-width: 0\0) and (min-resolution: 0.001dpcm) {
+  .select select {
+    padding-right: 0; }
+  .select:after, .select:before {
+    display: none; } }
+
+input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield; }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none; }
+
+.number-input {
+  border: 2px solid #e6e6e6;
+  display: inline-flex; }
+
+.number-input,
+.number-input * {
+  box-sizing: border-box; }
+
+.number-input button {
+  outline: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+  padding: 0; }
+
+.number-input button:before,
+.number-input button:after {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  width: 0.75em;
+  height: 2px;
+  background-color: #212121;
+  transform: translate(-50%, -50%); }
+
+.number-input button.plus:after {
+  transform: translate(-50%, -50%) rotate(90deg); }
+
+.number-input input[type=number] {
+  font-family: "Space Mono", monospace;
+  max-width: 5em;
+  width: calc(100% - 3em);
+  padding: 0em;
+  border: solid #e6e6e6;
+  border-width: 0 0px;
+  font-size: 0.9em;
+  height: 1.5em;
+  text-align: center; }
 
 #canvas-container {
   /*display: inline-block;*/
@@ -304,7 +430,9 @@ button {
       right: 0;
       text-align: center;
       line-height: 100%;
-      padding: 10px; }
+      padding: 0; }
+    .toolbar__tool-button.opened {
+      background: #e6e6e6; }
 
 .tool-menu {
   border: 2px solid #e6e6e6;
@@ -321,38 +449,112 @@ button {
     width: 100%; }
   .tool-menu__item {
     position: absolute;
-    left: 0;
+    left: -100%;
     top: 0;
     padding: 15px;
-    width: 0;
+    width: 100%;
     opacity: 0;
-    -webkit-transition: width 0.4s, opacity 0.2s;
-    transition: width 0.4s, opacity 0.2s; }
+    -webkit-transition: left 0.4s, opacity 0.2s, visibility 0.2s;
+    transition: left 0.4s, opacity 0.2s, visibility 0.2s;
+    overflow: hidden;
+    visibility: hidden; }
     .tool-menu__item.opened {
-      width: 100%;
+      left: 0;
       opacity: 1;
-      -webkit-transition: width 0.4s, opacity 0.2s;
-      transition: width 0.4s, opacity 0.2s; }
+      -webkit-transition: left 0.4s, opacity 0.2s, visibility 0.2s;
+      transition: left 0.4s, opacity 0.2s, visibility 0.2s;
+      visibility: visible; }
     .tool-menu__item__name {
       font-style: italic;
       font-size: 1.2em;
       font-weight: bold;
-      text-transform: uppercase; }
+      text-transform: uppercase;
+      display: none; }
+      @media (min-width: 768px) {
+        .tool-menu__item__name {
+          display: block; } }
+      .tool-menu__item__name.no-hide {
+        display: block; }
     .tool-menu__item__control {
       cursor: pointer; }
+      @media (min-width: 768px) {
+        .tool-menu__item__control {
+          margin-bottom: 30px; } }
       .tool-menu__item__control__name {
         text-align: left; }
+        @media (min-width: 992px) {
+          .tool-menu__item__control__name {
+            margin-bottom: 10px; } }
       .tool-menu__item__control__caption {
         margin-top: 10px;
         text-align: left;
         font-size: 0.8em;
         color: #666666; }
     .tool-menu__item__control-group {
-      margin-top: 15px; }
+      position: relative;
+      display: inline-block; }
+      @media (min-width: 768px) {
+        .tool-menu__item__control-group {
+          margin-top: 30px;
+          display: block; } }
+      .tool-menu__item__control-group.opened {
+        display: block;
+        text-align: center; }
+      .tool-menu__item__control-group.hidden {
+        display: none; }
+        @media (min-width: 768px) {
+          .tool-menu__item__control-group.hidden {
+            display: block; } }
       .tool-menu__item__control-group__name {
         text-align: center;
         font-weight: bold;
-        text-transform: uppercase; }
+        text-transform: uppercase;
+        border: 2px solid #e6e6e6;
+        display: inline-block;
+        padding: 5px; }
+        @media (min-width: 768px) {
+          .tool-menu__item__control-group__name {
+            margin-bottom: 15px;
+            border: none;
+            display: block;
+            padding: 0;
+            position: relative;
+            left: auto;
+            top: auto; } }
+        .tool-menu__item__control-group__name.only-mobile {
+          display: inline-block; }
+          @media (min-width: 768px) {
+            .tool-menu__item__control-group__name.only-mobile {
+              display: none; } }
+      .tool-menu__item__control-group__content {
+        opacity: 0;
+        position: absolute;
+        visibility: hidden;
+        left: -100%;
+        top: 0;
+        -webkit-transition: left 0.4s, opacity 0.2s, visibility 0.2s;
+        transition: left 0.4s, opacity 0.2s, visibility 0.2s; }
+        @media (min-width: 768px) {
+          .tool-menu__item__control-group__content {
+            opacity: 1;
+            position: relative;
+            visibility: visible;
+            left: 0;
+            -webkit-transition: left 0.4s, opacity 0.2s, visibility 0.2s;
+            transition: left 0.4s, opacity 0.2s, visibility 0.2s; } }
+        .tool-menu__item__control-group__content.opened {
+          width: 100%;
+          opacity: 1;
+          display: block;
+          position: relative;
+          visibility: visible;
+          left: 0;
+          top: 0.2em;
+          -webkit-transition: left 0.4s, opacity 0.2s, visibility 0.2s;
+          transition: left 0.4s, opacity 0.2s, visibility 0.2s; }
+          @media (min-width: 768px) {
+            .tool-menu__item__control-group__content.opened {
+              top: 0; } }
 
 .footer {
   position: absolute;
@@ -382,3 +584,29 @@ button {
 @media (min-width: 768px) {
   .footer.controls {
     display: none; } }
+
+.font-import .modal-header, .font-import .modal-footer {
+  border: none; }
+  .font-import .modal-header .close, .font-import .modal-footer .close {
+    color: #e6e6e6; }
+
+.font-import .modal-content {
+  border-radius: 0;
+  border: 2px solid #e6e6e6; }
+
+.font-import__title {
+  font-weight: bold;
+  font-style: italic; }
+
+.font-import__section {
+  margin-bottom: 30px; }
+  .font-import__section__name {
+    font-weight: bold;
+    margin-bottom: 15px; }
+  .font-import__section code {
+    color: #666666; }
+  .font-import__section__input {
+    height: 3em;
+    padding: 1em; }
+  .font-import__section__message {
+    color: red; }

@@ -1,0 +1,110 @@
+// Select styling
+
+.select {
+  position: relative;
+  height: 47.5px;
+  background: $color-black;
+  box-shadow: 0 3px 0 rgba(0,0,0,.05);
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    right: 10px;
+    bottom: 0;
+    margin: auto;
+    border-style: solid;
+    border-width: 5px 5px 0 5px;
+    border-color: $color-white transparent transparent transparent;
+    pointer-events: none;
+  }
+
+  &:before {
+    width: 30px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    background: $color-black;
+    content: '';
+    pointer-events: none;
+  }
+
+  &:hover {
+    &:before {
+      background: $color-black;
+    }
+  }
+
+  &__import-button {
+    background: $color-gray;
+    color: $color-black;
+    font-family: "Space Mono", monospace;
+  }
+
+  &__option {
+    font-size: 0.9em;
+    padding-top: 10px;
+    color: $color-white;
+    background: $color-darker-gray;
+
+    &:hover {
+      background: $color-black;
+    }
+
+
+  }
+
+  select {
+    font-size: 14px;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    padding-right: 35px;
+    padding-left: 15px;
+    border: 1px solid $color-black;
+    color: $color-white !important;
+
+    // Disable default styling on ff
+    -moz-appearance: none;
+
+    // Disable ugly ass outline on firefox
+    &:-moz-focusring {
+      color: transparent;
+      text-shadow: 0 0 0 #000;
+    }
+
+    // Disable default styling on webkit browsers
+    -webkit-appearance: none;
+
+    // Disable default arrow on IE 11+
+    &::-ms-expand {
+      display: none;
+    }
+
+    &:focus {
+      border-color: $color-black;
+      outline: none;
+    }
+  }
+}
+
+// IE 9 only
+@media all and (min-width:0\0) and (min-resolution:.001dpcm){
+  .select{
+    select {
+      padding-right: 0;
+    }
+
+    &:after, &:before {
+      display: none;
+    }
+  }
+}

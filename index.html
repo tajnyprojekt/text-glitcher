@@ -75,58 +75,76 @@
                                 <div class="tool-menu__item__controls">
                                     <div class="tool-menu__item__control-group">
                                         <div class="tool-menu__item__control-group__name">Size</div>
-                                        <div class="tool-menu__item__control">
-                                            <div class="tool-menu__item__control__name">width</div>
-                                            <input type="text" class="text-right js-control" placeholder="Type width" value="640">
+                                        <div class="tool-menu__item__control-group__content">
+                                            <div class="text-center tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">width</div>
+                                                <div class="number-input">
+                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
+                                                    <input class="quantity js-control" min="0" name="quantity" value="640" type="number">
+                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                                </div>
+                                            </div>
+                                            <div class="text-center tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">height</div>
+                                                <div class="number-input">
+                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
+                                                    <input class="quantity" min="0" name="quantity" value="320" type="number">
+                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                                </div>
+                                            </div>
+                                            <p class="tool-menu__item__control__caption">warning: large workspace can reduce performance</p>
                                         </div>
-                                        <div class="tool-menu__item__control">
-                                            <div class="tool-menu__item__control__name">height</div>
-                                            <input type="text" class="text-right js-control" placeholder="Type height" value="320">
-                                        </div>
-                                        <p class="tool-menu__item__control__caption">warning: large workspace can reduce performance</p>
                                     </div>
                                     <div class="tool-menu__item__control-group">
                                         <div class="tool-menu__item__control-group__name">Background</div>
-                                        <div class="tool-menu__item__control">
-                                            <div class="tool-menu__item__control__name">color</div>
-                                            <button class="button-full background-color-picker js-control">pick color</button>
-
-                                            <!--<input type="text" class="text-right js-control" placeholder="Type width" value="#000000">-->
+                                        <div class="tool-menu__item__control-group__content">
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">color</div>
+                                                <button class="button-full background-color-picker js-control">pick color</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div data-tool="text" class="tool-menu__item js-tool-menu">
+                            <div data-tool="text" class="tool-menu__item js-tool-menu opened">
                                 <div class="tool-menu__item__name">Text</div>
                                 <div class="tool-menu__item__controls">
                                     <div class="tool-menu__item__control-group">
-                                        <div class="tool-menu__item__control">
-                                            <div class="tool-menu__item__control__name">text</div>
-                                            <textarea rows="2" placeholder="Type text to be glitched"></textarea>
+                                        <div class="tool-menu__item__control-group__name only-mobile">Text</div>
+                                        <div class="tool-menu__item__control-group__content">
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">text</div>
+                                                <textarea rows="3" autofocus placeholder="Type text to be glitched"></textarea>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="tool-menu__item__control-group">
-                                        <div class="tool-menu__item__control-group__name">Font</div>
-                                        <div class="tool-menu__item__control">
-                                            <!--<div class="tool-menu__item__control__name">font</div>-->
-                                            <div class="custom-select">
-                                                <select class="js-control">
-                                                    <option selected disabled value="">SELECT FONT</option>
-                                                    <option value="Space Mono"      >Space Mono</option>
-                                                    <option value="Arial"           > Arial</option>
-                                                    <option value="Courier New"     >Courier New</option>
-                                                    <option value="Georgia"         >Georgia</option>
-                                                    <option value="Times New Roman" >Times New Roman</option>
-                                                    <option value="Trebuchet MS"    >Trebuchet MS</option>
-                                                    <option value="Verdana"         >Verdana</option>
-                                                    <option value="other"           >ADD OTHER...</option>
-
-                                                </select>
+                                        <div class="tool-menu__item__control-group__name only-mobile">Font</div>
+                                        <div class="tool-menu__item__control-group__content">
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">font</div>
+                                                <div class="select">
+                                                    <!--custom-select-->
+                                                    <select class="js-control font-select">
+                                                        <option class="select__import-button" value="import-font"         >IMPORT FONT</option>
+                                                        <option class="select__option" selected style="font-family: Space Mono" value="Space Mono"  >Space Mono</option>
+                                                        <option class="select__option" style="font-family: Arial"           value="Arial"                > Arial</option>
+                                                        <option class="select__option" style="font-family: Courier New"     value="Courier New"          >Courier New</option>
+                                                        <option class="select__option" style="font-family: Georgia"         value="Georgia"              >Georgia</option>
+                                                        <option class="select__option" style="font-family: Times New Roman" value="Times New Roman"      >Times New Roman</option>
+                                                        <option class="select__option" style="font-family: Trebuchet MS"    value="Trebuchet MS"         >Trebuchet MS</option>
+                                                        <option class="select__option" style="font-family: Verdana"         value="Verdana"              >Verdana</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="tool-menu__item__control-group">
-                                            <div class="tool-menu__item__control-group__name">Style</div>
+                                    </div>
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control-group__name only-mobile">Style</div>
+                                        <div class="tool-menu__item__control-group__content">
+
                                             <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">style</div>
                                                 <div class="buttons-bar">
                                                     <img class="buttons-bar__icon"
                                                          src="resources/img/icons/bold.svg">
@@ -143,18 +161,27 @@
                                                     <img class="buttons-bar__icon"
                                                          src="resources/img/icons/align-right.svg">
                                                 </div>
-                                                <div class="tool-menu__item__control">
-                                                    <div class="tool-menu__item__control__name">size</div>
-                                                    <input type="range" class="js-control">
-                                                </div>
-                                                <div class="tool-menu__item__control">
-                                                    <div class="tool-menu__item__control__name">line height</div>
-                                                    <input type="range" class="js-control">
-                                                </div>
-                                                <div class="tool-menu__item__control">
-                                                    <div class="tool-menu__item__control__name">letter spacing</div>
-                                                    <input type="range" class="js-control">
-                                                </div>
+                                            </div>
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">color</div>
+                                                <button class="button-full text-color-picker js-control">pick color</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control-group__name only-mobile">Size</div>
+                                        <div class="tool-menu__item__control-group__content">
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">size</div>
+                                                <input type="range" class="js-control">
+                                            </div>
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">line height</div>
+                                                <input type="range" class="js-control">
+                                            </div>
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">letter spacing</div>
+                                                <input type="range" class="js-control">
                                             </div>
                                         </div>
                                     </div>
@@ -165,31 +192,37 @@
                                 <div class="tool-menu__item__controls">
                                     <div class="tool-menu__item__control-group">
                                         <div class="tool-menu__item__control-group__name">Horizontal</div>
-                                        <div class="tool-menu__item__control">
-                                            <div class="tool-menu__item__control__name">shift</div>
-                                            <input type="range" class="js-control">
-                                        </div>
-                                        <div class="tool-menu__item__control">
-                                            <div class="tool-menu__item__control__name">size</div>
-                                            <input type="range" class="js-control">
+                                        <div class="tool-menu__item__control-group__content">
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">shift</div>
+                                                <input type="range" class="js-control">
+                                            </div>
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">size</div>
+                                                <input type="range" class="js-control">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="tool-menu__item__control-group">
                                         <div class="tool-menu__item__control-group__name">Vertical</div>
-                                        <div class="tool-menu__item__control">
-                                            <div class="tool-menu__item__control__name">shift</div>
-                                            <input type="range" class="js-control">
-                                        </div>
-                                        <div class="tool-menu__item__control">
-                                            <div class="tool-menu__item__control__name">size</div>
-                                            <input type="range" class="js-control">
+                                        <div class="tool-menu__item__control-group__content">
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">shift</div>
+                                                <input type="range" class="js-control">
+                                            </div>
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">size</div>
+                                                <input type="range" class="js-control">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="tool-menu__item__control-group">
                                         <div class="tool-menu__item__control-group__name">Chromatic</div>
-                                        <div class="tool-menu__item__control">
-                                            <div class="tool-menu__item__control__name">shift</div>
-                                            <input type="range" class="js-control">
+                                        <div class="tool-menu__item__control-group__content">
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">shift</div>
+                                                <input type="range" class="js-control">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -199,9 +232,11 @@
                                 <div class="tool-menu__item__controls">
                                     <div class="tool-menu__item__control-group">
                                         <div class="tool-menu__item__control-group__name">Lowpass</div>
-                                        <div class="tool-menu__item__control">
-                                            <div class="tool-menu__item__control__name">treshold</div>
-                                            <input type="range" class="js-control">
+                                        <div class="tool-menu__item__control-group__content">
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">treshold</div>
+                                                <input type="range" class="js-control">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -210,24 +245,23 @@
                                 <div class="tool-menu__item__name">Download</div>
                                 <div class="tool-menu__item__controls">
                                     <div class="tool-menu__item__control-group">
-                                        <div class="tool-menu__item__control">
-                                            <div class="tool-menu__item__control__name">filename</div>
-                                            <input type="text" class="text-right js-control" placeholder="Type filename" value="untitled-1">
-                                        </div>
-                                        <div class="tool-menu__item__control">
-                                            <div class="tool-menu__item__control__name">format</div>
-                                            <div class="custom-select">
-                                                <select class="js-control">
-                                                    <option selected disabled value="*.png">*.png</option>
-                                                    <option selected value="*.png"    >*.png</option>
-                                                    <option value="*.jpg"             >*.jpg</option>
-                                                    <option value="*.bmp"             >*.bmp</option>
-
-                                                </select>
+                                        <div class="tool-menu__item__control-group__name only-mobile">Download</div>
+                                        <div class="tool-menu__item__control-group__content">
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">filename</div>
+                                                <input type="text" class="text-center js-control" placeholder="Type filename" value="untitled-1">
                                             </div>
-                                            <p class="tool-menu__item__control__caption">warning: not all formats support transparency</p>
-                                        </div>
-                                        <div class="tool-menu__item__control-group">
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">format</div>
+                                                <div class="select">
+                                                    <select class="js-control">
+                                                        <option class="select__option" value="*.png"    >*.png</option>
+                                                        <option class="select__option" value="*.jpg"    >*.jpg</option>
+                                                        <option class="select__option" value="*.bmp"    >*.bmp</option>
+                                                    </select>
+                                                </div>
+                                                <p class="tool-menu__item__control__caption">warning: not all formats support transparency</p>
+                                            </div>
                                             <div class="tool-menu__item__control">
                                                 <button class="button-full js-control">download</button>
                                             </div>
@@ -236,7 +270,7 @@
                                 </div>
                             </div>
                             <div data-tool="info" class="tool-menu__item js-tool-menu">
-                                <div class="tool-menu__item__name">Info</div>
+                                <div class="tool-menu__item__name no-hide">Info</div>
                                 <div class="tool-menu__item__controls">
                                     <div class="tool-menu__item__control-group">
                                         <div class="tool-menu__item__control-group__name">Charramba</div>
@@ -249,17 +283,29 @@
                     <div class="col-12 col-md-3 col-xl-2 p-0 toolbar">
                         <!--no spaces between divs!-->
                         <div data-tool="canvas" class="toolbar__tool-button js-tool-button">
-                            <span>C</span>
-                        </div><div data-tool="text" class="toolbar__tool-button js-tool-button">
-                            <span>T</span>
+                            <span>
+                                <img src="./resources/img/icons/toolbar-canvas.svg">
+                            </span>
+                        </div><div data-tool="text" class="toolbar__tool-button js-tool-button opened">
+                            <span>
+                                <img src="./resources/img/icons/toolbar-text.svg">
+                            </span>
                         </div><div data-tool="shift" class="toolbar__tool-button js-tool-button">
-                            <span>S</span>
+                            <span>
+                                <img src="./resources/img/icons/toolbar-shift.svg">
+                            </span>
                         </div><div data-tool="glitch" class="toolbar__tool-button js-tool-button">
-                            <span>G</span>
+                            <span>
+                                <img src="./resources/img/icons/toolbar-glitch.svg">
+                            </span>
                         </div><div data-tool="download" class="toolbar__tool-button js-tool-button">
-                            <span>D</span>
+                            <span>
+                                <img src="./resources/img/icons/toolbar-download.svg">
+                            </span>
                         </div><div data-tool="info" class="toolbar__tool-button js-tool-button">
-                            <span>i</span>
+                            <span>
+                                <img src="./resources/img/icons/toolbar-info.svg">
+                            </span>
                         </div>
 
                     </div>
@@ -268,14 +314,62 @@
             </div>
 
         </div>
+
+        <div class="modal fade font-import" id="font-import-modal" role="dialog">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title font-import__title">IMPORT FONT</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="font-import__section">
+                            <div class="font-import__section__name">Google Fonts</div>
+                            <p>
+                                Paste embed code from Google Fonts, e.g. <br>
+                                <code>
+                                    &lt;link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet"&gt;
+                                </code>
+                            </p>
+                            <input id="font-import-url" class="font-import__section__input" type="text" placeholder="Paste Google Fonts embed code">
+                            <p class="font-import__section__message"></p>
+                        </div>
+                        <!--<div class="font-import__section">-->
+                            <!--<div class="font-import__section__name">Upload file</div>-->
+                            <!--<p>-->
+                                <!--Upload a *.ttf or *.otf font file-->
+                            <!--</p>-->
+                            <!--<input id="font-import-upload"-->
+                                   <!--type="file"-->
+                                   <!--accept=".ttf, .otf"-->
+                                   <!--class="button"-->
+                            <!--&gt;-->
+                        <!--</div>-->
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button id="font-import-add" type="button" class="">ADD FONT</button>
+                        <button type="button" class="" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 
 
     <script src="vendors/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="vendors/bootstrap-4.0.0/js/bootstrap.min.js"></script>
     <script src="vendors/p5/p5.min.js"></script>
     <script src="vendors/p5/p5.dom.min.js"></script>
     <!--<script src="resources/js/core/sketch.js"></script>-->
-    <script src="resources/js/custom-select.js"></script>
+    <script src="resources/js/font-select.js"></script>
     <script src="resources/js/control-panel.js"></script>
     <!--<script src="resources/js/scripts.js"></script>-->
 

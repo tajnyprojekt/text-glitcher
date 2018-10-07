@@ -18,18 +18,23 @@
 
   &__item {
     position: absolute;
-    left: 0; top: 0;
+    left: -100%; top: 0;
     padding: 15px;
-    width: 0;
+    width: 100%;
+    //height: 100%;
     opacity: 0;
-    -webkit-transition: width $transition-length-default, opacity $transition-length-fast;
-    transition: width $transition-length-default, opacity $transition-length-fast;
+    -webkit-transition: left $transition-length-default, opacity $transition-length-fast, visibility $transition-length-fast;
+    transition: left $transition-length-default, opacity $transition-length-fast, visibility $transition-length-fast;
+
+    overflow: hidden;
+    visibility: hidden;
 
     &.opened {
-      width: 100%;
+      left: 0;
       opacity: 1;
-      -webkit-transition: width $transition-length-default, opacity $transition-length-fast;
-      transition: width $transition-length-default, opacity $transition-length-fast;
+      -webkit-transition: left $transition-length-default, opacity $transition-length-fast, visibility $transition-length-fast;
+      transition: left $transition-length-default, opacity $transition-length-fast, visibility $transition-length-fast;
+      visibility: visible;
     }
 
     &__name {
@@ -37,6 +42,15 @@
       font-size: 1.2em;
       font-weight: bold;
       text-transform: uppercase;
+      display: none;
+
+      @include atMedium {
+        display: block;
+      }
+
+      &.no-hide {
+        display: block;
+      }
     }
 
     &__controls {
@@ -49,6 +63,10 @@
       //-webkit-transition: opacity $transition-length-slow;
       //transition: opacity $transition-length-slow;
 
+      @include atMedium {
+        margin-bottom: 30px;
+      }
+
       &:hover {
         //opacity: 1;
         //-webkit-transition: opacity $transition-length-slow;
@@ -57,6 +75,11 @@
 
       &__name {
         text-align: left;
+
+        @include atLarge {
+          margin-bottom: 10px;
+        }
+
       }
 
       &__caption {
@@ -68,12 +91,86 @@
     }
 
     &__control-group {
-      margin-top: 15px;
+      position: relative;
+      display: inline-block;
+
+      @include atMedium {
+        margin-top: 30px;
+        display: block;
+      }
+
+      &.opened {
+        display: block;
+        text-align: center;
+      }
+
+      &.hidden {
+        display: none;
+
+        @include atMedium {
+          display: block;
+        }
+      }
 
       &__name {
         text-align: center;
         font-weight: bold;
         text-transform: uppercase;
+        border: 2px solid $color-gray;
+        display: inline-block;
+        padding: 5px;
+        //position: absolute;
+
+        @include atMedium {
+          margin-bottom: 15px;
+          border: none;
+          display: block;
+          padding: 0;
+          position: relative;
+          left: auto;
+          top: auto;
+        }
+
+        &.only-mobile {
+          display: inline-block;
+
+          @include atMedium {
+            display: none;
+          }
+        }
+      }
+
+      &__content {
+        opacity: 0;
+        position: absolute;
+        visibility: hidden;
+        left: -100%; top: 0;
+        -webkit-transition: left $transition-length-default, opacity $transition-length-fast, visibility $transition-length-fast;
+        transition: left $transition-length-default, opacity $transition-length-fast, visibility $transition-length-fast;
+
+        @include atMedium {
+          opacity: 1;
+          position: relative;
+          visibility: visible;
+          left: 0;
+          -webkit-transition: left $transition-length-default, opacity $transition-length-fast, visibility $transition-length-fast;
+          transition: left $transition-length-default, opacity $transition-length-fast, visibility $transition-length-fast;
+        }
+
+        &.opened {
+          width: 100%;
+          opacity: 1;
+          display: block;
+          position: relative;
+          visibility: visible;
+          left: 0; top: 0.2em;
+          -webkit-transition: left $transition-length-default, opacity $transition-length-fast, visibility $transition-length-fast;
+          transition: left $transition-length-default, opacity $transition-length-fast, visibility $transition-length-fast;
+
+          @include atMedium {
+            top: 0;
+          }
+        }
       }
     }
   }

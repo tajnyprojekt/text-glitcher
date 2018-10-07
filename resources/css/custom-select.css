@@ -39,6 +39,15 @@
     cursor: pointer;
     user-select: none;
 }
+
+.select-items > div.import-button {
+    background-color: #e6e6e6;
+    color: #000000;
+}
+.select-items > div.import-button:hover {
+    background-color: #868686;
+    /*color: #ffffff;*/
+}
 /*style items (options):*/
 .select-items {
     position: absolute;
@@ -48,6 +57,11 @@
     right: 0;
     z-index: 99;
 }
+
+/*.select-import-button {*/
+    /*background-color: #ffffff;*/
+    /*color: #000000!important;*/
+/*}*/
 /*hide the items when the select box is closed:*/
 .select-hide {
     display: none;

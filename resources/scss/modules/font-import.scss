@@ -1,0 +1,42 @@
+.font-import {
+
+  .modal-header, .modal-footer {
+    border: none;
+
+    .close {
+      color: $color-gray;
+    }
+  }
+
+  .modal-content {
+    border-radius: 0;
+    border: 2px solid $color-gray;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  &__section {
+    margin-bottom: 30px;
+
+    &__name {
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    code {
+      color: $color-dark-gray;
+    }
+
+    &__input {
+      height: 3em;
+      padding: 1em;
+    }
+
+    &__message {
+      color: red;
+    }
+  }
+}
