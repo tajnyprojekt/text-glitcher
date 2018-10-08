@@ -21,8 +21,8 @@ $(function() {
             var $area = $('.graphics-area');
             var $wrapper = $('.graphics-area__canvas-wrapper');
 
-            if ($wrapper.width() < charrambaParams.canvas.width || $wrapper.height() < charrambaParams.canvas.height ) {
-                var ratio = $area.width() / charrambaParams.canvas.width;
+            if ($wrapper.width() < charrambaCore.getParams().canvas.width || $wrapper.height() < charrambaCore.getParams().canvas.height ) {
+                var ratio = $area.width() / charrambaCore.getParams().canvas.width;
                 var zoomedImageHeight = $wrapper.height() * ratio;
                 var centeredY = $area.height() / 2 - zoomedImageHeight / 2;
                 this.panzoomController.moveTo(0, centeredY);

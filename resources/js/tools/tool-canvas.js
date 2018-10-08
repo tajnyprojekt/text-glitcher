@@ -5,7 +5,7 @@ $(function() {
     controlPanel.getControl(CONTROLS.canvas.size.width).attr({
         min: charrambaParamsBounds.canvas.width.min,
         max: charrambaParamsBounds.canvas.width.max,
-        value: charrambaParams.canvas.width,
+        value: charrambaCore.getParams().canvas.width,
         step: 1
     }).on('change input', function () {
         var value = $(this).val();
@@ -16,7 +16,7 @@ $(function() {
     controlPanel.getControl(CONTROLS.canvas.size.height).attr({
         min: charrambaParamsBounds.canvas.height.min,
         max: charrambaParamsBounds.canvas.height.max,
-        value: charrambaParams.canvas.height,
+        value: charrambaCore.getParams().canvas.height,
         step: 1
     }).on('change input', function () {
         var value = $(this).val();
@@ -25,7 +25,7 @@ $(function() {
     });
 
     var showLargeWorkspaceWarning = function () {
-        if (charrambaParams.canvas.width > 640 || charrambaParams.canvas.height > 640) {
+        if (charrambaCore.getParams().canvas.width > 640 || charrambaCore.getParams().canvas.height > 640) {
             $('[data-function="size-caption"]').slideDown();
         }
         else {
