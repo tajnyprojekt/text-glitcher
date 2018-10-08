@@ -82,7 +82,7 @@
                                                 <div class="tool-menu__item__control__name">width</div>
                                                 <div class="number-input">
                                                     <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
-                                                    <input data-function="size-width" class="quantity js-control" min="0" name="quantity" value="640" type="number">
+                                                    <input data-function="size-width" class="quantity js-control" type="number">
                                                     <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                                 </div>
                                             </div>
@@ -90,11 +90,11 @@
                                                 <div class="tool-menu__item__control__name">height</div>
                                                 <div class="number-input">
                                                     <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
-                                                    <input data-function="size-height" class="quantity" min="0" name="quantity" value="320" type="number">
+                                                    <input data-function="size-height" class="quantity js-control" type="number">
                                                     <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                                 </div>
                                             </div>
-                                            <p class="tool-menu__item__control__caption">warning: large workspace can reduce performance</p>
+                                            <p data-function="size-caption" class="tool-menu__item__control__caption">warning: large workspace can reduce performance</p>
                                         </div>
                                     </div>
                                     <div class="tool-menu__item__control-group">

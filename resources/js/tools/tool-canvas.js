@@ -1,6 +1,37 @@
 $(function() {
 
+    // size
 
+    controlPanel.getControl(CONTROLS.canvas.size.width).attr({
+        min: charrambaParamsBounds.canvas.width.min,
+        max: charrambaParamsBounds.canvas.width.max,
+        value: charrambaParams.canvas.width,
+        step: 1
+    }).on('change input', function () {
+        var value = $(this).val();
+        charrambaCore.setWidth(value);
+        showLargeWorkspaceWarning();
+    });
+
+    controlPanel.getControl(CONTROLS.canvas.size.height).attr({
+        min: charrambaParamsBounds.canvas.height.min,
+        max: charrambaParamsBounds.canvas.height.max,
+        value: charrambaParams.canvas.height,
+        step: 1
+    }).on('change input', function () {
+        var value = $(this).val();
+        charrambaCore.setHeight(value);
+        showLargeWorkspaceWarning();
+    });
+
+    var showLargeWorkspaceWarning = function () {
+        if (charrambaParams.canvas.width > 640 || charrambaParams.canvas.height > 640) {
+            $('[data-function="size-caption"]').slideDown();
+        }
+        else {
+            $('[data-function="size-caption"]').slideUp();
+        }
+    };
 
     // zoom
 

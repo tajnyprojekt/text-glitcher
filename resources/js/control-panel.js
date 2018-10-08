@@ -7,7 +7,7 @@ $(function() {
         canvas: {
             size: {
                 width: 'size-width',
-                heigth: 'size-height'
+                height: 'size-height'
             },
             background: {
                 color: 'background-color'
@@ -65,7 +65,7 @@ $(function() {
 
     });
 
-    // collapse control group
+    // collapse control group on mobile
     $('.tool-menu__item__control-group__name').on('click', function () {
         var group = $(this).parent();
         var content = $(this).next();
@@ -84,12 +84,15 @@ $(function() {
         }
     });
 
+    // hide captions
+    $('.tool-menu__item__control__caption').hide();
+
 
     // init background color picker https://github.com/Simonwep/pickr
     var backgroundColorPickr = new Pickr({
         el: '.background-color-picker',
 
-        default: '#000000',
+        default: '#00000000',
         useAsButton: true,
         appendToBody: true,
         closeWithKey: 'Escape',
@@ -103,12 +106,12 @@ $(function() {
         components: {
 
             preview: true,
-            opacity: false,
+            opacity: true,
             hue: true,
 
             interaction: {
-                hex: true,
                 rgba: true,
+                hex: true,
                 hsva: false,
                 input: true,
                 clear: true,
@@ -118,11 +121,21 @@ $(function() {
 
         onSave(hsva, instance) {
             var hexArray = hsva.toHEX();
+            var rgbaArray = hsva.toRGBA();
             var hexColor = '#' + hexArray[0] + hexArray[1] + hexArray[2];
-            $('.background-color-picker').css({
-                'background-color': hexColor,
-                'color': adjustFontColor(hexColor)
-            });
+            if (hsva.a < 0.3) {
+                $('.background-color-picker').css({
+                    'background': 'url("./resources/img/checkboard-small.png") repeat',
+                    'color': '#000'
+                });
+            }
+            else {
+                $('.background-color-picker').css({
+                    'background': hexColor,
+                    'color': adjustFontColor(hexColor)
+                });
+            }
+            charrambaCore.setBackgroundColor(rgbaArray[0], rgbaArray[1], rgbaArray[2], hsva.a);
         }
     });
 

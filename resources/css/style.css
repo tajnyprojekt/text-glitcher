@@ -528,6 +528,10 @@ input[type=number]::-webkit-outer-spin-button {
   .font-import__section__message {
     color: red; }
 
+.control-panel .background-color-picker {
+  background: url("../img/checkboard-small.png") repeat;
+  color: #000; }
+
 .graphics-area {
   position: relative;
   overflow: hidden;
@@ -543,7 +547,9 @@ input[type=number]::-webkit-outer-spin-button {
       bottom: 0;
       right: 0;
       margin: auto;
-      border: 4px dashed #666666; }
+      border: 4px dashed #666666;
+      background: url("../img/checkboard.png") repeat; }
       @media (min-width: 768px) {
         .graphics-area__canvas-wrapper canvas {
-          border: 2px dashed #666666; } }
+          border: 2px dashed #666666;
+          background: url("../img/checkboard-small.png") repeat; } }

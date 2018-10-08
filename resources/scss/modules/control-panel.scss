@@ -3,4 +3,8 @@ $control-panel--base-size: 3.5em;
 
 .control-panel {
 
+  .background-color-picker {
+    background: url("../img/checkboard-small.png") repeat;
+    color: $color-black;
+  }
 }

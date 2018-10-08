@@ -17,8 +17,11 @@
       margin: auto;
       border: 4px dashed $color-dark-gray;
 
+      background: url("../img/checkboard.png") repeat;
+
       @include atMedium {
         border: 2px dashed $color-dark-gray;
+        background: url("../img/checkboard-small.png") repeat;
       }
     }
   }
