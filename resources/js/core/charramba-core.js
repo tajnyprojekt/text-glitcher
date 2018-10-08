@@ -19,8 +19,9 @@ $(function() {
                     charrambaParams.canvas.color.r,
                     charrambaParams.canvas.color.g,
                     charrambaParams.canvas.color.b,
-                    charrambaParams.canvas.color.a * 255
+                    charrambaParams.canvas.color.a
                 );
+                p.clear();
                 redraw = false;
             }
         };

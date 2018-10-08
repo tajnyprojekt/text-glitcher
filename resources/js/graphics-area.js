@@ -49,4 +49,9 @@ $(function() {
         controlPanel.setControlValue(CONTROLS.canvas.zoom.amount, zoomAmount);
     }, true);
 
+    $('canvas').on('resize', function () {
+        console.log('elo');
+
+    });
+
 });

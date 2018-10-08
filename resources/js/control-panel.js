@@ -92,7 +92,7 @@ $(function() {
     var backgroundColorPickr = new Pickr({
         el: '.background-color-picker',
 
-        default: '#00000000',
+        default: '#ffffff00',
         useAsButton: true,
         appendToBody: true,
         closeWithKey: 'Escape',
@@ -135,7 +135,7 @@ $(function() {
                     'color': adjustFontColor(hexColor)
                 });
             }
-            charrambaCore.setBackgroundColor(rgbaArray[0], rgbaArray[1], rgbaArray[2], hsva.a);
+            charrambaCore.setBackgroundColor(rgbaArray[0], rgbaArray[1], rgbaArray[2], hsva.a * 255);
         }
     });
 
