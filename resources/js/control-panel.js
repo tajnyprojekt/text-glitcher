@@ -7,7 +7,13 @@ $(function() {
         canvas: {
             size: {
                 width: 'size-width',
-                height: 'size-height'
+                height: 'size-height',
+                helpers: {
+                    widthMinus: 'size-width-minus',
+                    widthPlus: 'size-width-plus',
+                    heightMinus: 'size-height-minus',
+                    heightPlus: 'size-height-plus'
+                }
             },
             background: {
                 color: 'background-color'
@@ -18,16 +24,48 @@ $(function() {
             }
         },
         text: {
-
+            input: 'text-input',
+            font: 'font-select',
+            style: {
+                bold: 'font-style-bold',
+                italic: 'font-style-italic'
+            },
+            align: {
+                left: 'text-align-left',
+                center: 'text-align-center',
+                right: 'text-align-right'
+            },
+            color: 'text-color',
+            size: 'text-size',
+            lineHeight: 'text-line-height'
         },
-        shift: {
-
+        form: {
+            scraped: {
+                enabled: 'form-scraped-enabled',
+                offset: 'form-scraped-offset',
+                slices: 'form-scraped-slices',
+                direction: 'form-scraped-direction'
+            },
+            liquid: {
+                enabled: 'form-liquid-enabled',
+                dissolveX: 'form-liquid-dissolve-x',
+                dissolveY: 'form-liquid-dissolve-y',
+                shift: 'form-liquid-shift'
+            },
+            ascii: {
+                enabled: 'form-ascii-enabled',
+                size: 'form-ascii-size'
+            }
         },
         glitch: {
-
+            lowpass: {
+                treshold: 'glitch-lowpass-treshold'
+            }
         },
         download: {
-
+            name: 'download-name',
+            extension: 'download-extension',
+            button: 'download-button'
         }
     };
 
@@ -41,11 +79,38 @@ $(function() {
             return this.getControl(dataFunction).val();
         },
 
-        setControlValue: function (dataFunction, value) {
+        setControlValue: function (dataFunction, value, triggerChange) {
             this.getControl(dataFunction).val(value);
+            if (typeof(triggerChange) === 'undefined' || triggerChange === true) {
+                this.getControl(dataFunction).trigger('change');
+            }
+        },
+
+        setControlChecked: function (dataFunction, checked, triggerChange) {
+            this.getControl(dataFunction).prop('checked', checked);
+            if (typeof(triggerChange) === 'undefined' || triggerChange === true) {
+                this.getControl(dataFunction).trigger('change');
+            }
+        },
+
+        getControlValueLabelByControl: function (dataFunction) {
+            return this.getControl(dataFunction).parent().find('.tool-menu__item__control__name span');
+        },
+
+        getControlValueLabelBySelector: function (selector) {
+            return $(selector).parent().find('.tool-menu__item__control__name span');
         }
 
     };
+
+    // handle slider finished updating
+
+    $('.js-control[type="range"]').on('mousedown', function () {
+        $(this).on('mouseup', function () {
+            charrambaCore.saveState();
+            $(this).off('mouseup');
+        })
+    });
 
     // show selected tool menu
     $('.js-tool-button').on('click', function () {
@@ -84,8 +149,12 @@ $(function() {
         }
     });
 
-    // hide captions
-    $('.tool-menu__item__control__caption').hide();
+    $('.js-update-label').on('change input', function () {
+        var val = $(this).val();
+        var $labelSpan = controlPanel.getControlValueLabelBySelector(this);
+        $labelSpan.text(val);
+    });
+
 
 
     // init background color picker https://github.com/Simonwep/pickr
@@ -120,22 +189,8 @@ $(function() {
         },
 
         onSave(hsva, instance) {
-            var hexArray = hsva.toHEX();
-            var rgbaArray = hsva.toRGBA();
-            var hexColor = '#' + hexArray[0] + hexArray[1] + hexArray[2];
-            if (hsva.a < 0.3) {
-                $('.background-color-picker').css({
-                    'background': 'url("./resources/img/checkboard-small.png") repeat',
-                    'color': '#000'
-                });
-            }
-            else {
-                $('.background-color-picker').css({
-                    'background': hexColor,
-                    'color': adjustFontColor(hexColor)
-                });
-            }
-            charrambaCore.setBackgroundColor(rgbaArray[0], rgbaArray[1], rgbaArray[2], hsva.a * 255);
+            handlePickrOnSaveHexAlpha(hsva, instance, charrambaCore.setBackgroundColor);
+            console.log(instance);
         }
     });
 
@@ -170,14 +225,38 @@ $(function() {
         },
 
         onSave(hsva, instance) {
-            var hexArray = hsva.toHEX();
-            var hexColor = '#' + hexArray[0] + hexArray[1] + hexArray[2];
-            $('.text-color-picker').css({
-                'background-color': hexColor,
+            handlePickrOnSaveHex(hsva, instance, charrambaCore.setTextColor);
+        }
+    });
+
+    var handlePickrOnSaveHexAlpha = function (hsva, instance, rgbaColorSetterFunction) {
+        var hexArray = hsva.toHEX();
+        var rgbaArray = hsva.toRGBA();
+        var hexColor = '#' + hexArray[0] + hexArray[1] + hexArray[2];
+        if (hsva.a < 0.3) {
+            $(instance.options.el).css({
+                'background': 'url("./resources/img/checkboard-small.png") repeat',
+                'color': '#000'
+            });
+        }
+        else {
+            $(instance.options.el).css({
+                'background': hexColor,
                 'color': adjustFontColor(hexColor)
             });
         }
-    });
+        rgbaColorSetterFunction(hexColor, hsva.a);
+    };
+
+    var handlePickrOnSaveHex = function (hsva, instance, hexColorSetterFunction) {
+        var hexArray = hsva.toHEX();
+        var hexColor = '#' + hexArray[0] + hexArray[1] + hexArray[2];
+        $(instance.options.el).css({
+            'background': hexColor,
+            'color': adjustFontColor(hexColor)
+        });
+        hexColorSetterFunction(hexColor);
+    };
 
     function adjustFontColor(hexTripletColor) {
         var color = hexTripletColor;
@@ -189,5 +268,9 @@ $(function() {
         color = "#" + color;
         return color;
     }
+
+
+    // hide captions
+    $('.tool-menu__item__control__caption').hide();
 
 });

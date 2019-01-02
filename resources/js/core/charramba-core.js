@@ -3,7 +3,7 @@ var charrambaCore;
 $(function() {
 
     // define sketch object
-    var sketch = function(p) {
+    var createCharrambaCore = function() {
 
         var params = {
             canvas: {
@@ -13,62 +13,491 @@ $(function() {
                     r: 255,
                     g: 255,
                     b: 255,
-                    a: 0
+                    a: 0,
+                    hex: 0xff0000
+                }
+            },
+            text: {
+                text: '',
+                font: 'Space Mono',
+                style: 'normal',
+                weight: 'normal',
+                align: 'center',
+                color: {
+                    r: 0,
+                    g: 0,
+                    b: 0,
+                    a: 1,
+                    hex: '#000000'
+                },
+                size: 80,
+                lineHeight: 80
+            },
+            form: {
+                scraped: {
+                    enabled: false,
+                    offset: 0,
+                    slices: 10,
+                    direction: 0
+                },
+                liquid: {
+                    enabled: false,
+                    dissolveX: 1,
+                    dissolveY: 1,
+                    shift: 0
+                },
+                ascii: {
+                    enabled: false,
+                    size: 2
+                }
+                // chromatic: {
+                //     shift: 0
+                // }
+            },
+            glitch: {
+                lowpass: {
+                    treshold: 0.1
                 }
             }
         };
 
-        var canvas;
-        var redraw;
-
-        p.setup = function () {
-            canvas = p.createCanvas(params.canvas.width, params.canvas.height);
-            p.clear();
+        var stateHistory = {
+            history: [],
+            currentPosition: -1,
+            lastChanged: ''
         };
 
-        p.draw = function () {
-            if (redraw) {
-                p.background(
-                    params.canvas.color.r,
-                    params.canvas.color.g,
-                    params.canvas.color.b,
-                    params.canvas.color.a
-                );
-                redraw = false;
+
+
+        var redraw = true;
+
+        var app;
+        var bgGraphics;
+        var textObject;
+
+        var enabledFilters;
+        var glitchFilter;
+        var displacementFilter;
+        var displacementSprite;
+        var asciiFilter;
+
+        this.init = function () {
+            this.saveState();
+            createApp();
+            createDisplacementSprite();
+            createBgGraphics();
+            createText();
+            app.start();
+            app.ticker.add(function () {
+                updateApp();
+            });
+        };
+
+        var createApp = function () {
+            app = new PIXI.Application({
+                width: params.canvas.width,
+                height: params.canvas.height,
+                transparent: true,
+                backgroundColor: '#ffffff',
+                resolution: 1,
+                antialias: true,
+                autoStart: false
+            });
+            var canvasContainer = document.getElementById('canvas-container');
+            canvasContainer.appendChild(app.view);
+        };
+
+        var createDisplacementSprite = function () {
+            displacementSprite = PIXI.Sprite.fromImage('./resources/img/displacement-sprite.png');
+            displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+            displacementSprite.visible = false;
+            app.stage.addChild(displacementSprite);
+        };
+
+        var createBgGraphics = function () {
+            bgGraphics = new PIXI.Graphics();
+            bgGraphics.alpha = 1;
+            bgGraphics.beginFill(params.canvas.color.hex);
+            bgGraphics.drawRect(0, 0, params.canvas.width, params.canvas.height);
+            app.stage.addChild(bgGraphics);
+        };
+
+        var createText = function () {
+            textObject = new PIXI.Text(params.text.text);
+            textObject.anchor.x = 0.5;
+            textObject.anchor.y = 0.5;
+            app.stage.addChild(textObject);
+        };
+
+        var updateApp = function () {
+            console.log('update');
+            updateBgGraphics();
+            updateText();
+            updateFilters();
+            app.stop();
+        };
+
+        var updateBgGraphics = function () {
+            bgGraphics.clear();
+            bgGraphics.alpha = params.canvas.color.a;
+            bgGraphics.beginFill(params.canvas.color.hex);
+            bgGraphics.drawRect(0, 0, params.canvas.width, params.canvas.height);
+        };
+
+        var updateText = function () {
+            textObject.text = params.text.text;
+            textObject.x = app.renderer.view.width / 2;
+            textObject.y = app.renderer.view.height / 2;
+            textObject.style = {
+                wordWrap: true,
+                breakWords: true,
+                wordWrapWidth: app.renderer.view.width,
+                fontFamily: params.text.font,
+                fontWeight: params.text.weight,
+                fontStyle: params.text.style,
+                fontSize: params.text.size,
+                lineHeight: params.text.lineHeight,
+                align: params.text.align,
+                fill: params.text.color.hex
             }
         };
 
-        p.paramsChanged = function () {
-            redraw = true;
+        var updateFilters = function () {
+            enabledFilters = [];
+            updateGlitchFilter();
+            updateDisplacementFilter();
+            updateAsciiFilter();
+            app.stage.filters = enabledFilters;
         };
 
-        p.setWidth = function (newWidth) {
+        var updateGlitchFilter = function () {
+            if (params.form.scraped.enabled) {
+                glitchFilter = new PIXI.filters.GlitchFilter({
+                    offset: params.form.scraped.offset,
+                    slices: params.form.scraped.slices,
+                    direction: params.form.scraped.direction,
+                    fillMode: 0
+                });
+                enabledFilters.push(glitchFilter);
+            }
+        };
+
+        var updateDisplacementFilter = function () {
+            if (params.form.liquid.enabled) {
+                displacementSprite.visible = true;
+                displacementFilter = new PIXI.filters.DisplacementFilter(displacementSprite);
+                displacementFilter.scale.x = params.form.liquid.dissolveX;
+                displacementFilter.scale.y = params.form.liquid.dissolveY;
+                displacementSprite.x = params.form.liquid.shift;
+                enabledFilters.push(displacementFilter);
+            }
+            else {
+                displacementSprite.visible = false;
+            }
+        };
+
+        var updateAsciiFilter = function () {
+            if (params.form.ascii.enabled) {
+                bgGraphics.alpha = 1;
+                asciiFilter = new PIXI.filters.AsciiFilter(params.form.ascii.size);
+                enabledFilters.push(asciiFilter);
+            }
+            else {
+                bgGraphics.alpha = params.canvas.color.a;
+            }
+        };
+
+        // download
+
+        this.downloadImage = function (name, extension) {
+            var filename = name + '.' + extension;
+            // var dataURL = app.renderer.view.toDataURL('image/' + extension);
+            // var link = document.createElement('a');
+            // link.download = filename;
+            // link.href = dataURL;
+            // link.click();
+
+            app.renderer.extract.canvas(app.stage).toBlob(function(b){
+                var a = document.createElement('a');
+                document.body.append(a);
+                a.download = filename;
+                a.href = URL.createObjectURL(b);
+                a.click();
+                a.remove();
+            }, 'image/' + extension);
+        };
+
+        // params
+
+        this.setWidth = function (newWidth) {
             params.canvas.width = newWidth;
-            p.resizeCanvas(newWidth, params.canvas.height);
-            p.paramsChanged();
+            app.renderer.resize(newWidth, params.canvas.height);
+            this.paramsChanged();
+            this.saveState();
         };
 
-        p.setHeight = function (newHeight) {
+        this.setHeight = function (newHeight) {
             params.canvas.height = newHeight;
-            p.resizeCanvas(params.canvas.width, newHeight);
-            p.paramsChanged();
+            app.renderer.resize(params.canvas.width, newHeight);
+            this.paramsChanged();
+            this.saveState();
         };
 
-        p.setBackgroundColor = function (r, g, b, a) {
-            params.canvas.color.r = r;
-            params.canvas.color.g = g;
-            params.canvas.color.b = b;
+        this.setBackgroundColor = function (hex, a) {
+            var hexEncodedString = hex.substring(1, hex.length);
+            var color = parseInt(hexEncodedString, 16);
+            params.canvas.color.hex = color;
             params.canvas.color.a = a;
-            p.paramsChanged();
+            this.paramsChanged();
+            this.saveState();
         };
 
-        p.getParams = function () {
+        this.setText = function (text) {
+            params.text.text = text;
+            this.paramsChanged();
+            this.saveState();
+        };
+
+        this.setFont = function (font) {
+            params.text.font = font;
+            this.paramsChanged();
+            this.saveState();
+        };
+
+        this.setFontStyleItalic = function () {
+            params.text.style = 'italic';
+            this.paramsChanged();
+            this.saveState();
+        };
+
+        this.setFontStyleNormal = function () {
+            params.text.style = 'normal';
+            this.paramsChanged();
+            this.saveState();
+        };
+
+        this.setFontWeightBold = function () {
+            params.text.weight = 'bold';
+            this.paramsChanged();
+            this.saveState();
+        };
+
+        this.setFontWeightNormal = function () {
+            params.text.weight = 'normal';
+            this.paramsChanged();
+            this.saveState();
+        };
+
+        this.setTextAlignLeft = function () {
+            params.text.align = 'left';
+            this.paramsChanged();
+            this.saveState();
+        };
+
+        this.setTextAlignCenter = function () {
+            params.text.align = 'center';
+            this.paramsChanged();
+            this.saveState();
+        };
+
+        this.setTextAlignRight = function () {
+            params.text.align = 'right';
+            this.paramsChanged();
+            this.saveState();
+        };
+
+        this.setTextColor = function (color) {
+            params.text.color.hex = color;
+            this.paramsChanged();
+            this.saveState();
+        };
+
+        this.setTextSize = function(size) {
+            params.text.size = Number(size);
+            this.paramsChanged();
+        };
+
+        this.setTextLineHeight = function(lineHeight) {
+            params.text.lineHeight = Number(lineHeight);
+            this.paramsChanged();
+        };
+
+        this.setFormScrapedEnabled = function (enabled) {
+            params.form.scraped.enabled = enabled;
+            this.paramsChanged();
+        };
+
+        this.setFormScrapedOffset = function (offset) {
+            params.form.scraped.offset = Number(offset);
+            this.paramsChanged();
+        };
+
+        this.setFormScrapedSlices = function (slices) {
+            params.form.scraped.slices = Number(slices);
+            this.paramsChanged();
+        };
+
+        this.setFormScrapedDirection = function (direction) {
+            params.form.scraped.direction = Number(direction);
+            this.paramsChanged();
+        };
+
+        this.setFormLiquidEnabled = function (enabled) {
+            params.form.liquid.enabled = enabled;
+            this.paramsChanged();
+        };
+
+        this.setFormLiquidDissolveX = function (dissolveX) {
+            params.form.liquid.dissolveX = Number(dissolveX);
+            this.paramsChanged();
+        };
+
+        this.setFormLiquidDissolveY = function (dissolveY) {
+            params.form.liquid.dissolveY = Number(dissolveY);
+            this.paramsChanged();
+        };
+
+        this.setFormLiquidShift = function (shift) {
+            params.form.liquid.shift = Number(shift);
+            this.paramsChanged();
+        };
+
+        this.setFormAsciiEnabled = function (enabled) {
+            params.form.ascii.enabled = enabled;
+            this.paramsChanged();
+        };
+
+        this.setFormAsciiSize = function (size) {
+            params.form.ascii.size = Number(size);
+            this.paramsChanged();
+        };
+
+        this.setLowpassTreshold = function (treshold) {
+            params.glitch.lowpass.treshold = treshold;
+            this.paramsChanged();
+        };
+
+        this.getParams = function () {
             return params;
         };
+
+        this.getCanvasSelector = function () {
+            console.log('get id',canvas);
+            return '#' + canvas.canvas.id;//canvas.canvas.id;
+        };
+
+        this.paramsChanged = function () {
+            redraw = true;
+            app.start();
+        };
+
+        // actions history
+
+        var cloneParams = function (paramsObject) {
+            return {
+                canvas: {
+                    width: paramsObject.canvas.width,
+                    height: paramsObject.canvas.height,
+                    color: {
+                        r: paramsObject.canvas.color.r,
+                        g: paramsObject.canvas.color.g,
+                        b: paramsObject.canvas.color.b,
+                        a: paramsObject.canvas.color.a,
+                        hex: paramsObject.canvas.color.hex
+                    }
+                },
+                text: {
+                    text: paramsObject.text.text,
+                    font: paramsObject.text.font,
+                    style: paramsObject.text.style,
+                    weight: paramsObject.text.weight,
+                    align: paramsObject.text.align,
+                    color: {
+                        r: paramsObject.text.color.r,
+                        g: paramsObject.text.color.g,
+                        b: paramsObject.text.color.b,
+                        a: paramsObject.text.color.a,
+                        hex: paramsObject.text.color.hex
+                    },
+                    size: paramsObject.text.size,
+                    lineHeight: paramsObject.text.lineHeight
+                },
+                form: {
+                    scraped: {
+                        enabled: paramsObject.form.scraped.enabled,
+                        offset: paramsObject.form.scraped.offset,
+                        slices: paramsObject.form.scraped.slices,
+                        direction: paramsObject.form.scraped.direction
+                    },
+                    liquid: {
+                        enabled: paramsObject.form.liquid.enabled,
+                        dissolveX: paramsObject.form.liquid.dissolveX,
+                        dissolveY: paramsObject.form.liquid.dissolveY,
+                        shift: paramsObject.form.liquid.shift
+                    },
+                    ascii: {
+                        enabled: paramsObject.form.ascii.enabled,
+                        size: paramsObject.form.ascii.size
+                    }
+                },
+                glitch: {
+                    lowpass: {
+                        treshold: paramsObject.glitch.lowpass.treshold
+                    }
+                }
+            };
+        };
+
+        this.saveState = function () {
+            stateHistory.history.push(cloneParams(params));
+            stateHistory.currentPosition++;
+        };
+
+        this.undo = function () {
+            if (stateHistory.currentPosition > 0) {
+                stateHistory.currentPosition = stateHistory.currentPosition - 1;
+                params = cloneParams(stateHistory.history[stateHistory.currentPosition]);
+                this.paramsChanged();
+                updateControls();
+            }
+        };
+
+        this.redo = function () {
+            if (stateHistory.currentPosition < stateHistory.history.length - 1) {
+                stateHistory.currentPosition++;
+                params = cloneParams(stateHistory.history[stateHistory.currentPosition]);
+                this.paramsChanged();
+                updateControls();
+            }
+        };
+
+        var updateControls = function () {
+            controlPanel.setControlValue(CONTROLS.canvas.width, params.canvas.width, false);
+            controlPanel.setControlValue(CONTROLS.canvas.width, params.canvas.width, false);
+            // TODO: bg color
+            controlPanel.setControlValue(CONTROLS.text.input, params.text.text, false);
+            controlPanel.setControlValue(CONTROLS.text.font, params.text.font, false);
+            // TODO: text style
+            // TODO: text color
+            controlPanel.setControlValue(CONTROLS.text.size, params.text.size, false);
+            controlPanel.setControlValue(CONTROLS.text.lineHeight, params.text.lineHeight, false);
+            controlPanel.setControlChecked(CONTROLS.form.scraped.enabled, params.form.scraped.enabled, false);
+            controlPanel.setControlValue(CONTROLS.form.scraped.offset, params.form.scraped.offset, false);
+            controlPanel.setControlValue(CONTROLS.form.scraped.slices, params.form.scraped.slices, false);
+            controlPanel.setControlValue(CONTROLS.form.scraped.direction, params.form.scraped.direction, false);
+            controlPanel.setControlChecked(CONTROLS.form.liquid.enabled, params.form.liquid.enabled, false);
+            controlPanel.setControlValue(CONTROLS.form.liquid.dissolveX, params.form.liquid.dissolveX, false);
+            controlPanel.setControlValue(CONTROLS.form.liquid.dissolveY, params.form.liquid.dissolveY, false);
+            controlPanel.setControlValue(CONTROLS.form.liquid.shift, params.form.liquid.shift, false);
+            controlPanel.setControlChecked(CONTROLS.form.ascii.enabled, params.form.ascii.enabled, false);
+            controlPanel.setControlValue(CONTROLS.form.ascii.size, params.form.ascii.size, false);
+
+        };
+
+        return this;
     };
 
-    // init p5 sketch
-    var canvasContainer = document.getElementById('canvas-container');
-    charrambaCore = new p5(sketch, canvasContainer);
+    charrambaCore = createCharrambaCore();
+    charrambaCore.init();
 
 });

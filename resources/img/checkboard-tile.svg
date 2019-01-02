@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg id="master-artboard" viewBox="0 0 50.98 50.97999954223633" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" style="enable-background:new 0 0 1400 980;" width="50.97999954223633px" height="50.97999954223633px"><defs><pattern id="New_Pattern_5" data-name="New Pattern 5" width="12" height="12" patternTransform="translate(-8 0)" patternUnits="userSpaceOnUse" viewBox="0 0 12 12"><path d="M 0 0 H 12 V 12 H 0 V 0 Z" class="cls-1" style="fill: none;"/><path d="M 6 0 H 12 V 6 H 6 V 0 Z" class="cls-2" style="fill: rgb(255, 255, 255);"/><path d="M 0 6 H 6 V 12 H 0 V 6 Z" class="cls-2" style="fill: rgb(255, 255, 255);"/><path d="M 0 0 H 6 V 6 H 0 V 0 Z" class="cls-3" style="fill: rgb(204, 204, 204);"/><path d="M 6 6 H 12 V 12 H 6 V 6 Z" class="cls-3" style="fill: rgb(204, 204, 204);"/></pattern></defs><rect id="ee-background" x="0" y="0" width="50.97999954223633" height="50.97999954223633" style="fill: white; fill-opacity: 0; pointer-events: none;"/><g transform="matrix(0.2548356354236603, 0, 0, 0.2548356354236603, -14.682987531026207, -12.46717643737793)"><g id="g-1" transform="matrix(1, 0, 0, 1, 0, 0)">
+	<g id="g-2">
+		<path class="st0" d="M58,49h100v100H58V49z" style="fill: rgb(230, 230, 230);"/>
+	</g>
+</g></g><g transform="matrix(0.25483572483062744, 0, 0, 0.25483572483062744, 10.797694842020654, -12.466612815856934)"><g id="g-3" transform="matrix(1, 0, 0, 1, 0, 0)">
+	<g id="g-4">
+		<path class="st0" d="M58,49h100v100H58V49z" style="fill: rgb(255, 255, 255);"/>
+	</g>
+</g></g><g transform="matrix(-0.25483575463294983, 0, 0, 0.25483575463294983, 65.82589213053382, 13.027909278869629)"><g id="g-5" transform="matrix(1, 0, 0, 1, 0, 0)">
+	<g id="g-6">
+		<path class="st0" d="M58,49h100v100H58V49z" style="fill: rgb(230, 230, 230);"/>
+	</g>
+</g></g><g transform="matrix(-0.2548356354236603, 0, 0, 0.2548356354236603, 40.34517923990884, 13.028489112854004)"><g id="g-7" transform="matrix(1, 0, 0, 1, 0, 0)">
+	<g id="g-8">
+		<path class="st0" d="M58,49h100v100H58V49z" style="fill: rgb(255, 255, 255);"/>
+	</g>
+</g></g></svg>

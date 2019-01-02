@@ -81,17 +81,17 @@
                                             <div class="text-center tool-menu__item__control">
                                                 <div class="tool-menu__item__control__name">width</div>
                                                 <div class="number-input">
-                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
+                                                    <button data-function="size-width-minus" class="js-control"></button>
                                                     <input data-function="size-width" class="quantity js-control" type="number">
-                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                                    <button data-function="size-width-plus" class="js-control plus"></button>
                                                 </div>
                                             </div>
                                             <div class="text-center tool-menu__item__control">
                                                 <div class="tool-menu__item__control__name">height</div>
                                                 <div class="number-input">
-                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
+                                                    <button data-function="size-height-minus" class="js-control"></button>
                                                     <input data-function="size-height" class="quantity js-control" type="number">
-                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                                    <button data-function="size-height-minus" class="js-control plus"></button>
                                                 </div>
                                             </div>
                                             <p data-function="size-caption" class="tool-menu__item__control__caption">warning: large workspace can reduce performance</p>
@@ -110,8 +110,8 @@
                                         <div class="tool-menu__item__control-group__name">Zoom</div>
                                         <div class="tool-menu__item__control-group__content">
                                             <div class="tool-menu__item__control">
-                                                <div class="tool-menu__item__control__name">amount</div>
-                                                <input data-function="zoom-amount" type="range" class="js-control">
+                                                <div class="tool-menu__item__control__name">amount: x<span class="tool-menu__item__control__name__value js-input-value"></span></div>
+                                                <input data-function="zoom-amount" type="range" class="js-control js-update-label">
                                             </div>
                                             <div class="tool-menu__item__control">
                                                 <button data-function="zoom-reset" class="button-full js-control">reset zoom</button>
@@ -128,7 +128,7 @@
                                         <div class="tool-menu__item__control-group__content">
                                             <div class="tool-menu__item__control">
                                                 <div class="tool-menu__item__control__name">text</div>
-                                                <textarea rows="3" autofocus placeholder="Type text to be glitched"></textarea>
+                                                <textarea data-function="text-input" class="js-control" rows="3" autofocus placeholder="Type text to be glitched"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -139,7 +139,7 @@
                                                 <div class="tool-menu__item__control__name">font</div>
                                                 <div class="select">
                                                     <!--custom-select-->
-                                                    <select class="js-control font-select">
+                                                    <select data-function="font-select" class="js-control font-select">
                                                         <option class="select__import-button" value="import-font"         >IMPORT FONT</option>
                                                         <option class="select__option" selected style="font-family: Space Mono" value="Space Mono"  >Space Mono</option>
                                                         <option class="select__option" style="font-family: Arial"           value="Arial"                > Arial</option>
@@ -160,25 +160,25 @@
                                             <div class="tool-menu__item__control">
                                                 <div class="tool-menu__item__control__name">style</div>
                                                 <div class="buttons-bar">
-                                                    <img class="buttons-bar__icon"
+                                                    <img data-function="font-style-bold" class="js-control buttons-bar__icon buttons-bar__section-1"
                                                          src="resources/img/icons/bold.svg">
 
-                                                    <img class="buttons-bar__icon"
+                                                    <img data-function="font-style-italic" class="js-control buttons-bar__icon buttons-bar__section-1"
                                                          src="resources/img/icons/italic.svg">
 
-                                                    <img class="buttons-bar__icon"
+                                                    <img data-function="text-align-left" class="js-control buttons-bar__icon buttons-bar__section-2"
                                                          src="resources/img/icons/align-left.svg">
 
-                                                    <img class="buttons-bar__icon selected"
+                                                    <img data-function="text-align-center" class="js-control buttons-bar__icon buttons-bar__section-2 selected"
                                                          src="resources/img/icons/align-center.svg">
 
-                                                    <img class="buttons-bar__icon"
+                                                    <img data-function="text-align-right" class="js-control buttons-bar__icon buttons-bar__section-2"
                                                          src="resources/img/icons/align-right.svg">
                                                 </div>
                                             </div>
                                             <div class="tool-menu__item__control">
                                                 <div class="tool-menu__item__control__name">color</div>
-                                                <button class="button-full text-color-picker js-control">pick color</button>
+                                                <button data-function="text-color" class="button-full text-color-picker js-control">pick color</button>
                                             </div>
                                         </div>
                                     </div>
@@ -186,59 +186,95 @@
                                         <div class="tool-menu__item__control-group__name only-mobile">Size</div>
                                         <div class="tool-menu__item__control-group__content">
                                             <div class="tool-menu__item__control">
-                                                <div class="tool-menu__item__control__name">size</div>
-                                                <input type="range" class="js-control">
+                                                <div class="tool-menu__item__control__name">size: <span class="tool-menu__item__control__name__value js-input-value"></span>px</div>
+                                                <input data-function="text-size" type="range" class="js-control js-update-label">
                                             </div>
                                             <div class="tool-menu__item__control">
-                                                <div class="tool-menu__item__control__name">line height</div>
-                                                <input type="range" class="js-control">
+                                                <div class="tool-menu__item__control__name">line height: <span class="tool-menu__item__control__name__value js-input-value"></span>px</div>
+                                                <input data-function="text-line-height" type="range" class="js-control js-update-label">
                                             </div>
-                                            <div class="tool-menu__item__control">
-                                                <div class="tool-menu__item__control__name">letter spacing</div>
-                                                <input type="range" class="js-control">
-                                            </div>
+                                            <!--<div class="tool-menu__item__control">-->
+                                                <!--<div class="tool-menu__item__control__name">letter spacing</div>-->
+                                                <!--<input type="range" class="js-control">-->
+                                            <!--</div>-->
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div data-tool="shift" class="tool-menu__item js-tool-menu">
-                                <div class="tool-menu__item__name">Shift</div>
+                            <div data-tool="form" class="tool-menu__item js-tool-menu">
+                                <div class="tool-menu__item__name">Form</div>
                                 <div class="tool-menu__item__controls">
                                     <div class="tool-menu__item__control-group">
-                                        <div class="tool-menu__item__control-group__name">Horizontal</div>
+                                        <div class="tool-menu__item__control-group__name">
+                                            <label class="custom-checkbox">
+                                                <input data-function="form-scraped-enabled" type="checkbox" class="js-control">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            scraped
+                                        </div>
                                         <div class="tool-menu__item__control-group__content">
                                             <div class="tool-menu__item__control">
-                                                <div class="tool-menu__item__control__name">shift</div>
-                                                <input type="range" class="js-control">
+                                                <div class="tool-menu__item__control__name">offset: <span class="tool-menu__item__control__name__value js-input-value"></span>px</div>
+                                                <input data-function="form-scraped-offset" type="range" class="js-control js-update-label">
                                             </div>
                                             <div class="tool-menu__item__control">
-                                                <div class="tool-menu__item__control__name">size</div>
-                                                <input type="range" class="js-control">
+                                                <div class="tool-menu__item__control__name">slices: <span class="tool-menu__item__control__name__value js-input-value"></span></div>
+                                                <input data-function="form-scraped-slices" type="range" class="js-control js-update-label">
+                                            </div>
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">direction: <span class="tool-menu__item__control__name__value js-input-value"></span>°</div>
+                                                <input data-function="form-scraped-direction" type="range" class="js-control js-update-label">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tool-menu__item__control-group">
-                                        <div class="tool-menu__item__control-group__name">Vertical</div>
+                                        <div class="tool-menu__item__control-group__name">
+                                            <label class="custom-checkbox">
+                                                <input data-function="form-liquid-enabled" type="checkbox" class="js-control">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            liquid
+                                        </div>
                                         <div class="tool-menu__item__control-group__content">
                                             <div class="tool-menu__item__control">
-                                                <div class="tool-menu__item__control__name">shift</div>
-                                                <input type="range" class="js-control">
+                                                <div class="tool-menu__item__control__name">dissolve x: <span class="tool-menu__item__control__name__value js-input-value"></span></div>
+                                                <input data-function="form-liquid-dissolve-x" type="range" class="js-control js-update-label">
                                             </div>
                                             <div class="tool-menu__item__control">
-                                                <div class="tool-menu__item__control__name">size</div>
-                                                <input type="range" class="js-control">
+                                                <div class="tool-menu__item__control__name">dissolve y: <span class="tool-menu__item__control__name__value js-input-value"></span></div>
+                                                <input data-function="form-liquid-dissolve-y" type="range" class="js-control js-update-label">
+                                            </div>
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">shift: <span class="tool-menu__item__control__name__value js-input-value"></span></div>
+                                                <input data-function="form-liquid-shift" type="range" class="js-control js-update-label">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tool-menu__item__control-group">
-                                        <div class="tool-menu__item__control-group__name">Chromatic</div>
+                                        <div class="tool-menu__item__control-group__name">
+                                            <label class="custom-checkbox tool-menu__item__control-group__enable">
+                                                <input data-function="form-ascii-enabled" type="checkbox" class="js-control">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            ascii
+                                        </div>
                                         <div class="tool-menu__item__control-group__content">
+                                            <p class="tool-menu__item__control-group__caption">(experimental)</p>
                                             <div class="tool-menu__item__control">
-                                                <div class="tool-menu__item__control__name">shift</div>
-                                                <input type="range" class="js-control">
+                                                <div class="tool-menu__item__control__name">size: <span class="tool-menu__item__control__name__value js-input-value"></span>px</div>
+                                                <input data-function="form-ascii-size" type="range" class="js-control js-update-label">
                                             </div>
                                         </div>
                                     </div>
+                                    <!--<div class="tool-menu__item__control-group">-->
+                                        <!--<div class="tool-menu__item__control-group__name">Chromatic</div>-->
+                                        <!--<div class="tool-menu__item__control-group__content">-->
+                                            <!--<div class="tool-menu__item__control">-->
+                                                <!--<div class="tool-menu__item__control__name">shift: <span class="tool-menu__item__control__name__value js-input-value"></span>px</div>-->
+                                                <!--<input data-function="shift-chromatic-size" type="range" class="js-control js-update-label">-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
                                 </div>
                             </div>
                             <div data-tool="glitch" class="tool-menu__item js-tool-menu">
@@ -248,8 +284,8 @@
                                         <div class="tool-menu__item__control-group__name">Lowpass</div>
                                         <div class="tool-menu__item__control-group__content">
                                             <div class="tool-menu__item__control">
-                                                <div class="tool-menu__item__control__name">treshold</div>
-                                                <input type="range" class="js-control">
+                                                <div class="tool-menu__item__control__name">treshold: <span class="tool-menu__item__control__name__value js-input-value"></span></div>
+                                                <input data-function="glitch-lowpass-treshold" type="range" class="js-control js-update-label">
                                             </div>
                                         </div>
                                     </div>
@@ -263,21 +299,21 @@
                                         <div class="tool-menu__item__control-group__content">
                                             <div class="tool-menu__item__control">
                                                 <div class="tool-menu__item__control__name">filename</div>
-                                                <input type="text" class="text-center js-control" placeholder="Type filename" value="untitled-1">
+                                                <input data-function="download-name" type="text" class="text-center js-control" placeholder="Type filename" value="untitled-1">
                                             </div>
                                             <div class="tool-menu__item__control">
                                                 <div class="tool-menu__item__control__name">format</div>
                                                 <div class="select">
-                                                    <select class="js-control">
-                                                        <option class="select__option" value="*.png"    >*.png</option>
-                                                        <option class="select__option" value="*.jpg"    >*.jpg</option>
-                                                        <option class="select__option" value="*.bmp"    >*.bmp</option>
+                                                    <select data-function="download-extension" class="js-control">
+                                                        <option class="select__option" value="png"    >*.png</option>
+                                                        <option class="select__option" value="jpg"    >*.jpg</option>
+                                                        <option class="select__option" value="bmp"    >*.bmp</option>
                                                     </select>
                                                 </div>
                                                 <p class="tool-menu__item__control__caption">warning: not all formats support transparency</p>
                                             </div>
                                             <div class="tool-menu__item__control">
-                                                <button class="button-full js-control">download</button>
+                                                <button data-function="download-button" class="button-full js-control">download</button>
                                             </div>
                                         </div>
                                     </div>
@@ -285,10 +321,17 @@
                             </div>
                             <div data-tool="info" class="tool-menu__item js-tool-menu">
                                 <div class="tool-menu__item__name no-hide">Info</div>
-                                <div class="tool-menu__item__controls">
-                                    <div class="tool-menu__item__control-group">
-                                        <div class="tool-menu__item__control-group__name">Charramba</div>
-                                    </div>
+                                <div class="information">
+                                    <h1>Charramba</h1>
+                                    <h2>free online <b>glitch type</b> editor</h2>
+                                    <hr>
+                                    <p>
+                                        Create your own version of glitch type and download it for free!
+                                        <br><br>
+                                        We're still adding new features - come back soon for more.
+                                        <br><br>
+                                        If You found any bugs or have any suggestions - please write to us: <b>hello@tajnyprojekt.com</b> - we appreciate your help.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -306,12 +349,12 @@
                             <span>
                                 <img src="./resources/img/icons/toolbar-text.svg">
                             </span>
-                        </div><div data-tool="shift" class="toolbar__tool-button js-tool-button"
-                                   data-toggle="tooltip" data-placement="right" title="shift">
+                        </div><div data-tool="form" class="toolbar__tool-button js-tool-button"
+                                   data-toggle="tooltip" data-placement="right" title="form">
                             <span>
                                 <img src="./resources/img/icons/toolbar-shift.svg">
                             </span>
-                        </div><div data-tool="glitch" class="toolbar__tool-button js-tool-button"
+                        </div><div data-tool="glitch" class="d-none toolbar__tool-button js-tool-button"
                                    data-toggle="tooltip" data-placement="right" title="glitch">
                             <span>
                                 <img src="./resources/img/icons/toolbar-glitch.svg">
@@ -387,15 +430,24 @@
     <script src="vendors/jQuery/jquery-3.3.1.min.js"></script>
     <script src="vendors/bootstrap-4.0.0/js/bootstrap.min.js"></script>
     <script src="vendors/panzoom/panzoom.min.js"></script>
-    <script src="vendors/p5/p5.min.js"></script>
-    <script src="vendors/p5/p5.dom.min.js"></script>
+    <script src="vendors/pixi/pixi.min.js"></script>
+    <script src="vendors/pixi/pixi-filters-edited.js"></script>
+    <!--<script src="vendors/p5/p5.min.js"></script>-->
+    <!--<script src="vendors/p5/p5.dom.min.js"></script>-->
+
     <script src="resources/js/core/charramba-params.js"></script>
+    <script src="resources/js/core/ShiftGlitchFilter.js"></script>
     <script src="resources/js/core/charramba-core.js"></script>
     <script src="resources/js/font-select.js"></script>
     <script src="resources/js/control-panel.js"></script>
     <script src="resources/js/graphics-area.js"></script>
 
     <script src="resources/js/tools/tool-canvas.js"></script>
+    <script src="resources/js/tools/tool-text.js"></script>
+    <script src="resources/js/tools/tool-form.js"></script>
+    <script src="resources/js/tools/tool-download.js"></script>
+
+    <script src="resources/js/keyboard-handling.js"></script>
 
 </body>
 </html>

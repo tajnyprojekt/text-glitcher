@@ -4,15 +4,13 @@ $(function() {
 
     graphicsArea = {
         zoom: 1,
-        maxZoom: 5,
-        minZoom: 0.3,
         panzoomController: null,
 
         init: function () {
             var area = $('.graphics-area__canvas-wrapper').get(0);
             this.panzoomController = panzoom(area, {
-                maxZoom: this.maxZoom,
-                minZoom: this.minZoom
+                maxZoom: charrambaParamsBounds.canvas.zoom.max,
+                minZoom: charrambaParamsBounds.canvas.zoom.min
             });
             this.adjustPanzoomToCenter();
         },
@@ -42,16 +40,13 @@ $(function() {
         }
     };
 
+
     graphicsArea.init();
 
     document.body.addEventListener('zoom', function(e) {
-        var zoomAmount = graphicsArea.panzoomController.getTransform().scale;
-        controlPanel.setControlValue(CONTROLS.canvas.zoom.amount, zoomAmount);
+        var zoomAmount = graphicsArea.panzoomController.getTransform().scale.toFixed(1);
+        $(controlPanel.getControl(CONTROLS.canvas.zoom.amount)).val(zoomAmount);
+        $(controlPanel.getControlValueLabelByControl(CONTROLS.canvas.zoom.amount)).text(zoomAmount);
     }, true);
-
-    $('canvas').on('resize', function () {
-        console.log('elo');
-
-    });
 
 });

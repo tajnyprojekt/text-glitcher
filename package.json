@@ -1,5 +1,5 @@
 {
-  "name": "brenskie-dania",
+  "name": "charramba",
   "description": "",
   "author": "Michał Urbanski",
   "homepage": "http://tajnyprojekt.com",
@@ -11,9 +11,12 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-sass": "^3.1.0",
-    "gulp-watch": "^4.3.11"
+    "gulp-uglify": "^3.0.1",
+    "gulp-watch": "^4.3.11",
+    "pump": "^3.0.0"
   },
   "dependencies": {
-    "browser-sync": "^2.18.13"
+    "browser-sync": "^2.18.13",
+    "is-undo-redo": "^1.0.0"
   }
 }

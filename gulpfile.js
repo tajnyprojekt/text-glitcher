@@ -2,6 +2,9 @@ var gulp        = require('gulp');
 var browserSync = require('browser-sync').create();
 var sass        = require('gulp-sass');
 
+var uglify = require('gulp-uglify');
+var pump = require('pump');
+
 // Static Server + watching scss/html files
 gulp.task('serve', ['sass'], function() {
 
@@ -23,6 +26,17 @@ gulp.task('sass', function() {
         .pipe(sass())
         .pipe(gulp.dest("./resources/css"))
         .pipe(browserSync.stream());
+});
+
+// uglify js and css
+gulp.task('release', function (cb) {
+  pump([
+        gulp.src('./resources/js/**/*.js'),
+        uglify(),
+        gulp.dest('dist')
+    ],
+    cb
+  );
 });
 
 gulp.task('default', ['serve']);
