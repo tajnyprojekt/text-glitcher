@@ -1,42 +1,58 @@
-var gulp        = require('gulp');
-var browserSync = require('browser-sync').create();
-var sass        = require('gulp-sass');
+const gulp        = require('gulp');
+const browserSync = require('browser-sync').create();
+const sass = require('gulp-sass');
+const postcss = require("gulp-postcss");
+const plumber = require("gulp-plumber");
+const rename = require("gulp-rename");
+const cssnano = require("cssnano");
 
-var uglify = require('gulp-uglify');
-var pump = require('pump');
+// var uglify = require('gulp-uglify');
+// var pump = require('pump');
 
-// Static Server + watching scss/html files
-gulp.task('serve', ['sass'], function() {
-
+// BrowserSync
+function browserSyncInit(done) {
     browserSync.init({
-        server: "./"
+        server: {
+            baseDir: "./"
+        },
+        port: 3000
     });
+    done();
+}
 
-    gulp.watch("./resources/scss/**/**/*.scss", ['sass']);
+// BrowserSync Reload
+function browserSyncReload(done) {
+    browserSync.reload();
+    done();
+}
 
-    gulp.watch("./resources/components/**/*.js").on('change', browserSync.reload);
-    gulp.watch("./resources/js/**/*.js").on('change', browserSync.reload);
 
-    gulp.watch("*.html").on('change', browserSync.reload);
-});
-
-// Compile sass into CSS & auto-inject into browsers
-gulp.task('sass', function() {
-    return gulp.src("./resources/scss/style.scss")
-        .pipe(sass())
-        .pipe(gulp.dest("./resources/css"))
+// CSS task
+function css() {
+    return gulp
+        .src("./resources/scss/style.scss")
+        .pipe(plumber())
+        .pipe(sass({ outputStyle: "expanded" }))
+        .pipe(gulp.dest("./resources/css/"))
+        .pipe(rename({ suffix: ".min" }))
+        .pipe(postcss([autoprefixer(), cssnano()]))
+        .pipe(gulp.dest("./resources/css/"))
         .pipe(browserSync.stream());
-});
+}
 
-// uglify js and css
-gulp.task('release', function (cb) {
-  pump([
-        gulp.src('./resources/js/**/*.js'),
-        uglify(),
-        gulp.dest('dist')
-    ],
-    cb
-  );
-});
+// Watch files
+function watchFiles(done) {
+    gulp.watch("./resources/scss/**/*", css);
+    gulp.watch(
+        [
+            "./*.html",
+            "./resources/**/*"
+        ],
+        browserSyncReload
+    );
+    done();
+}
 
-gulp.task('default', ['serve']);
+gulp.task("watch", watchFiles);
+gulp.task("sync", browserSyncInit);
+gulp.task("default", gulp.parallel(browserSyncInit, watchFiles));
