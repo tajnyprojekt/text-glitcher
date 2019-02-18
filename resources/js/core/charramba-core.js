@@ -46,9 +46,9 @@ $(function() {
                     dissolveY: 1,
                     shift: 0
                 },
-                ascii: {
+                pixel: {
                     enabled: false,
-                    size: 2
+                    size: 1
                 }
                 // chromatic: {
                 //     shift: 0
@@ -166,7 +166,7 @@ $(function() {
             enabledFilters = [];
             updateGlitchFilter();
             updateDisplacementFilter();
-            updateAsciiFilter();
+            updatePixelFilter();
             app.stage.filters = enabledFilters;
         };
 
@@ -196,16 +196,51 @@ $(function() {
             }
         };
 
-        var updateAsciiFilter = function () {
-            if (params.form.ascii.enabled) {
-                bgGraphics.alpha = 1;
-                asciiFilter = new PIXI.filters.AsciiFilter(params.form.ascii.size);
-                enabledFilters.push(asciiFilter);
+        // var updateRGBShiftFilter = function() {
+        //     if (params.form.ascii.enabled) {
+        //         // bgGraphics.alpha = 1;
+        //         // asciiFilter = new PIXI.filters.AsciiFilter(params.form.ascii.size);
+        //         // enabledFilters.push(asciiFilter);
+        //         var invertFilter = new PIXI.filters.ZoomBlurFilter();
+        //         invertFilter.strength = params.form.ascii.size / 100;
+        //         enabledFilters.push(invertFilter);
+        //     }
+        //     else {
+        //         // bgGraphics.alpha = params.canvas.color.a;
+        //     }
+        // };
+
+        var updatePixelFilter = function() {
+            if (params.form.pixel.enabled) {
+                // bgGraphics.alpha = 1;
+                // asciiFilter = new PIXI.filters.AsciiFilter(params.form.ascii.size);
+                // enabledFilters.push(asciiFilter);
+                var pixelFilter = new PIXI.filters.PixelateFilter();
+                pixelFilter.size = params.form.pixel.size;
+                enabledFilters.push(pixelFilter);
             }
             else {
-                bgGraphics.alpha = params.canvas.color.a;
+                // bgGraphics.alpha = params.canvas.color.a;
             }
         };
+
+        var updateRGBShiftFilter = function() {
+            if (params.form.ascii.enabled) {
+                // bgGraphics.alpha = 1;
+                // asciiFilter = new PIXI.filters.AsciiFilter(params.form.ascii.size);
+                // enabledFilters.push(asciiFilter);
+                var invertFilter = new PIXI.filters.ReflectionFilter({
+                    boundary: 0,
+                    mirror: false,
+                    waveLength: [100, params.form.ascii.size * 3]
+                });
+                enabledFilters.push(invertFilter);
+            }
+            else {
+                // bgGraphics.alpha = params.canvas.color.a;
+            }
+        };
+
 
         // download
 
@@ -362,13 +397,13 @@ $(function() {
             this.paramsChanged();
         };
 
-        this.setFormAsciiEnabled = function (enabled) {
-            params.form.ascii.enabled = enabled;
+        this.setFormPixelEnabled = function (enabled) {
+            params.form.pixel.enabled = enabled;
             this.paramsChanged();
         };
 
-        this.setFormAsciiSize = function (size) {
-            params.form.ascii.size = Number(size);
+        this.setFormPixelSize = function (size) {
+            params.form.pixel.size = Number(size);
             this.paramsChanged();
         };
 
@@ -435,9 +470,9 @@ $(function() {
                         dissolveY: paramsObject.form.liquid.dissolveY,
                         shift: paramsObject.form.liquid.shift
                     },
-                    ascii: {
-                        enabled: paramsObject.form.ascii.enabled,
-                        size: paramsObject.form.ascii.size
+                    pixel: {
+                        enabled: paramsObject.form.pixel.enabled,
+                        size: paramsObject.form.pixel.size
                     }
                 },
                 glitch: {

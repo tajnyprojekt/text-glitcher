@@ -54,10 +54,10 @@ var charrambaParamsBounds = {
                 max: 400
             }
         },
-        ascii: {
+        pixel: {
             size: {
-                min: 2,
-                max: 15
+                min: 1,
+                max: 20
             }
         },
         chromatic: {

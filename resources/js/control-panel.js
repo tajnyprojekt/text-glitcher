@@ -52,9 +52,9 @@ $(function() {
                 dissolveY: 'form-liquid-dissolve-y',
                 shift: 'form-liquid-shift'
             },
-            ascii: {
-                enabled: 'form-ascii-enabled',
-                size: 'form-ascii-size'
+            pixel: {
+                enabled: 'form-pixel-enabled',
+                size: 'form-pixel-size'
             }
         },
         glitch: {

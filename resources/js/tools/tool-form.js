@@ -94,22 +94,22 @@ $(function() {
 
     // ascii
 
-    controlPanel.getControl(CONTROLS.form.ascii.enabled).on('change', function () {
+    controlPanel.getControl(CONTROLS.form.pixel.enabled).on('change', function () {
         var enabled = this.checked;
-        charrambaCore.setFormAsciiEnabled(enabled);
+        charrambaCore.setFormPixelEnabled(enabled);
     });
 
-    controlPanel.getControl(CONTROLS.form.ascii.size).attr({
-        min: charrambaParamsBounds.form.ascii.size.min,
-        max: charrambaParamsBounds.form.ascii.size.max,
-        value: charrambaCore.getParams().form.ascii.size,
+    controlPanel.getControl(CONTROLS.form.pixel.size).attr({
+        min: charrambaParamsBounds.form.pixel.size.min,
+        max: charrambaParamsBounds.form.pixel.size.max,
+        value: charrambaCore.getParams().form.pixel.size,
         step: 1
     })
     .trigger('change')
     .on('change input', function () {
         var size = $(this).val();
-        charrambaCore.setFormAsciiSize(size);
-        controlPanel.getControl(CONTROLS.form.ascii.enabled).prop('checked', true).trigger('change');
+        charrambaCore.setFormPixelSize(size);
+        controlPanel.getControl(CONTROLS.form.pixel.enabled).prop('checked', true).trigger('change');
     });
 
     // chromatic
