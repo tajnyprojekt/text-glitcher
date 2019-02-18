@@ -60,6 +60,20 @@ var charrambaParamsBounds = {
                 max: 20
             }
         },
+        blur: {
+            amount: {
+                min: 0.01,
+                max: 0.2
+            },
+            x: {
+                min: 0,
+                max: 1000
+            },
+            y: {
+                min: 0,
+                max: 1000
+            }
+        },
         chromatic: {
             shift:{
                 min: -50,

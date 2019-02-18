@@ -49,6 +49,12 @@ $(function() {
                 pixel: {
                     enabled: false,
                     size: 1
+                },
+                blur: {
+                    enabled: false,
+                    amount: 0.07,
+                    x: 0,
+                    y: 0
                 }
                 // chromatic: {
                 //     shift: 0
@@ -167,6 +173,7 @@ $(function() {
             updateGlitchFilter();
             updateDisplacementFilter();
             updatePixelFilter();
+            updateBlurFilter();
             app.stage.filters = enabledFilters;
         };
 
@@ -196,39 +203,28 @@ $(function() {
             }
         };
 
-        // var updateRGBShiftFilter = function() {
-        //     if (params.form.ascii.enabled) {
-        //         // bgGraphics.alpha = 1;
-        //         // asciiFilter = new PIXI.filters.AsciiFilter(params.form.ascii.size);
-        //         // enabledFilters.push(asciiFilter);
-        //         var invertFilter = new PIXI.filters.ZoomBlurFilter();
-        //         invertFilter.strength = params.form.ascii.size / 100;
-        //         enabledFilters.push(invertFilter);
-        //     }
-        //     else {
-        //         // bgGraphics.alpha = params.canvas.color.a;
-        //     }
-        // };
-
         var updatePixelFilter = function() {
             if (params.form.pixel.enabled) {
-                // bgGraphics.alpha = 1;
-                // asciiFilter = new PIXI.filters.AsciiFilter(params.form.ascii.size);
-                // enabledFilters.push(asciiFilter);
                 var pixelFilter = new PIXI.filters.PixelateFilter();
                 pixelFilter.size = params.form.pixel.size;
                 enabledFilters.push(pixelFilter);
             }
-            else {
-                // bgGraphics.alpha = params.canvas.color.a;
+        };
+
+        var updateBlurFilter = function() {
+            if (params.form.blur.enabled) {
+                var blurFilter = new PIXI.filters.ZoomBlurFilter();
+                blurFilter.strength = params.form.blur.amount;
+                blurFilter.center = [
+                    params.form.blur.x,
+                    params.form.blur.y
+                ];
+                enabledFilters.push(blurFilter);
             }
         };
 
-        var updateRGBShiftFilter = function() {
+        var updateWaveFilter = function() {
             if (params.form.ascii.enabled) {
-                // bgGraphics.alpha = 1;
-                // asciiFilter = new PIXI.filters.AsciiFilter(params.form.ascii.size);
-                // enabledFilters.push(asciiFilter);
                 var invertFilter = new PIXI.filters.ReflectionFilter({
                     boundary: 0,
                     mirror: false,
@@ -407,6 +403,26 @@ $(function() {
             this.paramsChanged();
         };
 
+        this.setFormBlurEnabled = function (enabled) {
+            params.form.blur.enabled = enabled;
+            this.paramsChanged();
+        };
+
+        this.setFormBlurAmount = function (enabled) {
+            params.form.blur.amount = enabled;
+            this.paramsChanged();
+        };
+
+        this.setFormBlurX = function (enabled) {
+            params.form.blur.x = enabled;
+            this.paramsChanged();
+        };
+
+        this.setFormBlurY = function (enabled) {
+            params.form.blur.y = enabled;
+            this.paramsChanged();
+        };
+
         this.setLowpassTreshold = function (treshold) {
             params.glitch.lowpass.treshold = treshold;
             this.paramsChanged();
@@ -473,6 +489,12 @@ $(function() {
                     pixel: {
                         enabled: paramsObject.form.pixel.enabled,
                         size: paramsObject.form.pixel.size
+                    },
+                    blur: {
+                        enabled: paramsObject.form.blur.enabled,
+                        amount: paramsObject.form.blur.amount,
+                        x: paramsObject.form.blur.x,
+                        y: paramsObject.form.blur.y
                     }
                 },
                 glitch: {

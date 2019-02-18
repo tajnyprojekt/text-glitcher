@@ -55,6 +55,12 @@ $(function() {
             pixel: {
                 enabled: 'form-pixel-enabled',
                 size: 'form-pixel-size'
+            },
+            blur: {
+                enabled: 'form-blur-enabled',
+                amount: 'form-blur-amount',
+                x: 'form-blur-x',
+                y: 'form-blur-y'
             }
         },
         glitch: {

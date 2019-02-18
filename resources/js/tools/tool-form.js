@@ -92,7 +92,7 @@ $(function() {
         controlPanel.getControl(CONTROLS.form.liquid.enabled).prop('checked', true).trigger('change');
     });
 
-    // ascii
+    // pixel
 
     controlPanel.getControl(CONTROLS.form.pixel.enabled).on('change', function () {
         var enabled = this.checked;
@@ -111,6 +111,53 @@ $(function() {
         charrambaCore.setFormPixelSize(size);
         controlPanel.getControl(CONTROLS.form.pixel.enabled).prop('checked', true).trigger('change');
     });
+
+    // blur
+
+    controlPanel.getControl(CONTROLS.form.blur.enabled).on('change', function () {
+        var enabled = this.checked;
+        charrambaCore.setFormBlurEnabled(enabled);
+    });
+
+    controlPanel.getControl(CONTROLS.form.blur.amount).attr({
+        min: charrambaParamsBounds.form.blur.amount.min,
+        max: charrambaParamsBounds.form.blur.amount.max,
+        value: charrambaCore.getParams().form.blur.amount,
+        step: 0.02
+    })
+    .trigger('change')
+    .on('change input', function () {
+        var amount = $(this).val();
+        charrambaCore.setFormBlurAmount(amount);
+        controlPanel.getControl(CONTROLS.form.blur.enabled).prop('checked', true).trigger('change');
+    });
+
+    controlPanel.getControl(CONTROLS.form.blur.x).attr({
+        min: charrambaParamsBounds.form.blur.x.min,
+        max: charrambaParamsBounds.form.blur.x.max,
+        value: charrambaCore.getParams().form.blur.x,
+        step: 4
+    })
+    .trigger('change')
+    .on('change input', function () {
+        var x = $(this).val();
+        charrambaCore.setFormBlurX(x);
+        controlPanel.getControl(CONTROLS.form.blur.enabled).prop('checked', true).trigger('change');
+    });
+
+    controlPanel.getControl(CONTROLS.form.blur.y).attr({
+        min: charrambaParamsBounds.form.blur.y.min,
+        max: charrambaParamsBounds.form.blur.y.max,
+        value: charrambaCore.getParams().form.blur.y,
+        step: 4
+    })
+    .trigger('change')
+    .on('change input', function () {
+        var y = $(this).val();
+        charrambaCore.setFormBlurY(y);
+        controlPanel.getControl(CONTROLS.form.blur.enabled).prop('checked', true).trigger('change');
+    });
+
 
     // chromatic
 
