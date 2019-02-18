@@ -1,0 +1,17 @@
+
+.video-timeline-menu {
+    width: 100%;
+    height: 25vh;
+    border-top: $border-size solid $color-gray;
+    border-right: $border-size solid $color-gray;
+    border-bottom: $border-size solid $color-gray;
+
+    &__content-wrapper {
+        padding: 15px;
+    }
+
+    &__chart {
+        width: 100%;
+        height: 15vh;
+    }
+}

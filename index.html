@@ -50,8 +50,19 @@
         <div class="row justify-content-center h-100">
 
 <!--graphics area-->
-            <div class="col-12 col-md order-md-12 text-center graphics-area">
-                <div id="canvas-container" class="graphics-area__canvas-wrapper"></div>
+            <div class="col-12 col-md order-md-12 text-center p-0">
+                <div class="graphics-area">
+                    <div id="canvas-container" class="graphics-area__canvas-wrapper"></div>
+                </div>
+                <div class="text-left video-timeline-menu">
+                    <div class="video-timeline-menu__content-wrapper">
+                       <div class="tool-menu__item__name">Timeline</div>
+
+                        <div id="automation-timeline-0">
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
 
 <!--control panel            -->
@@ -291,6 +302,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <div data-tool="video" class="tool-menu__item js-tool-menu">
+                                <div class="tool-menu__item__name">Video</div>
+                                <div class="tool-menu__item__controls">
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control-group__name only-mobile">Video</div>
+                                        <div class="tool-menu__item__control-group__content">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div data-tool="download" class="tool-menu__item js-tool-menu">
                                 <div class="tool-menu__item__name">Download</div>
                                 <div class="tool-menu__item__controls">
@@ -358,6 +380,12 @@
                                    data-toggle="tooltip" data-placement="right" title="glitch">
                             <span>
                                 <img src="./resources/img/icons/toolbar-glitch.svg">
+                            </span>
+                        </div><div data-tool="video" class="toolbar__tool-button js-tool-button" data-toggle="tooltip" data-placement="right"
+                            title="video">
+                            <span>
+                                video
+                                <!-- <img src="./resources/img/icons/toolbar-download.svg"> -->
                             </span>
                         </div><div data-tool="download" class="toolbar__tool-button js-tool-button"
                                    data-toggle="tooltip" data-placement="right" title="download">
@@ -432,6 +460,7 @@
     <script src="vendors/panzoom/panzoom.min.js"></script>
     <script src="vendors/pixi/pixi.min.js"></script>
     <script src="vendors/pixi/pixi-filters-edited.js"></script>
+    
     <!--<script src="vendors/p5/p5.min.js"></script>-->
     <!--<script src="vendors/p5/p5.dom.min.js"></script>-->
 
@@ -448,6 +477,8 @@
     <script src="resources/js/tools/tool-download.js"></script>
 
     <script src="resources/js/keyboard-handling.js"></script>
+
+    <script src="resources/js/video/automation-timeline.js"></script>
 
 </body>
 </html>

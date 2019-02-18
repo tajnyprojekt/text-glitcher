@@ -166,7 +166,8 @@ $(function() {
             enabledFilters = [];
             updateGlitchFilter();
             updateDisplacementFilter();
-            updateAsciiFilter();
+            // updateAsciiFilter();
+            updateRGBShiftFilter();
             app.stage.filters = enabledFilters;
         };
 
@@ -204,6 +205,19 @@ $(function() {
             }
             else {
                 bgGraphics.alpha = params.canvas.color.a;
+            }
+        };
+
+        var updateRGBShiftFilter = function() {
+            if (params.form.ascii.enabled) {
+                // bgGraphics.alpha = 1;
+                // asciiFilter = new PIXI.filters.AsciiFilter(params.form.ascii.size);
+                // enabledFilters.push(asciiFilter);
+                var invertFilter = new PIXI.filters.ZoomBlurFilter();
+                enabledFilters.push(invertFilter);
+            }
+            else {
+                // bgGraphics.alpha = params.canvas.color.a;
             }
         };
 
