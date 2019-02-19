@@ -79,6 +79,12 @@ var charrambaParamsBounds = {
                 min: -50,
                 max: 50
             }
+        },
+        wave: {
+            size: {
+                min: 1,
+                max: 70
+            }
         }
     }
 };

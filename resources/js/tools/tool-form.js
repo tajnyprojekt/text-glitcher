@@ -158,6 +158,26 @@ $(function() {
         controlPanel.getControl(CONTROLS.form.blur.enabled).prop('checked', true).trigger('change');
     });
 
+    // wave
+
+    controlPanel.getControl(CONTROLS.form.wave.enabled).on('change', function () {
+        var enabled = this.checked;
+        charrambaCore.setFormWaveEnabled(enabled);
+    });
+
+    controlPanel.getControl(CONTROLS.form.wave.size).attr({
+        min: charrambaParamsBounds.form.wave.size.min,
+        max: charrambaParamsBounds.form.wave.size.max,
+        value: charrambaCore.getParams().form.wave.size,
+        step: 1
+    })
+    .trigger('change')
+    .on('change input', function () {
+        var size = $(this).val();
+        charrambaCore.setFormWaveSize(size);
+        controlPanel.getControl(CONTROLS.form.wave.enabled).prop('checked', true).trigger('change');
+    });
+
 
     // chromatic
 

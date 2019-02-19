@@ -61,6 +61,10 @@ $(function() {
                 amount: 'form-blur-amount',
                 x: 'form-blur-x',
                 y: 'form-blur-y'
+            },
+            wave: {
+                enabled: 'form-wave-enabled',
+                size: 'form-wave-size'
             }
         },
         glitch: {

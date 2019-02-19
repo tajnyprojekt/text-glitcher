@@ -56,10 +56,11 @@ $(function() {
                     amount: 0.07,
                     x: 0,
                     y: 0
+                },
+                wave: {
+                    enabled: false,
+                    size: 70
                 }
-                // chromatic: {
-                //     shift: 0
-                // }
             },
             glitch: {
                 lowpass: {
@@ -215,10 +216,11 @@ $(function() {
 
         var updateFilters = function () {
             enabledFilters = [];
-            updateGlitchFilter();
             updateDisplacementFilter();
-            updatePixelFilter();
+            updateWaveFilter();
             updateBlurFilter();
+            updatePixelFilter();
+            updateGlitchFilter();
             app.stage.filters = enabledFilters;
         };
 
@@ -228,7 +230,8 @@ $(function() {
                     offset: params.form.scraped.offset,
                     slices: params.form.scraped.slices,
                     direction: params.form.scraped.direction,
-                    fillMode: 0
+                    fillMode: 3, // clamp
+                    seed: 0
                 });
                 enabledFilters.push(glitchFilter);
             }
@@ -269,16 +272,13 @@ $(function() {
         };
 
         var updateWaveFilter = function() {
-            if (params.form.ascii.enabled) {
-                var invertFilter = new PIXI.filters.ReflectionFilter({
+            if (params.form.wave.enabled) {
+                var waveFilter = new PIXI.filters.ReflectionFilter({
                     boundary: 0,
                     mirror: false,
-                    waveLength: [100, params.form.ascii.size * 3]
+                    waveLength: [10, params.form.wave.size * 3]
                 });
-                enabledFilters.push(invertFilter);
-            }
-            else {
-                // bgGraphics.alpha = params.canvas.color.a;
+                enabledFilters.push(waveFilter);
             }
         };
 
@@ -468,6 +468,16 @@ $(function() {
             this.paramsChanged();
         };
 
+        this.setFormWaveEnabled = function (enabled) {
+            params.form.wave.enabled = enabled;
+            this.paramsChanged();
+        };
+
+        this.setFormWaveSize = function (size) {
+            params.form.wave.size = Number(size);
+            this.paramsChanged();
+        };
+
         this.setLowpassTreshold = function (treshold) {
             params.glitch.lowpass.treshold = treshold;
             this.paramsChanged();
@@ -541,6 +551,10 @@ $(function() {
                         amount: paramsObject.form.blur.amount,
                         x: paramsObject.form.blur.x,
                         y: paramsObject.form.blur.y
+                    },
+                    wave: {
+                        enabled: paramsObject.form.wave.enabled,
+                        size: paramsObject.form.wave.size
                     }
                 },
                 glitch: {
