@@ -86,9 +86,15 @@ $(function() {
         },
 
         setControlValue: function (dataFunction, value, triggerChange) {
-            this.getControl(dataFunction).val(value);
+            var control = this.getControl(dataFunction);
+            control.val(value);
             if (typeof(triggerChange) === 'undefined' || triggerChange === true) {
-                this.getControl(dataFunction).trigger('change');
+                if (control.is('textarea')) {
+                    control.trigger('input');
+                }
+                else {
+                    control.trigger('change');
+                }
             }
         },
 

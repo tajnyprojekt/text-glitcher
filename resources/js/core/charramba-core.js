@@ -19,6 +19,7 @@ $(function() {
             },
             text: {
                 text: '',
+                placeholder: 'Start typing your tex ',
                 font: 'Space Mono',
                 style: 'normal',
                 weight: 'normal',
@@ -80,6 +81,7 @@ $(function() {
         var app;
         var bgGraphics;
         var textObject;
+        var placeholderInterval = false;
 
         var enabledFilters;
         var glitchFilter;
@@ -136,7 +138,7 @@ $(function() {
         };
 
         var updateApp = function () {
-            console.log('update');
+            // console.log('update');
             updateBgGraphics();
             updateText();
             updateFilters();
@@ -151,6 +153,31 @@ $(function() {
         };
 
         var updateText = function () {
+            if (params.text.text !== '') {
+                updateTextContent();
+                if (placeholderInterval !== false) {
+                    clearInterval(placeholderInterval);
+                    placeholderInterval = false;
+                }
+            }
+            else {
+                if (!placeholderInterval) {
+                    placeholderInterval = setInterval(function () {
+                        var cursor = '_';
+                        if (params.text.placeholder.endsWith(cursor)) {
+                            params.text.placeholder = params.text.placeholder.replace(cursor, ' ');
+                        }
+                        else {
+                            params.text.placeholder = params.text.placeholder.slice(0, -cursor.length) + cursor;
+                        }
+                        app.start();
+                    }, 600);
+                }
+                updateTextPlaceholder();
+            }
+        };
+
+        var updateTextContent = function () {
             textObject.text = params.text.text;
             textObject.x = app.renderer.view.width / 2;
             textObject.y = app.renderer.view.height / 2;
@@ -165,6 +192,24 @@ $(function() {
                 lineHeight: params.text.lineHeight,
                 align: params.text.align,
                 fill: params.text.color.hex
+            }
+        };
+
+        var updateTextPlaceholder = function () {
+            textObject.text = params.text.placeholder;
+            textObject.x = app.renderer.view.width / 2;
+            textObject.y = app.renderer.view.height / 2;
+            textObject.style = {
+                wordWrap: true,
+                breakWords: true,
+                wordWrapWidth: app.renderer.view.width,
+                fontFamily: params.text.font,
+                fontWeight: params.text.weight,
+                fontStyle: params.text.style,
+                fontSize: 75,
+                lineHeight: 100,
+                align: 'center',
+                fill: '#aaa'
             }
         };
 
@@ -459,6 +504,7 @@ $(function() {
                 },
                 text: {
                     text: paramsObject.text.text,
+                    placeholder: paramsObject.text.placeholder,
                     font: paramsObject.text.font,
                     style: paramsObject.text.style,
                     weight: paramsObject.text.weight,
@@ -546,8 +592,12 @@ $(function() {
             controlPanel.setControlValue(CONTROLS.form.liquid.dissolveX, params.form.liquid.dissolveX, false);
             controlPanel.setControlValue(CONTROLS.form.liquid.dissolveY, params.form.liquid.dissolveY, false);
             controlPanel.setControlValue(CONTROLS.form.liquid.shift, params.form.liquid.shift, false);
-            controlPanel.setControlChecked(CONTROLS.form.ascii.enabled, params.form.ascii.enabled, false);
-            controlPanel.setControlValue(CONTROLS.form.ascii.size, params.form.ascii.size, false);
+            controlPanel.setControlChecked(CONTROLS.form.pixel.enabled, params.form.pixel.enabled, false);
+            controlPanel.setControlValue(CONTROLS.form.pixel.size, params.form.pixel.size, false);
+            controlPanel.setControlChecked(CONTROLS.form.blur.enabled, params.form.blur.enabled, false);
+            controlPanel.setControlValue(CONTROLS.form.blur.amount, params.form.blur.amount, false);
+            controlPanel.setControlValue(CONTROLS.form.blur.x, params.form.blur.x, false);
+            controlPanel.setControlValue(CONTROLS.form.blur.y, params.form.blur.y, false);
 
         };
 

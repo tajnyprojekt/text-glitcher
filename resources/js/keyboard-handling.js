@@ -46,6 +46,21 @@ $(function() {
         }
     });
 
+    // grab typing when graphics area is focused
+    $('.graphics-area').keypress(function(e){
+        var char = String.fromCharCode( e.which );
+        var input = controlPanel.getControl(CONTROLS.text.input);
+        var newVal = input.val() + char;
+        controlPanel.setControlValue(CONTROLS.text.input, newVal, true);
+    }).keydown(function (e) {
+        // handle backspace
+        if( e.which == 8 ) {
+            var input = controlPanel.getControl(CONTROLS.text.input);
+            var newVal = input.val().slice(0, -1);
+            controlPanel.setControlValue(CONTROLS.text.input, newVal, true);
+        }
+    });
+
 
     // var KEYCODE = {
     //     shift: 16,

@@ -48,5 +48,4 @@ $(function() {
         $(controlPanel.getControl(CONTROLS.canvas.zoom.amount)).val(zoomAmount);
         $(controlPanel.getControlValueLabelByControl(CONTROLS.canvas.zoom.amount)).text(zoomAmount);
     }, true);
-
 });
