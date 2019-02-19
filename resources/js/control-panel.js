@@ -147,7 +147,7 @@ $(function() {
     });
 
     // collapse control group on mobile
-    $('.tool-menu__item__control-group__name').on('click', function () {
+    $('.tool-menu__item__control-group__name, .close-group').on('click', function () {
         var group = $(this).parent();
         var content = $(this).next();
         var wasOpened = group.hasClass('opened');
