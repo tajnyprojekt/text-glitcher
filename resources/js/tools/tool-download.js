@@ -8,6 +8,7 @@ $(function() {
 
     controlPanel.getControl(CONTROLS.download.video.button).on('click', function(){
         var button = $(this);
+        button.attr('disabled', true);
         var label = button.text();
         var i = 0;
         var waitInterval = setInterval(function () {
@@ -20,6 +21,7 @@ $(function() {
         charrambaCore.exportVideo(name, function () {
             clearInterval(waitInterval);
             button.text(label);
+            button.attr('disabled', false);
         });
     });
 
