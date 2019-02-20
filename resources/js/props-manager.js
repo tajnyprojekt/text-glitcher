@@ -21,7 +21,7 @@ $(function() {
             ['form', 'wave', 'size']
         ];
 
-        var getFromObj = function (keys, obj) {
+        this.getFromObj = function (keys, obj) {
             return keys.reduce(function (obj, key) {
                 return (obj && obj[key]) ? obj[key] : null;
             }, obj);
@@ -29,17 +29,17 @@ $(function() {
 
         this.getPropId = function (index) {
             if (index < 0 || index > mappings.length) return null;
-            return getFromObj(mappings[index], CONTROLS);
+            return this.getFromObj(mappings[index], CONTROLS);
         };
 
         this.getPropValue = function (index) {
             if (index < 0 || index > mappings.length) return null;
-            return getFromObj(mappings[index], charrambaCore.getParams());
+            return this.getFromObj(mappings[index], charrambaCore.getParams());
         };
 
         this.getPropBounds = function (index) {
             if (index < 0 || index > mappings.length) return null;
-            return getFromObj(mappings[index], charrambaParamsBounds);
+            return this.getFromObj(mappings[index], charrambaParamsBounds);
         };
 
         this.getMappings = function () {
@@ -57,7 +57,7 @@ $(function() {
         this.setPropValue = function (index, value) {
             if (index < 0 || index > mappings.length) return;
             var keys = mappings[index];
-            var parent = getFromObj(keys.slice(0, -1), charrambaCore.getParams());
+            var parent = this.getFromObj(keys.slice(0, -1), charrambaCore.getParams());
             parent[keys[keys.length - 1]] = value;
         };
 

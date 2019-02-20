@@ -69,6 +69,9 @@ $(function() {
             },
             video: {
                 playing: false,
+                state: 'pause',
+                duration: 6000,
+                automations: []
             }
         };
 
@@ -150,7 +153,7 @@ $(function() {
             updateText();
             updateFilters();
 
-            if (!params.video.playing) {
+            if (params.video.state === 'pause') {
                 app.stop();
             }
         };
@@ -294,16 +297,21 @@ $(function() {
         // video
 
         var animateParams = function () {
-            if (params.video.playing) {
+            if (params.video.state !== 'pause') {
                 videoTime += app.ticker.elapsedMS;
-                if (videoTime > videoEditor.params.duration) {
-                    videoTime = 0;
+                if (videoTime > params.video.duration) {
+                    if (params.video.state === 'loop') {
+                        videoTime = 0;
+                    }
+                    if (params.video.state === 'play') {
+                        charrambaCore.setVideoStatePause();
+                    }
                 }
                 videoEditor.updateAnimation(videoTime);
             }
         };
 
-        this.exportVideo = function () {
+        this.exportVideo = function (filename) {
             var chunks = [];
             var canvas = app.view;
             var stream = canvas.captureStream();
@@ -313,24 +321,24 @@ $(function() {
             };
             recorder.onstop = function (e) {
                 var blob = new Blob(chunks, {type: 'video/webm'});
-                downloadVideo(blob);
+                downloadVideo(blob, filename);
             };
-            this.setVideoPlaying(true);
+            this.setVideoStatePlay();
             videoTime = 0;
             recorder.start();
             setTimeout(function () {
                 recorder.stop();
-                charrambaCore.setVideoPlaying(false);
+                charrambaCore.setVideoStatePause();
             }, videoEditor.params.duration);
         };
 
-        var downloadVideo = function (blob) {
+        var downloadVideo = function (blob, filename) {
             var vid = document.createElement('video');
             vid.src = URL.createObjectURL(blob);
             vid.controls = true;
             // document.body.appendChild(vid);
             var a = document.createElement('a');
-            a.download = 'myvid.webm';
+            a.download = filename + '.webm';
             a.href = vid.src;
             // a.textContent = 'download the video';
             // document.body.appendChild(a);
@@ -553,6 +561,46 @@ $(function() {
             videoTime = time;
         };
 
+        this.setVideoDuration = function (duration) {
+            params.video.duration = duration;
+            this.paramsChanged();
+        };
+
+        this.setVideoStateLoop = function () {
+            params.video.state = 'loop';
+            this.paramsChanged();
+            videoEditor.setAnimatedEffectsEnabled(true);
+        };
+
+        this.setVideoStatePlay = function () {
+            params.video.state = 'play';
+            this.paramsChanged();
+            videoEditor.setAnimatedEffectsEnabled(true);
+        };
+
+
+        this.setVideoStatePause = function () {
+            this.syncParams();
+            params.video.state = 'pause';
+            // this.paramsChanged();
+            // updateControls();
+        };
+
+        this.addVideoAutomation = function (automation) {
+            params.video.automations.push(automation);
+            this.paramsChanged();
+        };
+
+        this.removeVideoAutomation = function (propIndex) {
+            for (var i = 0; i < params.video.automations.length; i++) {
+                if (params.video.automations[i].propIndex === propIndex) {
+                    params.video.automations.splice(i, 1);
+                }
+            }
+            this.paramsChanged();
+        };
+
+
         this.getParams = function () {
             return params;
         };
@@ -633,7 +681,10 @@ $(function() {
                     }
                 },
                 video: {
-                    playing: paramsObject.video.playing
+                    playing: paramsObject.video.playing,
+                    state: paramsObject.video.state,
+                    duration: paramsObject.video.duration,
+                    automations:  paramsObject.video.automations.slice()
                 }
             };
         };
@@ -646,7 +697,7 @@ $(function() {
         this.syncParams = function () {
             params = cloneParams(stateHistory.history[stateHistory.currentPosition]);
             this.paramsChanged();
-            updateControls();
+            // updateControls();
         };
 
         this.undo = function () {
@@ -691,6 +742,16 @@ $(function() {
             controlPanel.setControlValue(CONTROLS.form.blur.amount, params.form.blur.amount, false);
             controlPanel.setControlValue(CONTROLS.form.blur.x, params.form.blur.x, false);
             controlPanel.setControlValue(CONTROLS.form.blur.y, params.form.blur.y, false);
+
+            controlPanel.getControl(CONTROLS.video.loop).removeClass('selected');
+            controlPanel.getControl(CONTROLS.video.play).removeClass('selected');
+
+            if (params.video.state === 'loop') {
+                controlPanel.getControl(CONTROLS.video.loop).addClass('selected');
+            }
+            if (params.video.state === 'play') {
+                controlPanel.getControl(CONTROLS.video.play).addClass('selected');
+            }
 
         };
 

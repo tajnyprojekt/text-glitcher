@@ -5,17 +5,26 @@ $(function() {
     // define sketch object
     var createVideoEditor = function () {
 
-        this.params = {
-            duration: 6000, //ms
-            automations: []
-        };
+        // this.params = charrambaCore.getParams().video;
 
         this.addAutomation = function (propIndex) {
-            this.params.automations.push({propIndex: propIndex, points: []});
+            if (charrambaCore.getParams().video.automations.length === 0) {
+                $('#video-timeline-message').fadeOut();
+                $('.video-timeline-tip').fadeIn();
+            }
+            charrambaCore.addVideoAutomation({propIndex: propIndex, points: []});
+        };
+
+        this.removeAutomation = function (propIndex) {
+            charrambaCore.removeVideoAutomation(propIndex);
+            if (charrambaCore.getParams().video.automations.length === 0) {
+                $('#video-timeline-message').fadeIn();
+                $('.video-timeline-tip').fadeOut();
+            }
         };
 
         this.updatePoints = function (propIndex, points) {
-            var automation = findObjectByKey(this.params.automations, 'propIndex', propIndex);
+            var automation = findObjectByKey(charrambaCore.getParams().video.automations, 'propIndex', propIndex);
             if (automation !== null) {
                 automation.points = points;
             }
@@ -37,7 +46,7 @@ $(function() {
         };
 
         var interpolateValue = function (points, time) {
-            var progress = time / this.params.duration;
+            var progress = time / charrambaCore.getParams().video.duration;
             if (typeof(points) === undefined || points.length === 0) {
                 return 0;
             }
@@ -56,10 +65,21 @@ $(function() {
         };
 
         this.updateAnimation = function (time) {
-            for (var i = 0; i < this.params.automations.length; i++) {
-                var automation = this.params.automations[i];
+            for (var i = 0; i < charrambaCore.getParams().video.automations.length; i++) {
+                var automation = charrambaCore.getParams().video.automations[i];
                 var paramValue = getParameterValue(automation, time);
                 propsManager.setPropValue(automation.propIndex, paramValue);
+            }
+        };
+
+        this.setAnimatedEffectsEnabled = function (enabled) {
+            for (var i = 0; i < charrambaCore.getParams().video.automations.length; i++) {
+                var automation = charrambaCore.getParams().video.automations[i];
+                var keys = propsManager.getMappings()[automation.propIndex];
+                if (keys[0] === 'form') {
+                    var effectParams = propsManager.getFromObj(keys.slice(0, -1), charrambaCore.getParams());
+                    effectParams.enabled = enabled;
+                }
             }
         };
 

@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <title>charramba - a glitch type generator</title>
+    <title>Charramba - a glitch type and video generator by tajny_projekt.</title>
 
-    <meta property="og:site_name" content="tajny_projekt karramba glitch type" />
+    <meta property="og:site_name" content="Charramba" />
     <meta property="og:type"               content="website" />
     <meta property="og:url"                content="http://tajnyprojekt.com/charramba" />
 
-    <meta property="og:title"              content="charramba - a glitch type generator" />
-    <meta property="og:description"        content="Create your own version of glitch type." />
+    <meta property="og:title"              content="charramba - a glitch type and video generator" />
+    <meta property="og:description"        content="Create your own version of glitch type and animate it in seconds!" />
     <meta property="og:image"              content="http://www.tajnyprojekt.com/charramba/resources/img/charramba_logo.png" />
     <meta property="og:image:width"        content="1280" />
     <meta property="og:image:height"       content="720" />
@@ -156,6 +156,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <p class="d-lg-block tool-menu__item__control__description" >You can also import a font from Google Fonts with IMPORT FONT option.</p>
                                         </div>
                                     </div>
                                     <div class="tool-menu__item__control-group">
@@ -338,6 +339,8 @@
                                             <!--</div>-->
                                         <!--</div>-->
                                     <!--</div>-->
+                                    <p class="tool-menu__item__control__description" >Use checkboxes on the right of effect's name to enable/disable it.</p>
+
                                 </div>
                             </div>
                             <div data-tool="glitch" class="tool-menu__item js-tool-menu">
@@ -359,19 +362,30 @@
                             <div data-tool="video" class="tool-menu__item js-tool-menu">
                                 <div class="tool-menu__item__name">Video</div>
                                 <div class="tool-menu__item__controls">
+                                    <p class="tool-menu__item__control__description text-center" >(Experimental)</p>
                                     <div class="tool-menu__item__control-group">
                                         <div class="tool-menu__item__control-group__name only-mobile">Video</div>
                                         <div class="tool-menu__item__control-group__content">
                                             <div class="tool-menu__item__control">
+                                                <p class="tool-menu__item__control__description" >Video editor (opens in popup) allows to set parameters' animation.</p>
                                                 <button data-function="video-button" class="button-full js-control">open editor</button>
                                             </div>
-                                            <div class="tool-menu__item__control">
-                                                <button data-function="video-play" class="button js-control"> > </button>
-                                                <button data-function="video-pause" class="button js-control"> || </button>
+                                            <div class="tool-menu__item__control video-editor__playback">
+                                                <div class="tool-menu__item__control__name">playback</div>
+                                                <div data-function="video-loop" class="js-control video-editor__playback-button"
+                                                     data-toggle="tooltip" data-placement="right" title="loop">
+                                                    <img src="./resources/img/icons/loop.svg">
+                                                </div>
+                                                <div data-function="video-play" class="js-control video-editor__playback-button"
+                                                     data-toggle="tooltip" data-placement="right" title="play">
+                                                    <img src="./resources/img/icons/play.svg">
+                                                </div>
+                                                <div data-function="video-pause" class="js-control video-editor__playback-button"
+                                                     data-toggle="tooltip" data-placement="right" title="pause">
+                                                    <img src="./resources/img/icons/pause.svg">
+                                                </div>
                                             </div>
-                                            <div class="tool-menu__item__control">
-                                                <button data-function="video-download" class="button-full js-control">download</button>
-                                            </div>
+                                            <p class="tool-menu__item__control__description" >You can download the animation with download tool.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -382,16 +396,16 @@
                                 <div class="tool-menu__item__controls">
                                     <div class="tool-menu__item__control-group">
                                         <img class="close-group" src="resources/img/icons/back.svg"/>
-                                        <div class="tool-menu__item__control-group__name only-mobile">Download</div>
+                                        <div class="tool-menu__item__control-group__name">Download image</div>
                                         <div class="tool-menu__item__control-group__content">
                                             <div class="tool-menu__item__control">
                                                 <div class="tool-menu__item__control__name">filename</div>
-                                                <input data-function="download-name" type="text" class="text-center js-control" placeholder="Type filename" value="ayy-charramba-1">
+                                                <input data-function="download-image-name" type="text" class="text-center js-control" placeholder="Type filename" value="ayy-charramba-1">
                                             </div>
                                             <div class="tool-menu__item__control">
                                                 <div class="tool-menu__item__control__name">format</div>
                                                 <div class="select">
-                                                    <select data-function="download-extension" class="js-control">
+                                                    <select data-function="download-image-extension" class="js-control">
                                                         <option class="select__option" value="png"    >*.png</option>
                                                         <option class="select__option" value="jpg"    >*.jpg</option>
                                                         <option class="select__option" value="bmp"    >*.bmp</option>
@@ -400,10 +414,27 @@
                                                 <p class="tool-menu__item__control__caption">warning: not all formats support transparency</p>
                                             </div>
                                             <div class="tool-menu__item__control">
-                                                <button data-function="download-button" class="button-full js-control">download</button>
+                                                <button data-function="download-image-button" class="button-full js-control">download image</button>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="tool-menu__item__control-group">
+                                        <img class="close-group" src="resources/img/icons/back.svg"/>
+                                        <div class="tool-menu__item__control-group__name">Download video</div>
+                                        <p class="tool-menu__item__control__description  text-center" >(Experimental)</p>
+                                        <div class="tool-menu__item__control-group__content">
+                                            <div class="tool-menu__item__control">
+                                                <div class="tool-menu__item__control__name">filename</div>
+                                                <input data-function="download-video-name" type="text" class="text-center js-control" placeholder="Type filename" value="ayy-videoramba">
+                                            </div>
+                                            <div class="tool-menu__item__control">
+                                                <button data-function="download-video-button" class="button-full js-control">download video</button>
+                                            </div>
+                                            <p class="tool-menu__item__control__description" >Currently only *.webm format is supported. You can download your video with transparent background.</p>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <div data-tool="info" class="tool-menu__item js-tool-menu">
@@ -428,7 +459,7 @@
                                         <br><br><br>
                                     </p>
                                     <p class="text-center">
-                                        Made with &heartsuit; | <b>tajny</b>projekt
+                                        Made with &heartsuit; | <a href="https://tajnyprojekt.com"><b>tajny</b>projekt</a>
                                     </p>
                                 </div>
                             </div>
@@ -460,8 +491,7 @@
                         </div><div data-tool="video" class="toolbar__tool-button js-tool-button"
                                    data-toggle="tooltip" data-placement="right" title="video">
                             <span>
-                                video
-<!--                                 <img src="./resources/img/icons/arrow.svg">-->
+                                <img src="./resources/img/icons/toolbar-video.svg">
                             </span>
                         </div><div data-tool="download" class="toolbar__tool-button js-tool-button"
                                    data-toggle="tooltip" data-placement="right" title="download">
@@ -536,7 +566,6 @@
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h4 class="modal-title font-import__title">VIDEO EDITOR</h4>
-                        <p>(experimental)</p>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
@@ -544,34 +573,41 @@
                     <div class="modal-body">
 
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class=" tool-menu__item__control">
-                                    <div class="tool-menu__item__control__name">duration [s]</div>
-                                    <div class="number-input">
-                                        <button data-function="size-width-minus" class="js-control"></button>
-                                        <input data-function="size-width" class="quantity js-control" type="number">
-                                        <button data-function="size-width-plus" class="js-control plus"></button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
+                            <div class="col-4">
                                 <div class="tool-menu__item__control">
-                                    <div id="video-animation-parameter-select-container">
+                                    <div class="tool-menu__item__control__name">add to animation:</div>
+                                    <div id="video-animation-parameter-select-container"></div>
+                                </div>
+                                <div class="tool-menu__item__control">
+                                    <button data-function="video-animate-parameter" class="button-full js-control">add</button>
+                                </div>
+                                <p class="tool-menu__item__control__description" >Select a parameter and click <i>add</i> to edit it's animation.</i></p>
+                            </div>
 
+                            <div class="offset-1 col-4">
+                                <div class="tool-menu__item__control">
+                                    <div class="tool-menu__item__control__name">duration [s]:</div>
+                                    <div class="number-input">
+                                        <button data-function="video-duration-minus" class="js-control"></button>
+                                        <input data-function="video-duration" class="quantity js-control" type="number" step="0.1">
+                                        <button data-function="video-duration-plus" class="js-control plus"></button>
                                     </div>
-                                    <button data-function="video-animate-parameter" class="button js-control">+ animate parameter </button>
                                 </div>
                             </div>
                         </div>
-                        <div id="video-editor__sequencer" class="video-editor__sequencer">
 
+                        <div class="tool-menu__item__control video-editor__sequencer">
+                            <div class="tool-menu__item__control__name">animations:</div>
+                            <div id="video-editor__sequencer">
+                                <p id="video-timeline-message" class="tool-menu__item__control__description  text-center">Add parameters to animate to see the timeline!</p>
+                            </div>
+                            <p class="tool-menu__item__control__description video-timeline-tip">Click on the area to add node, drag it with mouse, double click to remove.</p>
                         </div>
-
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
+                        <p class="text-left tool-menu__item__control__description" >Close this popup and click play to see the animation!</i></p>
                         <button type="button" class="" data-dismiss="modal">Close</button>
                     </div>
 

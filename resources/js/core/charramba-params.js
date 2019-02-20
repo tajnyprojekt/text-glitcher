@@ -86,5 +86,11 @@ var charrambaParamsBounds = {
                 max: 70
             }
         }
+    },
+    video: {
+        duration: {
+            min: 1,
+            max: 20
+        }
     }
 };

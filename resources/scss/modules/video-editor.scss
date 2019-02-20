@@ -1,5 +1,27 @@
 .video-editor {
 
+  &__playback {
+    margin-top: 15px;
+  }
+
+  &__playback-button {
+    display: inline-block;
+    img {
+      width: 2.5em;
+    }
+
+    &.selected {
+      opacity: 0.5;
+    }
+  }
+
+  .modal-body {
+
+    hr {
+      border-top: 1px solid $color-gray;
+    }
+  }
+
   &__timeline {
     border: 2px solid $color-gray;
     width: 100%;
@@ -9,9 +31,28 @@
 
   &__sequencer {
     margin-top: 30px;
+    //padding-left: 15px;
 
     &__row {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    &__remove {
+      position: absolute;
+      right: 0;
+      padding-left: 5px;
+      padding-bottom: 5px;
+
+      img {
+        width: 0.5em;
+      }
+    }
+
+    &__name {
+      font-style: italic;
+      margin-top: 10px;
+      margin-bottom: 0;
     }
   }
 }

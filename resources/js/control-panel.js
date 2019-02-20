@@ -74,16 +74,25 @@ $(function() {
         },
         video: {
             button: 'video-button',
+            loop: 'video-loop',
             play: 'video-play',
             pause: 'video-pause',
-            download: 'video-download',
             animateParameter: 'video-animate-parameter',
-            animateParameterSelect: 'video-animate-parameter-select'
+            animateParameterSelect: 'video-animate-parameter-select',
+            duration: 'video-duration',
+            durationPlus: 'video-duration-plus',
+            durationMinus: 'video-duration-minus',
         },
         download: {
-            name: 'download-name',
-            extension: 'download-extension',
-            button: 'download-button'
+            image: {
+                name: 'download-image-name',
+                button: 'download-image-button',
+                extension: 'download-image-extension'
+            },
+            video: {
+                name: 'download-video-name',
+                button: 'download-video-button'
+            }
         }
     };
 

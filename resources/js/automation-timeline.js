@@ -9,16 +9,21 @@ $(function() {
         var container = _container;
 
         this.addAutomationRow = function (propIndex) {
-            var index = videoEditor.params.automations.length;
+            var index = charrambaCore.getParams().video.automations.length;
             var propName = propsManager.getPropName(propIndex);
+            var removeId = 'video-automation-remove-' + propIndex;
             var timelineId = 'video-automation-timeline-' + propIndex;
-            var rowHtml = '<div class="row video-editor__sequencer__row" data-index="' + index + '">\n' +
-                          '    <div class="col-md-3">\n' +
-                                    propName +
-                          '    </div>\n' +
-                          '    <div class="col-md-9">\n' +
-                          '        <div id="' + timelineId + '" class="video-editor__timeline"></div>\n' +
-                          '    </div>\n' +
+            var rowHtml = '<div class="video-editor__sequencer__row" data-index="' + propIndex + '">\n' +
+                          // '    <div class="col-md-3">\n' +
+                                    '<div class="video-editor__sequencer__remove" id="' + removeId + '" data-prop="' + propIndex + '" data-toggle="tooltip" data-placement="right" title="remove">' +
+                                        '<img src="./resources/img/icons/cross.svg"/>' +
+                                    '</div>' +
+                                    '<p class="video-editor__sequencer__name">' + propName + '</p>' +
+
+                // '    </div>\n' +
+                //           '    <div class="col-md-9">\n' +
+                                    '<div id="' + timelineId + '" class="video-editor__timeline"></div>\n' +
+                          // '    </div>\n' +
                           '</div>';
             $(container).append(rowHtml);
             videoEditor.addAutomation(propIndex);
@@ -34,6 +39,12 @@ $(function() {
                 if (typeof(points) !== undefined && points.length > 0) {
                     videoEditor.updatePoints(propIndex, points);
                 }
+            });
+
+            $('#' + removeId).on('click', function () {
+                var propIndex = $(this).data('prop');
+                videoEditor.removeAutomation(propIndex);
+                $('.video-editor__sequencer__row[data-index=' + propIndex + ']').remove();
             });
         };
 

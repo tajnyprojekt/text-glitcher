@@ -469,7 +469,7 @@ input[type=number]::-webkit-outer-spin-button {
           margin-bottom: 5px; } }
       .tool-menu__item__control__name {
         text-align: left; }
-      .tool-menu__item__control__caption {
+      .tool-menu__item__control__caption, .tool-menu__item__control__description {
         margin-top: 10px;
         text-align: left;
         font-size: 0.8em;
@@ -658,6 +658,19 @@ input[type=number]::-webkit-outer-spin-button {
         .graphics-area__canvas-wrapper canvas {
           background-size: 20px 20px; } }
 
+.video-editor__playback {
+  margin-top: 15px; }
+
+.video-editor__playback-button {
+  display: inline-block; }
+  .video-editor__playback-button img {
+    width: 2.5em; }
+  .video-editor__playback-button.selected {
+    opacity: 0.5; }
+
+.video-editor .modal-body hr {
+  border-top: 1px solid #e6e6e6; }
+
 .video-editor__timeline {
   border: 2px solid #e6e6e6;
   width: 100%;
@@ -667,4 +680,16 @@ input[type=number]::-webkit-outer-spin-button {
 .video-editor__sequencer {
   margin-top: 30px; }
   .video-editor__sequencer__row {
-    margin-bottom: 15px; }
+    margin-bottom: 20px;
+    position: relative; }
+  .video-editor__sequencer__remove {
+    position: absolute;
+    right: 0;
+    padding-left: 5px;
+    padding-bottom: 5px; }
+    .video-editor__sequencer__remove img {
+      width: 0.5em; }
+  .video-editor__sequencer__name {
+    font-style: italic;
+    margin-top: 10px;
+    margin-bottom: 0; }
