@@ -66,6 +66,9 @@ $(function() {
                 lowpass: {
                     treshold: 0.1
                 }
+            },
+            video: {
+                playing: false,
             }
         };
 
@@ -89,6 +92,8 @@ $(function() {
         var displacementFilter;
         var displacementSprite;
         var asciiFilter;
+
+        var videoTime = 0;
 
         this.init = function () {
             this.saveState();
@@ -140,10 +145,14 @@ $(function() {
 
         var updateApp = function () {
             // console.log('update');
+            animateParams();
             updateBgGraphics();
             updateText();
             updateFilters();
-            app.stop();
+
+            if (!params.video.playing) {
+                app.stop();
+            }
         };
 
         var updateBgGraphics = function () {
@@ -280,6 +289,53 @@ $(function() {
                 });
                 enabledFilters.push(waveFilter);
             }
+        };
+
+        // video
+
+        var animateParams = function () {
+            if (params.video.playing) {
+                videoTime += app.ticker.elapsedMS;
+                if (videoTime > videoEditor.params.duration) {
+                    videoTime = 0;
+                }
+                videoEditor.updateAnimation(videoTime);
+            }
+        };
+
+        this.exportVideo = function () {
+            var chunks = [];
+            var canvas = app.view;
+            var stream = canvas.captureStream();
+            var recorder = new MediaRecorder(stream);
+            recorder.ondataavailable = function (e) {
+                chunks.push(e.data);
+            };
+            recorder.onstop = function (e) {
+                var blob = new Blob(chunks, {type: 'video/webm'});
+                downloadVideo(blob);
+            };
+            this.setVideoPlaying(true);
+            videoTime = 0;
+            recorder.start();
+            setTimeout(function () {
+                recorder.stop();
+                charrambaCore.setVideoPlaying(false);
+            }, videoEditor.params.duration);
+        };
+
+        var downloadVideo = function (blob) {
+            var vid = document.createElement('video');
+            vid.src = URL.createObjectURL(blob);
+            vid.controls = true;
+            // document.body.appendChild(vid);
+            var a = document.createElement('a');
+            a.download = 'myvid.webm';
+            a.href = vid.src;
+            // a.textContent = 'download the video';
+            // document.body.appendChild(a);
+            a.click();
+            a.remove();
         };
 
 
@@ -483,6 +539,20 @@ $(function() {
             this.paramsChanged();
         };
 
+        this.setVideoPlaying = function (playing) {
+          params.video.playing = playing;
+          // if (!playing) {
+          //     this.syncParams();
+          // }
+          // else {
+              this.paramsChanged();
+          // }
+        };
+
+        this.setVideoTime = function (time) {
+            videoTime = time;
+        };
+
         this.getParams = function () {
             return params;
         };
@@ -561,6 +631,9 @@ $(function() {
                     lowpass: {
                         treshold: paramsObject.glitch.lowpass.treshold
                     }
+                },
+                video: {
+                    playing: paramsObject.video.playing
                 }
             };
         };
@@ -568,6 +641,12 @@ $(function() {
         this.saveState = function () {
             stateHistory.history.push(cloneParams(params));
             stateHistory.currentPosition++;
+        };
+
+        this.syncParams = function () {
+            params = cloneParams(stateHistory.history[stateHistory.currentPosition]);
+            this.paramsChanged();
+            updateControls();
         };
 
         this.undo = function () {

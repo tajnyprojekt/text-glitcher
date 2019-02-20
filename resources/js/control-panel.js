@@ -72,6 +72,14 @@ $(function() {
                 treshold: 'glitch-lowpass-treshold'
             }
         },
+        video: {
+            button: 'video-button',
+            play: 'video-play',
+            pause: 'video-pause',
+            download: 'video-download',
+            animateParameter: 'video-animate-parameter',
+            animateParameterSelect: 'video-animate-parameter-select'
+        },
         download: {
             name: 'download-name',
             extension: 'download-extension',

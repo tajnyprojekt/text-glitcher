@@ -1,0 +1,17 @@
+.video-editor {
+
+  &__timeline {
+    border: 2px solid $color-gray;
+    width: 100%;
+    height: 100px;
+    cursor: pointer;
+  }
+
+  &__sequencer {
+    margin-top: 30px;
+
+    &__row {
+      margin-bottom: 15px;
+    }
+  }
+}

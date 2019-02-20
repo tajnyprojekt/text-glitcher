@@ -657,3 +657,14 @@ input[type=number]::-webkit-outer-spin-button {
       @media (min-width: 768px) {
         .graphics-area__canvas-wrapper canvas {
           background-size: 20px 20px; } }
+
+.video-editor__timeline {
+  border: 2px solid #e6e6e6;
+  width: 100%;
+  height: 100px;
+  cursor: pointer; }
+
+.video-editor__sequencer {
+  margin-top: 30px; }
+  .video-editor__sequencer__row {
+    margin-bottom: 15px; }

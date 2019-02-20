@@ -355,6 +355,28 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div data-tool="video" class="tool-menu__item js-tool-menu">
+                                <div class="tool-menu__item__name">Video</div>
+                                <div class="tool-menu__item__controls">
+                                    <div class="tool-menu__item__control-group">
+                                        <div class="tool-menu__item__control-group__name only-mobile">Video</div>
+                                        <div class="tool-menu__item__control-group__content">
+                                            <div class="tool-menu__item__control">
+                                                <button data-function="video-button" class="button-full js-control">open editor</button>
+                                            </div>
+                                            <div class="tool-menu__item__control">
+                                                <button data-function="video-play" class="button js-control"> > </button>
+                                                <button data-function="video-pause" class="button js-control"> || </button>
+                                            </div>
+                                            <div class="tool-menu__item__control">
+                                                <button data-function="video-download" class="button-full js-control">download</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div data-tool="download" class="tool-menu__item js-tool-menu">
                                 <div class="tool-menu__item__name">Download</div>
                                 <div class="tool-menu__item__controls">
@@ -435,6 +457,12 @@
                             <span>
                                 <img src="./resources/img/icons/toolbar-glitch.svg">
                             </span>
+                        </div><div data-tool="video" class="toolbar__tool-button js-tool-button"
+                                   data-toggle="tooltip" data-placement="right" title="video">
+                            <span>
+                                video
+<!--                                 <img src="./resources/img/icons/arrow.svg">-->
+                            </span>
                         </div><div data-tool="download" class="toolbar__tool-button js-tool-button"
                                    data-toggle="tooltip" data-placement="right" title="download">
                             <span>
@@ -500,6 +528,57 @@
             </div>
         </div>
 
+<!--        video editor modal-->
+        <div class="modal fade video-editor" id="video-editor-modal" role="dialog">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title font-import__title">VIDEO EDITOR</h4>
+                        <p>(experimental)</p>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class=" tool-menu__item__control">
+                                    <div class="tool-menu__item__control__name">duration [s]</div>
+                                    <div class="number-input">
+                                        <button data-function="size-width-minus" class="js-control"></button>
+                                        <input data-function="size-width" class="quantity js-control" type="number">
+                                        <button data-function="size-width-plus" class="js-control plus"></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="tool-menu__item__control">
+                                    <div id="video-animation-parameter-select-container">
+
+                                    </div>
+                                    <button data-function="video-animate-parameter" class="button js-control">+ animate parameter </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="video-editor__sequencer" class="video-editor__sequencer">
+
+                        </div>
+
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 
 
@@ -510,17 +589,23 @@
     <script src="vendors/pixi/pixi-filters-edited.js"></script>
     <!--<script src="vendors/p5/p5.min.js"></script>-->
     <!--<script src="vendors/p5/p5.dom.min.js"></script>-->
+    <script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+    <script src="vendors/timeline/timeline.min.js"></script>
 
     <script src="resources/js/core/charramba-params.js"></script>
     <script src="resources/js/core/ShiftGlitchFilter.js"></script>
     <script src="resources/js/core/charramba-core.js"></script>
+    <script src="resources/js/core/video-editor.js"></script>
     <script src="resources/js/font-select.js"></script>
     <script src="resources/js/control-panel.js"></script>
     <script src="resources/js/graphics-area.js"></script>
+    <script src="resources/js/automation-timeline.js"></script>
+    <script src="resources/js/props-manager.js"></script>
 
     <script src="resources/js/tools/tool-canvas.js"></script>
     <script src="resources/js/tools/tool-text.js"></script>
     <script src="resources/js/tools/tool-form.js"></script>
+    <script src="resources/js/tools/tool-video.js"></script>
     <script src="resources/js/tools/tool-download.js"></script>
 
     <script src="resources/js/keyboard-handling.js"></script>
