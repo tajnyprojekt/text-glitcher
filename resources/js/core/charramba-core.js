@@ -311,7 +311,7 @@ $(function() {
             }
         };
 
-        this.exportVideo = function (filename) {
+        this.exportVideo = function (filename, callback) {
             var chunks = [];
             var canvas = app.view;
             var stream = canvas.captureStream();
@@ -322,6 +322,7 @@ $(function() {
             recorder.onstop = function (e) {
                 var blob = new Blob(chunks, {type: 'video/webm'});
                 downloadVideo(blob, filename);
+                callback();
             };
             this.setVideoStatePlay();
             videoTime = 0;
@@ -329,7 +330,7 @@ $(function() {
             setTimeout(function () {
                 recorder.stop();
                 charrambaCore.setVideoStatePause();
-            }, videoEditor.params.duration);
+            }, charrambaCore.getParams().video.duration);
         };
 
         var downloadVideo = function (blob, filename) {
