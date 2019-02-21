@@ -1,0 +1,15 @@
+.tutorial {
+  font-family: "Space Mono", monospace;
+
+  &.popover {
+    border-radius: 0;
+    border: 2px solid $color-gray;
+  }
+
+  .popover-title {
+    font-weight: bold;
+    //font-style: italic;
+    background: #fff;
+  }
+
+}

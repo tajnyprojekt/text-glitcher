@@ -719,6 +719,12 @@ $(function() {
             }
         };
 
+        this.resetParams = function () {
+            params = cloneParams(stateHistory.history[0]);
+            this.paramsChanged();
+            updateControls();
+        };
+
         var updateControls = function () {
             controlPanel.setControlValue(CONTROLS.canvas.width, params.canvas.width, false);
             controlPanel.setControlValue(CONTROLS.canvas.width, params.canvas.width, false);
