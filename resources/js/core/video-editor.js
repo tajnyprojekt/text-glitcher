@@ -15,6 +15,16 @@ $(function() {
             charrambaCore.addVideoAutomation({propIndex: propIndex, points: []});
         };
 
+        this.automationExists = function (propIndex) {
+            for (var i = 0; i < charrambaCore.getParams().video.automations.length; i++) {
+                var automation = charrambaCore.getParams().video.automations[i];
+                if (automation.propIndex === propIndex) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
         this.removeAutomation = function (propIndex) {
             charrambaCore.removeVideoAutomation(propIndex);
             if (charrambaCore.getParams().video.automations.length === 0) {

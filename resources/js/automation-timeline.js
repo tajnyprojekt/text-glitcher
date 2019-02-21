@@ -9,8 +9,10 @@ $(function() {
         var container = _container;
 
         this.addAutomationRow = function (propIndex) {
-            var index = charrambaCore.getParams().video.automations.length;
             var propName = propsManager.getPropName(propIndex);
+            if  (videoEditor.automationExists(propIndex)) {
+                return;
+            }
             var removeId = 'video-automation-remove-' + propIndex;
             var timelineId = 'video-automation-timeline-' + propIndex;
             var rowHtml = '<div class="video-editor__sequencer__row" data-index="' + propIndex + '">\n' +
