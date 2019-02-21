@@ -138,8 +138,15 @@ $(function() {
         return '[data-function=' + control + ']'
     }
 
-    tutorial.init();
-    tutorial.start();
+    var isLarge = $(window).width() > 992;
+
+    if (isLarge) {
+        tutorial.init();
+        tutorial.start();
+    }
+    else {
+        $('#show-tutorial').hide();
+    }
 
     $('#show-tutorial').on('click', function () {
         tutorial.restart();
