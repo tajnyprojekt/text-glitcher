@@ -597,6 +597,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 .font-import.show {
   opacity: 1 !important; }
+  .font-import.show.fade {
+    opacity: 1 !important; }
 
 .font-import .modal-header, .font-import .modal-footer {
   border: none; }

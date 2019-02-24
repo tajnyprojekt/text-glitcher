@@ -2,6 +2,10 @@
 
   &.show {
     opacity: 1 !important; //fix for tour
+
+    &.fade {
+      opacity: 1 !important;
+    }
   }
 
   .modal-header, .modal-footer {
