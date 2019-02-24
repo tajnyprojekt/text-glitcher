@@ -341,6 +341,7 @@ $(function() {
             a.href = vid.src;
             // a.textContent = 'download the video';
             // document.body.appendChild(a);
+            document.body.append(a);
             a.click();
             a.remove();
         };
@@ -568,6 +569,7 @@ $(function() {
         this.setVideoDuration = function (duration) {
             params.video.duration = duration;
             this.paramsChanged();
+            this.saveState();
         };
 
         this.setVideoStateLoop = function () {
