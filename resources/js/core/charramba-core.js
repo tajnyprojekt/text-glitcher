@@ -300,9 +300,7 @@ $(function() {
             if (params.video.state !== 'pause') {
                 videoTime += app.ticker.elapsedMS;
                 if (videoTime > params.video.duration) {
-                    if (params.video.state === 'loop') {
-                        videoTime = 0;
-                    }
+                    videoTime = 0;
                     if (params.video.state === 'play') {
                         charrambaCore.setVideoStatePause();
                     }
@@ -466,6 +464,7 @@ $(function() {
         this.setFormScrapedEnabled = function (enabled) {
             params.form.scraped.enabled = enabled;
             this.paramsChanged();
+            this.saveState();
         };
 
         this.setFormScrapedOffset = function (offset) {
@@ -486,6 +485,7 @@ $(function() {
         this.setFormLiquidEnabled = function (enabled) {
             params.form.liquid.enabled = enabled;
             this.paramsChanged();
+            this.saveState();
         };
 
         this.setFormLiquidDissolveX = function (dissolveX) {
@@ -506,6 +506,7 @@ $(function() {
         this.setFormPixelEnabled = function (enabled) {
             params.form.pixel.enabled = enabled;
             this.paramsChanged();
+            this.saveState();
         };
 
         this.setFormPixelSize = function (size) {
@@ -516,6 +517,7 @@ $(function() {
         this.setFormBlurEnabled = function (enabled) {
             params.form.blur.enabled = enabled;
             this.paramsChanged();
+            this.saveState();
         };
 
         this.setFormBlurAmount = function (enabled) {
@@ -536,6 +538,7 @@ $(function() {
         this.setFormWaveEnabled = function (enabled) {
             params.form.wave.enabled = enabled;
             this.paramsChanged();
+            this.saveState();
         };
 
         this.setFormWaveSize = function (size) {
@@ -590,6 +593,7 @@ $(function() {
         this.addVideoAutomation = function (automation) {
             params.video.automations.push(automation);
             this.paramsChanged();
+            this.saveState();
         };
 
         this.removeVideoAutomation = function (propIndex) {
@@ -599,6 +603,7 @@ $(function() {
                 }
             }
             this.paramsChanged();
+            this.saveState();
         };
 
 
@@ -760,6 +765,7 @@ $(function() {
                 controlPanel.getControl(CONTROLS.video.play).addClass('selected');
             }
 
+            //TODO: timeline
         };
 
         return this;

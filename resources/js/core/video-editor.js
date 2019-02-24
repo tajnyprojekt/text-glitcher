@@ -75,6 +75,7 @@ $(function() {
         };
 
         this.updateAnimation = function (time) {
+            console.log('animating');
             for (var i = 0; i < charrambaCore.getParams().video.automations.length; i++) {
                 var automation = charrambaCore.getParams().video.automations[i];
                 var paramValue = getParameterValue(automation, time);
