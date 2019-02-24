@@ -15,3 +15,10 @@ body {
     padding: 0;
   }
 }
+
+.modal {
+
+  &.show {
+    opacity: 1 !important; //fix for tour
+  }
+}
