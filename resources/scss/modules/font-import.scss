@@ -1,5 +1,9 @@
 .font-import {
 
+  &.show {
+    opacity: 1 !important; //fix for tour
+  }
+
   .modal-header, .modal-footer {
     border: none;
 

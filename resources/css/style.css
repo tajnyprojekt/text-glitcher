@@ -13,9 +13,6 @@ body {
     body {
       padding: 0; } }
 
-.modal.show {
-  opacity: 1 !important; }
-
 [type='range'] {
   -webkit-appearance: none;
   background: transparent;
@@ -597,6 +594,9 @@ input[type=number]::-webkit-outer-spin-button {
 @media (min-width: 768px) {
   .footer.controls {
     display: none; } }
+
+.font-import.show {
+  opacity: 1 !important; }
 
 .font-import .modal-header, .font-import .modal-footer {
   border: none; }
