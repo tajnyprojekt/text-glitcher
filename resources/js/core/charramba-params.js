@@ -99,6 +99,12 @@ var charrambaParamsBounds = {
                 min: 0,
                 max: 5
             }
+        },
+        color: {
+            quality: {
+                min: 2,
+                max: 255
+            }
         }
     },
     video: {

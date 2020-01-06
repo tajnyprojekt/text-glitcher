@@ -70,6 +70,10 @@ $(function() {
                     gamma: 1,
                     saturation: 1,
                     contrast: 1
+                },
+                color: {
+                    enabled: false,
+                    quality: 255
                 }
             },
             glitch: {
@@ -168,6 +172,68 @@ $(function() {
             app.stage.addChild(imageSprite);
         };
 
+        // custom filter
+
+        var uniformsData = {
+            quality: {
+                type: 'float',
+                value: params.form.color.quality
+            }
+        };
+
+        var colorQualityFilterCode = `
+        varying vec2 vTextureCoord;
+        uniform sampler2D uSampler;
+        
+        uniform int quality;
+        
+        void main(void)
+        {
+            vec4 col = texture2D(uSampler, vTextureCoord);
+            float step = 1.0 / float(quality);
+            vec4 outCol = vec4(1.0, 1.0, 1.0, col.a);
+            bool changedR = false;
+            bool changedG = false;
+            bool changedB = false;
+            int i = 1;
+            for(int i = 1; i < 255; i++) {
+                if (i < quality) {
+                    float level = float(i) * step;
+                    if (!changedR && col.r < level) {
+                        outCol.r = level;
+                        changedR = true;
+                    }
+                    if (!changedG && col.g < level) {
+                        outCol.g = level;
+                        changedG = true;
+                    }
+                    if (!changedB && col.b < level) {
+                        outCol.b = level;
+                        changedB = true;
+                    }
+                }
+            }
+           gl_FragColor = outCol;
+        }`;
+
+        function ColorQualityFilter(fragmentSource)
+        {
+
+            PIXI.Filter.call(this,
+                // vertex shader
+                '',
+                // fragment shader
+                fragmentSource,
+                uniformsData
+            );
+        }
+
+        ColorQualityFilter.prototype = Object.create(PIXI.Filter.prototype);
+        ColorQualityFilter.prototype.constructor = ColorQualityFilter;
+
+
+        // update
+
         var updateApp = function () {
             // console.log('update');
             animateParams();
@@ -258,6 +324,7 @@ $(function() {
             updatePixelFilter();
             updateGlitchFilter();
             updateAdjustFilter();
+            updateColorQualityFilter();
             app.stage.filters = enabledFilters;
         };
 
@@ -330,6 +397,13 @@ $(function() {
             }
         };
 
+        var updateColorQualityFilter = function () {
+            if (params.form.color.enabled) {
+                var colorQualityFilter = new ColorQualityFilter(colorQualityFilterCode);
+                colorQualityFilter.uniforms.quality = params.form.color.quality;
+                enabledFilters.push(colorQualityFilter);
+            }
+        };
         // video
 
         var animateParams = function () {
@@ -624,6 +698,17 @@ $(function() {
             this.paramsChanged();
         };
 
+        this.setFormColorEnabled = function(enabled) {
+            params.form.color.enabled = enabled;
+            this.paramsChanged();
+            this.saveState();
+        };
+
+        this.setFormColorQuality = function(quality) {
+            params.form.color.quality = Number(quality);
+            this.paramsChanged();
+        };
+
         this.setLowpassTreshold = function (treshold) {
             params.glitch.lowpass.treshold = treshold;
             this.paramsChanged();
@@ -764,6 +849,10 @@ $(function() {
                         gamma: paramsObject.form.adjust.gamma,
                         saturation: paramsObject.form.adjust.saturation,
                         contrast: paramsObject.form.adjust.contrast
+                    },
+                    color: {
+                        enabled: paramsObject.form.color.enabled,
+                        quality: paramsObject.form.color.quality
                     }
                 },
                 glitch: {

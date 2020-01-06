@@ -75,6 +75,10 @@ $(function() {
                 gamma: 'form-adjust-gamma',
                 saturation: 'form-adjust-saturation',
                 contrast: 'form-adjust-contrast'
+            },
+            color: {
+                enabled: 'form-color-enabled',
+                quality: 'form-color-quality'
             }
         },
         glitch: {

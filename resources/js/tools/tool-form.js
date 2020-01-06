@@ -224,6 +224,26 @@ $(function() {
         controlPanel.getControl(CONTROLS.form.adjust.enabled).prop('checked', true).trigger('change');
     });
 
+    // quality
+
+    controlPanel.getControl(CONTROLS.form.color.enabled).on('change', function () {
+        var enabled = this.checked;
+        charrambaCore.setFormColorEnabled(enabled);
+    });
+
+    controlPanel.getControl(CONTROLS.form.color.quality).attr({
+        min: charrambaParamsBounds.form.color.quality.min,
+        max: charrambaParamsBounds.form.color.quality.max,
+        value: charrambaCore.getParams().form.color.quality,
+        step: 1
+    })
+    .trigger('change')
+    .on('change input', function () {
+        var offset = $(this).val();
+        charrambaCore.setFormColorQuality(offset);
+        controlPanel.getControl(CONTROLS.form.color.enabled).prop('checked', true).trigger('change');
+    });
+
 
     // chromatic
 
