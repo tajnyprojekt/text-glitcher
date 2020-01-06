@@ -39,6 +39,10 @@ $(function() {
             size: 'text-size',
             lineHeight: 'text-line-height'
         },
+        images: {
+            button: 'images-button',
+            download: 'images-download'
+        },
         form: {
             scraped: {
                 enabled: 'form-scraped-enabled',
@@ -65,6 +69,12 @@ $(function() {
             wave: {
                 enabled: 'form-wave-enabled',
                 size: 'form-wave-size'
+            },
+            adjust: {
+                enabled: 'form-adjust-enabled',
+                gamma: 'form-adjust-gamma',
+                saturation: 'form-adjust-saturation',
+                contrast: 'form-adjust-contrast'
             }
         },
         glitch: {
@@ -158,6 +168,7 @@ $(function() {
 
         // if (!wasOpened) {
         menuItem.addClass('opened');
+        $('.tool-menu').scrollTop(0);
         $(this).addClass('opened');
         // }
 

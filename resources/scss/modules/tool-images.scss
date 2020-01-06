@@ -1,0 +1,22 @@
+.images {
+
+  &__container {
+    text-align: justify;
+  }
+
+  &__img-thumb {
+    display: inline-block;
+    border: 5px solid $color-white;
+    max-width: 100px;
+    max-height: 60px;
+    height: 60px;
+
+    &:hover {
+      border: 5px solid $color-gray;
+    }
+
+    &.selected {
+      border: 5px solid $color-dark-gray;
+    }
+  }
+}

@@ -85,6 +85,20 @@ var charrambaParamsBounds = {
                 min: 1,
                 max: 70
             }
+        },
+        adjust: {
+            gamma: {
+                min: 0,
+                max: 5
+            },
+            saturation: {
+                min: 0,
+                max: 5
+            },
+            contrast: {
+                min: 0,
+                max: 5
+            }
         }
     },
     video: {

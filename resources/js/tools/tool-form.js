@@ -178,6 +178,52 @@ $(function() {
         controlPanel.getControl(CONTROLS.form.wave.enabled).prop('checked', true).trigger('change');
     });
 
+    // adjust
+
+    controlPanel.getControl(CONTROLS.form.adjust.enabled).on('change', function () {
+        var enabled = this.checked;
+        charrambaCore.setFormAdjustEnabled(enabled);
+    });
+
+    controlPanel.getControl(CONTROLS.form.adjust.gamma).attr({
+        min: charrambaParamsBounds.form.adjust.gamma.min,
+        max: charrambaParamsBounds.form.adjust.gamma.max,
+        value: charrambaCore.getParams().form.adjust.gamma,
+        step: 0.01
+    })
+    .trigger('change')
+    .on('change input', function () {
+        var offset = $(this).val();
+        charrambaCore.setFormAdjustGamma(offset);
+        controlPanel.getControl(CONTROLS.form.adjust.enabled).prop('checked', true).trigger('change');
+    });
+
+    controlPanel.getControl(CONTROLS.form.adjust.saturation).attr({
+        min: charrambaParamsBounds.form.adjust.saturation.min,
+        max: charrambaParamsBounds.form.adjust.saturation.max,
+        value: charrambaCore.getParams().form.adjust.saturation,
+        step: 0.01
+    })
+    .trigger('change')
+    .on('change input', function () {
+        var slices = $(this).val();
+        charrambaCore.setFormAdjustSaturation(slices);
+        controlPanel.getControl(CONTROLS.form.adjust.enabled).prop('checked', true).trigger('change');
+    });
+
+    controlPanel.getControl(CONTROLS.form.adjust.contrast).attr({
+        min: charrambaParamsBounds.form.adjust.contrast.min,
+        max: charrambaParamsBounds.form.adjust.contrast.max,
+        value: charrambaCore.getParams().form.adjust.contrast,
+        step: 0.01
+    })
+    .trigger('change')
+    .on('change input', function () {
+        var form = $(this).val();
+        charrambaCore.setFormAdjustContrast(form);
+        controlPanel.getControl(CONTROLS.form.adjust.enabled).prop('checked', true).trigger('change');
+    });
+
 
     // chromatic
 

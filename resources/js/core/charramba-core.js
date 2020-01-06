@@ -34,6 +34,10 @@ $(function() {
                 size: 80,
                 lineHeight: 80
             },
+            images: {
+                enabled: true,
+                image: null
+            },
             form: {
                 scraped: {
                     enabled: false,
@@ -60,6 +64,12 @@ $(function() {
                 wave: {
                     enabled: false,
                     size: 70
+                },
+                adjust: {
+                    enabled: false,
+                    gamma: 1,
+                    saturation: 1,
+                    contrast: 1
                 }
             },
             glitch: {
@@ -98,12 +108,15 @@ $(function() {
 
         var videoTime = 0;
 
+        var imageSprite;
+
         this.init = function () {
             this.saveState();
             createApp();
             createDisplacementSprite();
             createBgGraphics();
             createText();
+            createImageSprite();
             app.start();
             app.ticker.add(function () {
                 updateApp();
@@ -146,6 +159,15 @@ $(function() {
             app.stage.addChild(textObject);
         };
 
+        var createImageSprite = function() {
+            imageSprite = new PIXI.Sprite.fromImage('./resources/img/displacement-sprite.png');
+            imageSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+            imageSprite.visible = false;
+            imageSprite.x = 0;
+            imageSprite.y = 0;
+            app.stage.addChild(imageSprite);
+        };
+
         var updateApp = function () {
             // console.log('update');
             animateParams();
@@ -166,6 +188,8 @@ $(function() {
         };
 
         var updateText = function () {
+            app.stage.removeChild(textObject);
+            app.stage.addChild(textObject);
             if (params.text.text !== '') {
                 updateTextContent();
                 if (placeholderInterval !== false) {
@@ -233,6 +257,7 @@ $(function() {
             updateBlurFilter();
             updatePixelFilter();
             updateGlitchFilter();
+            updateAdjustFilter();
             app.stage.filters = enabledFilters;
         };
 
@@ -291,6 +316,17 @@ $(function() {
                     waveLength: [10, params.form.wave.size * 3]
                 });
                 enabledFilters.push(waveFilter);
+            }
+        };
+
+        var updateAdjustFilter = function() {
+            if (params.form.adjust.enabled) {
+                var adjustFilter = new PIXI.filters.AdjustmentFilter({
+                    gamma: params.form.adjust.gamma,
+                    saturation: params.form.adjust.saturation,
+                    contrast: params.form.adjust.contrast
+                });
+                enabledFilters.push(adjustFilter);
             }
         };
 
@@ -365,6 +401,10 @@ $(function() {
                 a.click();
                 a.remove();
             }, 'image/' + extension);
+        };
+
+        this.getCanvasContent = function () {
+            return app.renderer.extract.canvas(app.stage);
         };
 
         // params
@@ -462,6 +502,22 @@ $(function() {
             this.paramsChanged();
         };
 
+        this.setImage = function(url) {
+            app.stage.removeChild(imageSprite);
+            var texture = new PIXI.Texture.fromImage(url);
+            imageSprite = new PIXI.Sprite(texture);
+            app.stage.addChild(imageSprite);
+            imageSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.CLAMP;
+            imageSprite.visible = true;
+            imageSprite.x = 0;
+            imageSprite.y = 0;
+        };
+
+        this.setImageEnabled = function(enabled) {
+            imageSprite.visible = enabled;
+            this.paramsChanged();
+        };
+
         this.setFormScrapedEnabled = function (enabled) {
             params.form.scraped.enabled = enabled;
             this.paramsChanged();
@@ -544,6 +600,27 @@ $(function() {
 
         this.setFormWaveSize = function (size) {
             params.form.wave.size = Number(size);
+            this.paramsChanged();
+        };
+
+        this.setFormAdjustEnabled = function (enabled) {
+            params.form.adjust.enabled = enabled;
+            this.paramsChanged();
+            this.saveState();
+        };
+
+        this.setFormAdjustGamma = function (gamma) {
+            params.form.adjust.gamma = Number(gamma);
+            this.paramsChanged();
+        };
+
+        this.setFormAdjustSaturation = function (saturation) {
+            params.form.adjust.saturation = Number(saturation);
+            this.paramsChanged();
+        };
+
+        this.setFormAdjustContrast = function (contrast) {
+            params.form.adjust.contrast = Number(contrast);
             this.paramsChanged();
         };
 
@@ -681,6 +758,12 @@ $(function() {
                     wave: {
                         enabled: paramsObject.form.wave.enabled,
                         size: paramsObject.form.wave.size
+                    },
+                    adjust: {
+                        enabled: paramsObject.form.adjust.enabled,
+                        gamma: paramsObject.form.adjust.gamma,
+                        saturation: paramsObject.form.adjust.saturation,
+                        contrast: paramsObject.form.adjust.contrast
                     }
                 },
                 glitch: {
@@ -756,6 +839,11 @@ $(function() {
             controlPanel.setControlValue(CONTROLS.form.blur.amount, params.form.blur.amount, false);
             controlPanel.setControlValue(CONTROLS.form.blur.x, params.form.blur.x, false);
             controlPanel.setControlValue(CONTROLS.form.blur.y, params.form.blur.y, false);
+
+            controlPanel.setControlChecked(CONTROLS.form.adjust.enabled, params.form.adjust.enabled, false);
+            controlPanel.setControlValue(CONTROLS.form.adjust.gamma, params.form.adjust.gamma, false);
+            controlPanel.setControlValue(CONTROLS.form.adjust.saturation, params.form.adjust.saturation, false);
+            controlPanel.setControlValue(CONTROLS.form.adjust.contrast, params.form.adjust.contrast, false);
 
             controlPanel.getControl(CONTROLS.video.loop).removeClass('selected');
             controlPanel.getControl(CONTROLS.video.play).removeClass('selected');
