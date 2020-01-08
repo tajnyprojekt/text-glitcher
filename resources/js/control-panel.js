@@ -105,7 +105,8 @@ $(function() {
             },
             video: {
                 name: 'download-video-name',
-                button: 'download-video-button'
+                button: 'download-video-button',
+                frames: 'download-video-frames-button'
             }
         }
     };

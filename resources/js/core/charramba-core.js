@@ -85,6 +85,7 @@ $(function() {
                 playing: false,
                 state: 'pause',
                 duration: 6000,
+                recording: false,
                 automations: []
             }
         };
@@ -113,6 +114,9 @@ $(function() {
         var videoTime = 0;
 
         var imageSprite;
+
+        var recordedFrames = [];
+        var frameCounter = 0;
 
         this.init = function () {
             this.saveState();
@@ -240,6 +244,10 @@ $(function() {
             updateBgGraphics();
             updateText();
             updateFilters();
+
+            if (params.video.recording) {
+                recordFrame(frameCounter++)
+            }
 
             if (params.video.state === 'pause') {
                 app.stop();
@@ -439,6 +447,28 @@ $(function() {
                 recorder.stop();
                 charrambaCore.setVideoStatePause();
             }, charrambaCore.getParams().video.duration);
+        };
+
+        this.exportVideoToFrames = function (callback) {
+            params.video.recording = true;
+            recordedFrames = [];
+            frameCounter++;
+            this.setVideoStatePlay();
+            // on video end
+            setTimeout(function () {
+                params.video.recording = false;
+                charrambaCore.setVideoStatePause();
+                callback(recordedFrames);
+            }, charrambaCore.getParams().video.duration);
+        };
+
+        var recordFrame = function (index) {
+            this.getCanvasContent().toBlob(function (b) {
+                recordedFrames.push({
+                    index: index,
+                    blob: b
+                });
+            }, 'image/png');
         };
 
         var downloadVideo = function (blob, filename) {
@@ -754,6 +784,11 @@ $(function() {
             // updateControls();
         };
 
+        this.setVideoRecordingEnabled = function (enabled) {
+            params.video.recording = enabled;
+            this.paramsChanged();
+        };
+
         this.addVideoAutomation = function (automation) {
             params.video.automations.push(automation);
             this.paramsChanged();
@@ -864,6 +899,7 @@ $(function() {
                     playing: paramsObject.video.playing,
                     state: paramsObject.video.state,
                     duration: paramsObject.video.duration,
+                    recording: paramsObject.video.recording,
                     automations:  paramsObject.video.automations.slice()
                 }
             };
