@@ -117,6 +117,7 @@ $(function() {
 
         var recordedFrames = [];
         var frameCounter = 0;
+        var onExportToFramesCallback;
 
         this.init = function () {
             this.saveState();
@@ -455,19 +456,40 @@ $(function() {
             frameCounter++;
             this.setVideoStatePlay();
             // on video end
+            onExportToFramesCallback = callback;
             setTimeout(function () {
+                console.log('video end.');
                 params.video.recording = false;
                 charrambaCore.setVideoStatePause();
-                callback(recordedFrames);
             }, charrambaCore.getParams().video.duration);
         };
 
         var recordFrame = function (index) {
+            var recordedIndex = recordedFrames.length;
+            recordedFrames.push({
+                index: index,
+                blob: null
+            });
+            console.log('saving frame', index);
             this.getCanvasContent().toBlob(function (b) {
-                recordedFrames.push({
-                    index: index,
-                    blob: b
-                });
+                console.log('saved frame', index);
+                recordedFrames[recordedIndex].blob = b;
+                if (!params.video.recording) {
+                    console.log('waiting for last frames, recording false');
+                    var allRecorded = true;
+                    for (frame in recordedFrames) {
+                        if (frame.blob === null) {
+                            allRecorded = false;
+                        }
+                    }
+                    if (allRecorded) {
+                        console.log('collected all frames.');
+                        if (onExportToFramesCallback !== undefined) {
+                            onExportToFramesCallback(recordedFrames);
+                            onExportToFramesCallback = undefined;
+                        }
+                    }
+                }
             }, 'image/png');
         };
 
