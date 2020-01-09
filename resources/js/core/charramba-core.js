@@ -478,7 +478,7 @@ $(function() {
                     console.log('waiting for last frames, recording false');
                     var allRecorded = true;
                     for (frame in recordedFrames) {
-                        if (frame.blob === null) {
+                        if (recordedFrames[frame].blob === null) {
                             allRecorded = false;
                         }
                     }
