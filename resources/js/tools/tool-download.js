@@ -44,8 +44,10 @@ $(function() {
             zip.file("README-Charramba.txt", "Images generated with Charramba Glitch Generator\nCreated by tajny_projekt\n2020\n");
             var zipImages = zip.folder("frames");
 
+            var framesNumberLength = ('' + frames.length).length;
             for (var i = 0; i < frames.length; i++) {
-                zipImages.file('glitched-' + i + '.png', frames[i].blob, {base64: true});
+                var formattedNumber = formatNumberWithLeadingZeros(i, framesNumberLength);
+                zipImages.file('frame-' + formattedNumber + '.png', frames[i].blob, {base64: true});
             }
 
             zip.generateAsync({type:"blob"})
@@ -62,5 +64,9 @@ $(function() {
                 });
         });
     });
+
+    function formatNumberWithLeadingZeros(n, len) {
+        return (new Array(len).join('0') + n).substr(-len);
+    }
 
 });
